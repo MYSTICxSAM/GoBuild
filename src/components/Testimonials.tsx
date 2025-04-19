@@ -58,13 +58,13 @@ const Testimonials: React.FC = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">What Our Customers Say</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Real feedback from real customers who found exceptional professionals through HandyHub.
+            Real feedback from real customers who found exceptional professionals through GoBuild.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <Testimonial
-            quote="I needed urgent help with plumbing and found a professional within an hour. The work was top-notch and the price was fair. Couldn't be happier!"
+            quote="I needed urgent help with carpenter and found a professional within an hour. The work was top-notch and the price was fair. Couldn't be happier!"
             name="Tirath Das Dogra"
             role="Homeowner"
             image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"

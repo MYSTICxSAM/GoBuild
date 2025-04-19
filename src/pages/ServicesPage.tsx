@@ -9,19 +9,27 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { MapPin, Calendar as CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
-import ServiceMap from '@/components/ServiceMap';
+import UserLocationMap from '@/components/UserLocationMap';
 import ServiceCard from '@/components/ServiceCard';
 import { ApplyAsProfessionalForm } from '@/components/ApplyAsProfessionalForm';
 
 const ServicesPage = () => {
   const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
   const [location, setLocation] = useState<string>('');
   const [mapCenter, setMapCenter] = useState({ lat: 51.505, lng: -0.09 });
 
-  const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLocation(e.target.value);
-    setMapCenter({ lat: 51.505, lng: -0.09 });
+  const handleLocationChange = (value: string) => {
+    setLocation(value);
+  
+    const locationCoords: { [key: string]: { lat: number; lng: number } } = {
+      katra: { lat: 32.9910, lng: 74.9315 },
+      gandhinagar: { lat: 32.7266, lng: 74.8570 },
+      sainik: { lat: 32.6927, lng: 74.8905 },
+      srinagar: { lat: 34.0837, lng: 74.7973 },
+      baramulla: { lat: 34.2090, lng: 74.3429 },
+    };
+  
+    setMapCenter(locationCoords[value] || { lat: 51.505, lng: -0.09 });
   };
 
   return (
@@ -65,47 +73,28 @@ const ServicesPage = () => {
                         </PopoverContent>
                       </Popover>
                     </div>
-                    
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">End Date</label>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className={cn(
-                              "w-full justify-start text-left font-normal",
-                              !endDate && "text-muted-foreground"
-                            )}
-                          >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            {endDate ? format(endDate, "PPP") : <span>Select date</span>}
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={endDate}
-                            onSelect={setEndDate}
-                            fromDate={startDate}
-                            initialFocus
-                            className="p-3 pointer-events-auto"
-                          />
-                        </PopoverContent>
-                      </Popover>
                     </div>
-                  </div>
                   
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Location</label>
-                    <div className="relative">
-                      <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        placeholder="Enter your location"
-                        className="pl-9"
-                        value={location}
-                        onChange={handleLocationChange}
-                      />
-                    </div>
+                    <Select onValueChange={handleLocationChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Location" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="electrical">Jaanipur, Jammu</SelectItem>
+                        <SelectItem value="carpentry">High Court, Jammu</SelectItem>
+                        <SelectItem value="plumbing">Satwari Chowk, Jammu</SelectItem>
+                        <SelectItem value="plumbing">Gandhinagar, Jammu</SelectItem>
+                        <SelectItem value="plumbing">Ganghiyal Industrial Area, Jammu</SelectItem>
+                        <SelectItem value="plumbing">Bahu Plaza, Jammu</SelectItem>
+                        <SelectItem value="plumbing">RaghuNath Nagar, Jammu</SelectItem>
+                        <SelectItem value="plumbing">Bus Stand, Jammu</SelectItem>
+                        <SelectItem value="plumbing">Bari Brahmana, Jammu</SelectItem>
+                        <SelectItem value="plumbing">Sainik Colony, Jammu</SelectItem>
+                        <SelectItem value="plumbing">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   
                   <div className="space-y-2">
@@ -115,11 +104,13 @@ const ServicesPage = () => {
                         <SelectValue placeholder="Select service type" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="plumbing">Plumbing</SelectItem>
-                        <SelectItem value="electrical">Electrical</SelectItem>
-                        <SelectItem value="carpentry">Carpentry</SelectItem>
-                        <SelectItem value="painting">Painting</SelectItem>
-                        <SelectItem value="cleaning">Cleaning</SelectItem>
+                        <SelectItem value="plumbing">Carpenter</SelectItem>
+                        <SelectItem value="electrical">Mason</SelectItem>
+                        <SelectItem value="carpentry">Helper</SelectItem>
+                        <SelectItem value="painting">Painter</SelectItem>
+                        <SelectItem value="cleaning">Welder</SelectItem>
+                        <SelectItem value="cleaning">Driver</SelectItem>
+                        <SelectItem value="cleaning">Steel Cutter</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -128,24 +119,50 @@ const ServicesPage = () => {
                 </div>
               </div>
               
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden h-[400px]">
-                <ServiceMap center={mapCenter} />
+              <div className="bg-white rounded-xl shadow-lg overflow-hidden h-[430px]">
+                <UserLocationMap center={mapCenter} />
               </div>
             </div>
           </div>
         </section>
-        
+
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-8 text-center">Apply as Professional</h2>
+            <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
+              Join our network of skilled professionals and connect with clients in your area. 
+              Fill out the form below to start your journey with GoBuild.
+            </p>
+
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              {/* Form - Left */}
+              <div className="w-full md:w-1/2">
+                <div className="p-8 bg-sky-100 rounded-xl shadow-2xl">
+                  <ApplyAsProfessionalForm />
+                </div>
+              </div>
+
+              {/* Image - Right */}
+              <div className="w-full md:w-1/2">
+                <img src="./pp6.jpg" alt="Professional illustration" className="w-full h-auto rounded-lg shadow-lg" />
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-8">Available Services</h2>
             
             <div className="flex flex-wrap gap-2 mb-8">
               <Button variant="outline" className="rounded-full">All Services</Button>
-              <Button variant="outline" className="rounded-full">Plumbing</Button>
-              <Button variant="outline" className="rounded-full">Electrical</Button>
-              <Button variant="outline" className="rounded-full">Carpentry</Button>
-              <Button variant="outline" className="rounded-full">Painting</Button>
-              <Button variant="outline" className="rounded-full">Cleaning</Button>
+              <Button variant="outline" className="rounded-full">Carpenter</Button>
+              <Button variant="outline" className="rounded-full">Mason</Button>
+              <Button variant="outline" className="rounded-full">Helper</Button>
+              <Button variant="outline" className="rounded-full">Steel Cutter</Button>
+              <Button variant="outline" className="rounded-full">Driver</Button>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -206,17 +223,7 @@ const ServicesPage = () => {
             </div>
           </div>
         </section>
-
-        <section className="py-16 bg-primary/5">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8 text-center">Apply as Professional</h2>
-            <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
-              Join our network of skilled professionals and connect with clients in your area. 
-              Fill out the form below to start your journey with GoBuild.
-            </p>
-            <ApplyAsProfessionalForm />
-          </div>
-        </section>
+        
       </main>
       
       <Footer />

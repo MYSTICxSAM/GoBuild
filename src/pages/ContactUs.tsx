@@ -41,12 +41,12 @@ const ContactUs: React.FC = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
                     <Label htmlFor="fullName">Full Name</Label>
-                    <Input id="fullName" placeholder="Jonathan Turner" required />
+                    <Input id="fullName" placeholder="Your Name" required />
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="email">Email Address</Label>
-                    <Input id="email" type="email" placeholder="jonathan@example.com" required />
+                    <Input id="email" type="email" placeholder="YourEmail@gmail.com" required />
                   </div>
                   
                   <div className="space-y-2">
@@ -73,14 +73,14 @@ const ContactUs: React.FC = () => {
               
               {/* Right Column - Illustration and Contact Info */}
               <div className="w-full lg:w-1/2 mt-12 lg:mt-0">
-                <div className="relative">
+                {/* <div className="relative">
                   <img 
                     src="/lovable-uploads/9399e14c-67fc-4236-93b4-f2939bcfa5e1.png" 
                     alt="Contact illustration" 
                     className="w-full h-auto rounded-lg"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 rounded-lg"></div>
-                </div>
+                </div> */}
                 
                 <div className="mt-10 space-y-6">
                   <div className="flex items-start">
@@ -89,7 +89,8 @@ const ContactUs: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-lg">Email</h3>
-                      <p className="text-muted-foreground">contact@gobuild.com</p>
+                      <p className="text-muted-foreground">info@gobuild.com</p>
+                      <p className="text-muted-foreground">admin@gobuild.com</p>
                     </div>
                   </div>
                   
@@ -99,7 +100,8 @@ const ContactUs: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-lg">Phone</h3>
-                      <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                      <p className="text-muted-foreground">+91 7051514790</p>
+                      <p className="text-muted-foreground">+91 9622981239</p>
                     </div>
                   </div>
                   
@@ -110,8 +112,8 @@ const ContactUs: React.FC = () => {
                     <div>
                       <h3 className="font-medium text-lg">Address</h3>
                       <p className="text-muted-foreground">
-                        123 Builder Avenue<br />
-                        San Francisco, CA 94107
+                        SMVDU, Kakrayal Katra Reasi,<br></br>
+                        Jammu & Kashmir
                       </p>
                     </div>
                   </div>

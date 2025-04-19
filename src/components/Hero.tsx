@@ -3,7 +3,6 @@ import React from 'react';
 import { ArrowRight, Search } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {UserLocationMap} from "@components/UserLocationMap"
 
 const Hero: React.FC = () => {
   return (
@@ -37,12 +36,12 @@ const Hero: React.FC = () => {
             </div>
             
             <div className="flex items-center space-x-4 pt-4 text-sm text-muted-foreground">
-              <span>Popular:</span>
+              <span>Popular Services:</span>
               <div className="flex flex-wrap gap-2">
-                <a href="#" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Carpentry</a>
-                <a href="#" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Plumbing</a>
-                <a href="#" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Electrical</a>
-                <a href="#" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Architecture</a>
+                <a href="#" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Mason</a>
+                <a href="#" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Helper</a>
+                <a href="#" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Welder</a>
+                <a href="#" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Steel Cutter</a>
               </div>
             </div>
           </div>

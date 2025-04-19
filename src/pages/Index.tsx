@@ -7,6 +7,7 @@ import HowItWorks from "../components/HowItWorks";
 import FeaturedProfessionals from "../components/FeaturedProfessionals";
 import Testimonials from "../components/Testimonials";
 import Footer from "../components/Footer";
+import HeroForm from "@/components/HeroForm";
 
 const Index: React.FC = () => {
   // Smooth scroll functionality
@@ -41,10 +42,11 @@ const Index: React.FC = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <Hero />
+      <HeroForm/>
       <ServiceCategories />
       <HowItWorks />
-      <FeaturedProfessionals />
-      <Testimonials />
+      {/* <FeaturedProfessionals /> */}
+      {/* <Testimonials /> */}
       <Footer />
     </div>
   );

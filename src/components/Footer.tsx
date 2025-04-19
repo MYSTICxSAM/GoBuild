@@ -56,13 +56,13 @@ const Footer: React.FC = () => {
             <h4 className="text-lg font-semibold mb-6">Company</h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">About Us</a>
+                <a href="/about" className="text-gray-400 hover:text-white transition-colors">About Us</a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">How It Works</a>
+                <a href="/#how-it-works" className="text-gray-400 hover:text-white transition-colors">How It Works</a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Contact Us</a>
+                <a href="/contact" className="text-gray-400 hover:text-white transition-colors">Contact Us</a>
               </li>
             </ul>
           </div>
