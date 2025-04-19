@@ -1,0 +1,33 @@
+
+[
+  {
+    "id": 1,
+    "name": "Raj Soni",
+    "position": "Co-founder & CEO",
+    "details": "With over 10 years of experience in the service industry, Raj leads our strategic vision and company operations."
+  },
+  {
+    "id": 2,
+    "name": "Vivek Kumar",
+    "position": "Co-founder & CTO",
+    "details": "Vivek brings 8+ years of technical expertise to GoBuild, overseeing our platform development and technological innovations."
+  },
+  {
+    "id": 3,
+    "name": "Saurabh Chaudahary",
+    "position": "Co-founder & COO",
+    "details": "Saurabh manages our day-to-day operations with 7+ years of experience in optimizing service delivery and customer satisfaction."
+  },
+  {
+    "id": 4,
+    "name": "Aryan Sharma",
+    "position": "Co-founder & CMO",
+    "details": "With extensive experience in digital marketing, Aryan drives our growth strategy and brand development initiatives."
+  },
+  {
+    "id": 5,
+    "name": "Vanshika Abrol",
+    "position": "CFO",
+    "details": "With extensive experience in finance management, she drives our company towards profitability."
+  }
+]
