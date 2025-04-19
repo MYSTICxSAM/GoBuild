@@ -22,7 +22,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, pro
           <p className="text-muted-foreground mb-4 flex-grow">{description}</p>
           <div className="flex items-center justify-between mt-auto">
             <span className="text-sm font-medium text-muted-foreground">{professionals}+ Professionals</span>
-            <Button variant="ghost" size="sm" className="hover:text-primary">
+            <Button variant="ghost" size="sm" className="hover:animate-pulse-shadow">
               Book Now
               <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
@@ -168,10 +168,12 @@ const ServiceCategories: React.FC = () => {
         </div>
         
         <div className="text-center mt-12">
-          <Button size="lg">
-            Browse All Services
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+            <a href="/services">
+              <Button size="lg">
+              Browse All Services
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+            </a>
         </div>
       </div>
     </section>

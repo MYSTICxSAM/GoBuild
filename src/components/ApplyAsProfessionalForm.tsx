@@ -79,7 +79,7 @@ export function ApplyAsProfessionalForm() {
             <FormItem>
               <FormLabel>Full Name</FormLabel>
               <FormControl>
-                <Input placeholder="John Doe" {...field} />
+                <Input placeholder="Your Name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -167,7 +167,7 @@ export function ApplyAsProfessionalForm() {
             <FormItem>
               <FormLabel>Primary Skill</FormLabel>
               <FormControl>
-                <Input placeholder="e.g., Plumbing, Electrical, Carpentry" {...field} />
+                <Input placeholder="Plumbing, Electrical, Carpentry" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

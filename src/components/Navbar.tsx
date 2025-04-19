@@ -49,6 +49,7 @@ const Navbar: React.FC = () => {
                 className="pl-8 w-[200px] lg:w-[300px]"
               />
             </div>
+            <Link to="/" className="text-foreground hover:text-primary transition-colors">Home</Link>
             <Link to="/services" className="text-foreground hover:text-primary transition-colors">Services</Link>
             <Link to="/about" className="text-foreground hover:text-primary transition-colors">About Us</Link>
             <Link to="/contact" className="text-foreground hover:text-primary transition-colors">Contact Us</Link>

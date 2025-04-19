@@ -4,10 +4,10 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '100%',
-  height: '400px'
+  height: '430px'
 };
 
-const UserLocationMap = () => {
+const UserLocationMap = ({ center }) => {
   const [userLocation, setUserLocation] = useState(null);
 
   useEffect(() => {
@@ -31,12 +31,12 @@ const UserLocationMap = () => {
   }, []);
 
   return (
-    <LoadScript googleMapsApiKey="YOUR_API_KEY_HERE">
+    <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAP_API}>
       {userLocation && (
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={userLocation}
-          zoom={14}
+          zoom={12}
         >
           <Marker position={userLocation} />
         </GoogleMap>
