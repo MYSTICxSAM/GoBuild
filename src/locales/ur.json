@@ -1,0 +1,37 @@
+{
+  "common": {
+    "home": "ہوم",
+    "services": "خدمات",
+    "about": "ہمارے بارے میں",
+    "contact": "رابطہ کریں",
+    "signIn": "سائن ان کریں",
+    "joinNow": "ابھی شامل ہوں",
+    "signOut": "سائن آؤٹ کریں",
+    "profile": "پروفائل",
+    "search": "خدمت تلاش کریں...",
+    "language": "زبان"
+  },
+  "services": {
+    "bookService": "خدمت بک کریں",
+    "startDate": "شروع کی تاریخ",
+    "selectDate": "تاریخ منتخب کریں",
+    "location": "مقام",
+    "selectLocation": "مقام منتخب کریں",
+    "serviceType": "خدمت کی قسم",
+    "selectServiceType": "خدمت کی قسم منتخب کریں",
+    "bookNow": "ابھی بک کریں",
+    "applyAsProfessional": "پیشہ ور کے طور پر درخواست دیں",
+    "joinNetwork": "ہمارے ہنر مند پیشہ ور افراد کے نیٹ ورک سے جڑیں اور اپنے علاقے میں گاہکوں سے رابطہ کریں۔",
+    "availableServices": "دستیاب خدمات",
+    "allServices": "تمام خدمات"
+  },
+  "professionals": {
+    "carpenter": "بڑھئی",
+    "mason": "راج مستری",
+    "helper": "مددگار",
+    "painter": "پینٹر",
+    "welder": "ویلڈر",
+    "driver": "ڈرائیور",
+    "steelCutter": "اسٹیل کٹر"
+  }
+} 

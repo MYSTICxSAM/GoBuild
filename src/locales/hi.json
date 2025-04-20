@@ -1,0 +1,37 @@
+{
+  "common": {
+    "home": "होम",
+    "services": "सेवाएं",
+    "about": "हमारे बारे में",
+    "contact": "संपर्क करें",
+    "signIn": "साइन इन करें",
+    "joinNow": "अभी जुड़ें",
+    "signOut": "साइन आउट करें",
+    "profile": "प्रोफ़ाइल",
+    "search": "सेवा खोजें...",
+    "language": "भाषा"
+  },
+  "services": {
+    "bookService": "सेवा बुक करें",
+    "startDate": "प्रारंभ तिथि",
+    "selectDate": "तिथि चुनें",
+    "location": "स्थान",
+    "selectLocation": "स्थान चुनें",
+    "serviceType": "सेवा का प्रकार",
+    "selectServiceType": "सेवा का प्रकार चुनें",
+    "bookNow": "अभी बुक करें",
+    "applyAsProfessional": "पेशेवर के रूप में आवेदन करें",
+    "joinNetwork": "हमारे कुशल पेशेवरों के नेटवर्क से जुड़ें और अपने क्षेत्र में ग्राहकों से जुड़ें।",
+    "availableServices": "उपलब्ध सेवाएं",
+    "allServices": "सभी सेवाएं"
+  },
+  "professionals": {
+    "carpenter": "बढ़ई",
+    "mason": "राजमिस्त्री",
+    "helper": "सहायक",
+    "painter": "पेंटर",
+    "welder": "वेल्डर",
+    "driver": "ड्राइवर",
+    "steelCutter": "स्टील कटर"
+  }
+} 

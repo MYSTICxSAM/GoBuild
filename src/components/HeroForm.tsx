@@ -12,20 +12,26 @@ import { format } from 'date-fns';
 const HeroForm: React.FC = () => {
 const [startDate, setStartDate] = useState<Date>();
 const [location, setLocation] = useState<string>('');
-const [mapCenter, setMapCenter] = useState({ lat: 51.505, lng: -0.09 });
+const [mapCenter, setMapCenter] = useState({ lat: 32.7266, lng: 74.8570 });
 
 const handleLocationChange = (value: string) => {
-setLocation(value);
+  setLocation(value);
 
-const locationCoords: { [key: string]: { lat: number; lng: number } } = {
-    katra: { lat: 32.9910, lng: 74.9315 },
+  const locationCoords: { [key: string]: { lat: number; lng: number } } = {
+    jaanipur: { lat: 32.7496, lng: 74.8373 },
+    highcourt: { lat: 32.7294, lng: 74.8648 }, // near Janipur-HC area
+    satwari: { lat: 32.6887, lng: 74.8371 },
     gandhinagar: { lat: 32.7266, lng: 74.8570 },
+    ganghiyal: { lat: 32.6749, lng: 74.8090 },
+    bahuplaza: { lat: 32.7150, lng: 74.8600 },
+    raghunath: { lat: 32.7300, lng: 74.8605 },
+    busstand: { lat: 32.7357, lng: 74.8733 },
+    baribrahmana: { lat: 32.6204, lng: 74.9072 },
     sainik: { lat: 32.6927, lng: 74.8905 },
-    srinagar: { lat: 34.0837, lng: 74.7973 },
-    baramulla: { lat: 34.2090, lng: 74.3429 },
-};
+    other: { lat: 0, lng: 0 }, // default/fallback for unknown
+  };
 
-setMapCenter(locationCoords[value] || { lat: 51.505, lng: -0.09 });
+  setMapCenter(locationCoords[value] || { lat: 32.7266, lng: 74.8570 });
 };
 return(
 <section className="hero-pattern from-primary/5 to-background py-16">

@@ -1,14 +1,13 @@
-
 import React from 'react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Star, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 interface ServiceCardProps {
   image: string;
   name: string;
-  title: string;
   rating: number;
   reviews: number;
   hourlyRate: number;
@@ -19,20 +18,21 @@ interface ServiceCardProps {
 const ServiceCard: React.FC<ServiceCardProps> = ({
   image,
   name,
-  title,
   rating,
   reviews,
   hourlyRate,
   description,
   className,
 }) => {
+  const { t } = useTranslation();
+
   // Helper function to render star rating
   const renderRating = (rating: number) => {
     return (
       <div className="flex items-center">
         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
         <span className="ml-1 font-medium">{rating}</span>
-        <span className="text-muted-foreground ml-1">({reviews})</span>
+        <span className="text-muted-foreground ml-1">({reviews} {t('services.reviews')})</span>
       </div>
     );
   };
@@ -56,8 +56,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           {renderRating(rating)}
         </div>
         
-        <div className="text-sm text-muted-foreground font-medium mb-3">{title}</div>
-        
         <p className="text-sm text-muted-foreground line-clamp-3">{description}</p>
         
         <div className="flex items-center mt-4 text-sm">
@@ -68,7 +66,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       
       <CardFooter className="pt-0 flex justify-between">
         <Button variant="outline" className="w-[48%]">View Profile</Button>
-        <Button className="w-[48%]">Book Now</Button>
+        <Button className="w-[48%]">{t('services.bookNow')}</Button>
       </CardFooter>
     </Card>
   );

@@ -12,11 +12,13 @@ import { format } from 'date-fns';
 import UserLocationMap from '@/components/UserLocationMap';
 import ServiceCard from '@/components/ServiceCard';
 import { ApplyAsProfessionalForm } from '@/components/ApplyAsProfessionalForm';
+import { useTranslation } from 'react-i18next';
 
 const ServicesPage = () => {
   const [startDate, setStartDate] = useState<Date>();
   const [location, setLocation] = useState<string>('');
   const [mapCenter, setMapCenter] = useState({ lat: 51.505, lng: -0.09 });
+  const { t } = useTranslation();
 
   const handleLocationChange = (value: string) => {
     setLocation(value);
@@ -39,16 +41,16 @@ const ServicesPage = () => {
       <main className="flex-grow pt-20">
         <section className="bg-gradient-to-b from-primary/5 to-background py-16">
           <div className="container mx-auto px-4">
-            <h1 className="text-4xl font-bold mb-8 text-center">Find Professional Services</h1>
+            <h1 className="text-4xl font-bold mb-8 text-center">{t('services.bookService')}</h1>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
               <div className="bg-white p-6 rounded-xl shadow-lg">
-                <h2 className="text-2xl font-semibold mb-6">Book a Service</h2>
+                <h2 className="text-2xl font-semibold mb-6">{t('services.bookService')}</h2>
                 
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label className="text-sm font-medium">Start Date</label>
+                      <label className="text-sm font-medium">{t('services.startDate')}</label>
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button
@@ -59,7 +61,7 @@ const ServicesPage = () => {
                             )}
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
-                            {startDate ? format(startDate, "PPP") : <span>Select date</span>}
+                            {startDate ? format(startDate, "PPP") : <span>{t('services.selectDate')}</span>}
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
@@ -76,10 +78,10 @@ const ServicesPage = () => {
                     </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Location</label>
+                    <label className="text-sm font-medium">{t('services.location')}</label>
                     <Select onValueChange={handleLocationChange}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select Location" />
+                        <SelectValue placeholder={t('services.selectLocation')} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="electrical">Jaanipur, Jammu</SelectItem>
@@ -98,24 +100,24 @@ const ServicesPage = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Service Type</label>
+                    <label className="text-sm font-medium">{t('services.serviceType')}</label>
                     <Select>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select service type" />
+                        <SelectValue placeholder={t('services.selectServiceType')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="plumbing">Carpenter</SelectItem>
-                        <SelectItem value="electrical">Mason</SelectItem>
-                        <SelectItem value="carpentry">Helper</SelectItem>
-                        <SelectItem value="painting">Painter</SelectItem>
-                        <SelectItem value="cleaning">Welder</SelectItem>
-                        <SelectItem value="cleaning">Driver</SelectItem>
-                        <SelectItem value="cleaning">Steel Cutter</SelectItem>
+                        <SelectItem value="carpenter">{t('professionals.carpenter')}</SelectItem>
+                        <SelectItem value="mason">{t('professionals.mason')}</SelectItem>
+                        <SelectItem value="helper">{t('professionals.helper')}</SelectItem>
+                        <SelectItem value="painter">{t('professionals.painter')}</SelectItem>
+                        <SelectItem value="welder">{t('professionals.welder')}</SelectItem>
+                        <SelectItem value="driver">{t('professionals.driver')}</SelectItem>
+                        <SelectItem value="steelCutter">{t('professionals.steelCutter')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   
-                  <Button className="w-full">Book Now</Button>
+                  <Button className="w-full">{t('services.bookNow')}</Button>
                 </div>
               </div>
               
@@ -128,10 +130,9 @@ const ServicesPage = () => {
 
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8 text-center">Apply as Professional</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">{t('services.applyAsProfessional')}</h2>
             <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
-              Join our network of skilled professionals and connect with clients in your area. 
-              Fill out the form below to start your journey with GoBuild.
+              {t('services.joinNetwork')}
             </p>
 
             <div className="flex flex-col md:flex-row items-center gap-8">
@@ -154,71 +155,65 @@ const ServicesPage = () => {
 
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8">Available Services</h2>
+            <h2 className="text-3xl font-bold mb-8">{t('services.availableServices')}</h2>
             
             <div className="flex flex-wrap gap-2 mb-8">
-              <Button variant="outline" className="rounded-full">All Services</Button>
-              <Button variant="outline" className="rounded-full">Carpenter</Button>
-              <Button variant="outline" className="rounded-full">Mason</Button>
-              <Button variant="outline" className="rounded-full">Helper</Button>
-              <Button variant="outline" className="rounded-full">Steel Cutter</Button>
-              <Button variant="outline" className="rounded-full">Driver</Button>
+              <Button variant="outline" className="rounded-full">{t('services.allServices')}</Button>
+              <Button variant="outline" className="rounded-full">{t('professionals.carpenter')}</Button>
+              <Button variant="outline" className="rounded-full">{t('professionals.mason')}</Button>
+              <Button variant="outline" className="rounded-full">{t('professionals.helper')}</Button>
+              <Button variant="outline" className="rounded-full">{t('professionals.steelCutter')}</Button>
+              <Button variant="outline" className="rounded-full">{t('professionals.driver')}</Button>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <ServiceCard 
                 image="/worker1.jpg"
-                name="Umar Abdullah"
-                title="Master Plumber"
-                rating={4.8}
+                name={t('professionals.welder')}
+                rating={4.2}
                 reviews={124}
                 hourlyRate={45}
-                description="Experienced plumber specializing in residential and commercial plumbing repairs, installations, and maintenance."
+                description="Experienced welder specializing in residential and commercial welding repairs, installations, and maintenance."
               />
               <ServiceCard 
                 image="/ppl1.jpg"
-                name="Aisha Khan"
-                title="Interior Designer Contractor"
-                rating={4.9}
+                name={t('professionals.mason')}
+                rating={4.3}
                 reviews={98}
                 hourlyRate={55}
-                description="Licensed Interior Designer contractor with over 10 years of experience in residential interior designing, lighting installations, and troubleshooting."
+                description="Skilled mason with expertise in bricklaying, concrete work, and stone masonry for residential and commercial projects."
               />
               <ServiceCard 
                 image="/ppl2.jpg"
-                name="Priya Abrol"
-                title="Professional Carpenter"
-                rating={4.7}
+                name={t('professionals.carpenter')}
+                rating={4.4}
                 reviews={86}
                 hourlyRate={40}
                 description="Skilled carpenter offering custom furniture building, cabinet installation, and general woodworking services."
               />
               <ServiceCard 
                 image="/placeholder.svg"
-                name="Mariam Khatun"
-                title="Interior Painter"
+                name={t('professionals.helper')}
                 rating={4.6}
                 reviews={77}
                 hourlyRate={35}
-                description="Meticulous painter providing interior and exterior painting services with attention to detail and quality finishes."
+                description="Reliable helper providing general assistance with construction, moving, and various manual labor tasks."
               />
               <ServiceCard 
                 image="/placeholder.svg"
-                name="Vivek Ray"
-                title="Cleaning Specialist"
-                rating={4.9}
+                name={t('professionals.driver')}
+                rating={4.6}
                 reviews={112}
                 hourlyRate={30}
-                description="Professional cleaning services for homes and offices, including deep cleaning, move-in/move-out, and regular maintenance."
+                description="Professional driver offering transportation services for materials, equipment, and personnel to job sites."
               />
               <ServiceCard 
                 image="/placeholder.svg"
-                name="Priyanka Mahajan"
-                title="HVAC Technician"
+                name={t('professionals.steelCutter')}
                 rating={4.8}
                 reviews={64}
                 hourlyRate={50}
-                description="Certified HVAC technician offering installation, repair, and maintenance services for heating and cooling systems."
+                description="Expert steel cutter specializing in precise metal cutting, fabrication, and installation for construction projects."
               />
             </div>
           </div>

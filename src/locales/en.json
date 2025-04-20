@@ -1,0 +1,37 @@
+{
+  "common": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About Us",
+    "contact": "Contact Us",
+    "signIn": "Sign In",
+    "joinNow": "Join Now",
+    "signOut": "Sign Out",
+    "profile": "Profile",
+    "search": "Find a service...",
+    "language": "Language"
+  },
+  "services": {
+    "bookService": "Book a Service",
+    "startDate": "Start Date",
+    "selectDate": "Select date",
+    "location": "Location",
+    "selectLocation": "Select Location",
+    "serviceType": "Service Type",
+    "selectServiceType": "Select service type",
+    "bookNow": "Book Now",
+    "applyAsProfessional": "Apply as Professional",
+    "joinNetwork": "Join our network of skilled professionals and connect with clients in your area.",
+    "availableServices": "Available Services",
+    "allServices": "All Services"
+  },
+  "professionals": {
+    "carpenter": "Carpenter",
+    "mason": "Mason",
+    "helper": "Helper",
+    "painter": "Painter",
+    "welder": "Welder",
+    "driver": "Driver",
+    "steelCutter": "Steel Cutter"
+  }
+} 

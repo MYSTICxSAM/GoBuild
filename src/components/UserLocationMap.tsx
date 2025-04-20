@@ -8,27 +8,12 @@ const containerStyle = {
 };
 
 const UserLocationMap = ({ center }) => {
-  const [userLocation, setUserLocation] = useState(null);
+  const [userLocation, setUserLocation] = useState(center);
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          setUserLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          });
-        },
-        error => {
-          console.error('Error getting location:', error);
-          // fallback location if user denies
-          setUserLocation({ lat: 30.889799, lng: 75.849571 });
-        }
-      );
-    } else {
-      alert('Geolocation is not supported by this browser.');
-    }
-  }, []);
+    // Update userLocation whenever center prop changes
+    setUserLocation(center);
+  }, [center]);
 
   return (
     <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAP_API}>
@@ -36,7 +21,8 @@ const UserLocationMap = ({ center }) => {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={userLocation}
-          zoom={12}
+          zoom={16}
+          mapTypeId="hybrid"
         >
           <Marker position={userLocation} />
         </GoogleMap>
