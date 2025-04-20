@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -13,120 +13,17 @@ import UserLocationMap from '@/components/UserLocationMap';
 import ServiceCard from '@/components/ServiceCard';
 import { ApplyAsProfessionalForm } from '@/components/ApplyAsProfessionalForm';
 import { useTranslation } from 'react-i18next';
+import HeroForm from '@/components/HeroForm';
 
 const ServicesPage = () => {
-  const [startDate, setStartDate] = useState<Date>();
-  const [location, setLocation] = useState<string>('');
-  const [mapCenter, setMapCenter] = useState({ lat: 51.505, lng: -0.09 });
   const { t } = useTranslation();
-
-  const handleLocationChange = (value: string) => {
-    setLocation(value);
-  
-    const locationCoords: { [key: string]: { lat: number; lng: number } } = {
-      katra: { lat: 32.9910, lng: 74.9315 },
-      gandhinagar: { lat: 32.7266, lng: 74.8570 },
-      sainik: { lat: 32.6927, lng: 74.8905 },
-      srinagar: { lat: 34.0837, lng: 74.7973 },
-      baramulla: { lat: 34.2090, lng: 74.3429 },
-    };
-  
-    setMapCenter(locationCoords[value] || { lat: 51.505, lng: -0.09 });
-  };
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       
       <main className="flex-grow pt-20">
-        <section className="bg-gradient-to-b from-primary/5 to-background py-16">
-          <div className="container mx-auto px-4">
-            <h1 className="text-4xl font-bold mb-8 text-center">{t('services.bookService')}</h1>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-              <div className="bg-white p-6 rounded-xl shadow-lg">
-                <h2 className="text-2xl font-semibold mb-6">{t('services.bookService')}</h2>
-                
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">{t('services.startDate')}</label>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className={cn(
-                              "w-full justify-start text-left font-normal",
-                              !startDate && "text-muted-foreground"
-                            )}
-                          >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            {startDate ? format(startDate, "PPP") : <span>{t('services.selectDate')}</span>}
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={startDate}
-                            onSelect={setStartDate}
-                            initialFocus
-                            className="p-3 pointer-events-auto"
-                          />
-                        </PopoverContent>
-                      </Popover>
-                    </div>
-                    </div>
-                  
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">{t('services.location')}</label>
-                    <Select onValueChange={handleLocationChange}>
-                      <SelectTrigger>
-                        <SelectValue placeholder={t('services.selectLocation')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="electrical">Jaanipur, Jammu</SelectItem>
-                        <SelectItem value="carpentry">High Court, Jammu</SelectItem>
-                        <SelectItem value="plumbing">Satwari Chowk, Jammu</SelectItem>
-                        <SelectItem value="plumbing">Gandhinagar, Jammu</SelectItem>
-                        <SelectItem value="plumbing">Ganghiyal Industrial Area, Jammu</SelectItem>
-                        <SelectItem value="plumbing">Bahu Plaza, Jammu</SelectItem>
-                        <SelectItem value="plumbing">RaghuNath Nagar, Jammu</SelectItem>
-                        <SelectItem value="plumbing">Bus Stand, Jammu</SelectItem>
-                        <SelectItem value="plumbing">Bari Brahmana, Jammu</SelectItem>
-                        <SelectItem value="plumbing">Sainik Colony, Jammu</SelectItem>
-                        <SelectItem value="plumbing">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">{t('services.serviceType')}</label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder={t('services.selectServiceType')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="carpenter">{t('professionals.carpenter')}</SelectItem>
-                        <SelectItem value="mason">{t('professionals.mason')}</SelectItem>
-                        <SelectItem value="helper">{t('professionals.helper')}</SelectItem>
-                        <SelectItem value="painter">{t('professionals.painter')}</SelectItem>
-                        <SelectItem value="welder">{t('professionals.welder')}</SelectItem>
-                        <SelectItem value="driver">{t('professionals.driver')}</SelectItem>
-                        <SelectItem value="steelCutter">{t('professionals.steelCutter')}</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <Button className="w-full">{t('services.bookNow')}</Button>
-                </div>
-              </div>
-              
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden h-[430px]">
-                <UserLocationMap center={mapCenter} />
-              </div>
-            </div>
-          </div>
-        </section>
+        <HeroForm />
 
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
@@ -148,10 +45,8 @@ const ServicesPage = () => {
                 <img src="./pp6.jpg" alt="Professional illustration" className="w-full h-auto rounded-lg shadow-lg" />
               </div>
             </div>
-
           </div>
         </section>
-
 
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
@@ -218,7 +113,6 @@ const ServicesPage = () => {
             </div>
           </div>
         </section>
-        
       </main>
       
       <Footer />

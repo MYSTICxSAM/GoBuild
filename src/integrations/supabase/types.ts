@@ -42,6 +42,36 @@ export type Database = {
         }
         Relationships: []
       }
+      "User Request": {
+        Row: {
+          id: number
+          created_at: string
+          Name: string
+          DateOfService: string
+          Location: string
+          ServiceType: string
+          Phone: string
+        }
+        Insert: {
+          id?: number
+          created_at?: string
+          Name: string
+          DateOfService: string
+          Location: string
+          ServiceType: string
+          Phone: string
+        }
+        Update: {
+          id?: number
+          created_at?: string
+          Name?: string
+          DateOfService?: string
+          Location?: string
+          ServiceType?: string
+          Phone?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

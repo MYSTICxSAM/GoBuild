@@ -2,17 +2,22 @@ import React, { useState } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Calendar } from '@/components/ui/calendar';
-import { MapPin, Calendar as CalendarIcon } from 'lucide-react';
+import { MapPin, Calendar as CalendarIcon, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import UserLocationMap from '@/components/UserLocationMap';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
-
+import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const HeroForm: React.FC = () => {
 const [startDate, setStartDate] = useState<Date>();
 const [location, setLocation] = useState<string>('');
+const [phoneNumber, setPhoneNumber] = useState<string>('');
+const [serviceType, setServiceType] = useState<string>('');
 const [mapCenter, setMapCenter] = useState({ lat: 32.7266, lng: 74.8570 });
+const { toast } = useToast();
 
 const handleLocationChange = (value: string) => {
   setLocation(value);
@@ -33,6 +38,52 @@ const handleLocationChange = (value: string) => {
 
   setMapCenter(locationCoords[value] || { lat: 32.7266, lng: 74.8570 });
 };
+
+const handleSubmit = async () => {
+  if (!startDate || !location || !phoneNumber || !serviceType) {
+    toast({
+      title: "Error",
+      description: "Please fill in all fields",
+      variant: "destructive",
+    });
+    return;
+  }
+
+  try {
+    const { error } = await supabase
+      .from('User Request')
+      .insert({
+        Name: 'User', // Default name as requested
+        DateOfService: format(startDate, 'yyyy-MM-dd'),
+        Location: location,
+        Phone: phoneNumber,
+        ServiceType: serviceType,
+      });
+
+    if (error) {
+      console.error('Error submitting form:', error);
+      throw error;
+    }
+    toast({
+      title: "Success",
+      description: "We will contact you in 15 minutes through phone or sms",
+    });
+
+    // Reset form
+    setStartDate(undefined);
+    setLocation('');
+    setPhoneNumber('');
+    setServiceType('');
+  } catch (error: any) {
+    console.error('Error submitting form:', error);
+    toast({
+      title: "Error",
+      description: error.message,
+      variant: "destructive",
+    });
+  }
+};
+
 return(
 <section className="hero-pattern from-primary/5 to-background py-16">
   <div className="container mx-auto px-4">
@@ -75,7 +126,7 @@ return(
 
           <div className="space-y-2">
             <label className="text-sm font-medium text-sky-900">Location</label>
-            <Select onValueChange={handleLocationChange}>
+            <Select onValueChange={handleLocationChange} value={location}>
               <SelectTrigger className="bg-white">
                 <SelectValue placeholder="Select Location" />
               </SelectTrigger>
@@ -96,8 +147,30 @@ return(
           </div>
 
           <div className="space-y-2">
+            <label className="text-sm font-medium text-sky-900">Phone Number</label>
+            <div className="relative">
+              <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
+              <Input
+                type="tel"
+                placeholder="Enter your phone number"
+                className="pl-10 bg-white"
+                value={phoneNumber}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, '');
+                  if (value.length <= 10) {
+                    setPhoneNumber(value);
+                  }
+                }}
+              />
+            </div>
+            {phoneNumber && phoneNumber.length < 10 && (
+              <p className="text-sm text-red-500">Please enter a valid 10-digit phone number</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
             <label className="text-sm font-medium text-sky-900">Service Type</label>
-            <Select>
+            <Select onValueChange={setServiceType} value={serviceType}>
               <SelectTrigger className="bg-white">
                 <SelectValue placeholder="Select service type" />
               </SelectTrigger>
@@ -113,20 +186,22 @@ return(
             </Select>
           </div>
 
-          <Button className="w-full animate-pulse-shadow text-white font-semibold text-lg">
+          <Button 
+            className="w-full animate-pulse-shadow text-white font-semibold text-lg"
+            onClick={handleSubmit}
+          >
             Book Now
           </Button>
         </div>
       </div>
 
       {/* MAP */}
-      <div className="bg-white rounded-2xl shadow-2xl overflow-hidden h-[430px]">
+      <div className="bg-white rounded-2xl shadow-2xl overflow-hidden h-[545px]">
         <UserLocationMap center={mapCenter} />
       </div>
     </div>
   </div>
 </section>
-
 )
 }
 
