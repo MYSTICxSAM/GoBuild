@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
 const HeroForm: React.FC = () => {
 const [startDate, setStartDate] = useState<Date>();
@@ -17,6 +18,7 @@ const [location, setLocation] = useState<string>('');
 const [phoneNumber, setPhoneNumber] = useState<string>('');
 const [serviceType, setServiceType] = useState<string>('');
 const [mapCenter, setMapCenter] = useState({ lat: 32.7266, lng: 74.8570 });
+const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 const { toast } = useToast();
 
 const handleLocationChange = (value: string) => {
@@ -64,10 +66,8 @@ const handleSubmit = async () => {
       console.error('Error submitting form:', error);
       throw error;
     }
-    toast({
-      title: "Success",
-      description: "We will contact you in 15 minutes through phone or sms",
-    });
+    
+    setShowSuccessDialog(true);
 
     // Reset form
     setStartDate(undefined);
@@ -201,6 +201,17 @@ return(
       </div>
     </div>
   </div>
+
+  <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+    <DialogContent className="sm:max-w-md">
+      <DialogHeader>
+        <DialogTitle>Booking Successful!</DialogTitle>
+        <DialogDescription>
+          We will contact you in 15 minutes through phone or sms.
+        </DialogDescription>
+      </DialogHeader>
+    </DialogContent>
+  </Dialog>
 </section>
 )
 }
