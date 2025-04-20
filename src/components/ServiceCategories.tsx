@@ -22,10 +22,10 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, pro
           <p className="text-muted-foreground mb-4 flex-grow">{description}</p>
           <div className="flex items-center justify-between mt-auto">
             <span className="text-sm font-medium text-muted-foreground">{professionals}+ Professionals</span>
-            <Button variant="ghost" size="sm" className="hover:animate-pulse-shadow">
+            <a href="/services"><Button variant="ghost" size="sm" className="hover:animate-pulse-shadow">
               Book Now
               <ArrowRight className="ml-1 h-4 w-4" />
-            </Button>
+            </Button></a>
           </div>
         </div>
       </CardContent>

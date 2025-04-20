@@ -53,7 +53,7 @@ const ServicesPage = () => {
             <h2 className="text-3xl font-bold mb-8">{t('services.availableServices')}</h2>
             
             <div className="flex flex-wrap gap-2 mb-8">
-              <Button variant="outline" className="rounded-full">{t('services.allServices')}</Button>
+              <a href="/services"><Button variant="outline" className="rounded-full">{t('services.allServices')}</Button></a>
               <Button variant="outline" className="rounded-full">{t('professionals.carpenter')}</Button>
               <Button variant="outline" className="rounded-full">{t('professionals.mason')}</Button>
               <Button variant="outline" className="rounded-full">{t('professionals.helper')}</Button>
@@ -63,7 +63,7 @@ const ServicesPage = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <ServiceCard 
-                image="/worker1.jpg"
+                image="/worker2.jpg"
                 name={t('professionals.welder')}
                 rating={4.2}
                 reviews={124}
@@ -71,7 +71,7 @@ const ServicesPage = () => {
                 description="Experienced welder specializing in residential and commercial welding repairs, installations, and maintenance."
               />
               <ServiceCard 
-                image="/ppl1.jpg"
+                image="/ppl7.jpg"
                 name={t('professionals.mason')}
                 rating={4.3}
                 reviews={98}
@@ -79,7 +79,7 @@ const ServicesPage = () => {
                 description="Skilled mason with expertise in bricklaying, concrete work, and stone masonry for residential and commercial projects."
               />
               <ServiceCard 
-                image="/ppl2.jpg"
+                image="/worker1.jpg"
                 name={t('professionals.carpenter')}
                 rating={4.4}
                 reviews={86}
@@ -87,7 +87,7 @@ const ServicesPage = () => {
                 description="Skilled carpenter offering custom furniture building, cabinet installation, and general woodworking services."
               />
               <ServiceCard 
-                image="/placeholder.svg"
+                image="/ppl8.jpg"
                 name={t('professionals.helper')}
                 rating={4.6}
                 reviews={77}
@@ -95,7 +95,7 @@ const ServicesPage = () => {
                 description="Reliable helper providing general assistance with construction, moving, and various manual labor tasks."
               />
               <ServiceCard 
-                image="/placeholder.svg"
+                image="/ppl3.jpg"
                 name={t('professionals.driver')}
                 rating={4.6}
                 reviews={112}
@@ -103,7 +103,7 @@ const ServicesPage = () => {
                 description="Professional driver offering transportation services for materials, equipment, and personnel to job sites."
               />
               <ServiceCard 
-                image="/placeholder.svg"
+                image="/pp5.jpg"
                 name={t('professionals.steelCutter')}
                 rating={4.8}
                 reviews={64}
