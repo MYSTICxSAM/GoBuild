@@ -1,0 +1,37 @@
+{
+  "common": {
+    "home": "ਹੋਮ",
+    "services": "ਸੇਵਾਵਾਂ",
+    "about": "ਸਾਡੇ ਬਾਰੇ",
+    "contact": "ਸੰਪਰਕ ਕਰੋ",
+    "signIn": "ਸਾਈਨ ਇਨ ਕਰੋ",
+    "joinNow": "ਹੁਣੇ ਜੁੜੋ",
+    "signOut": "ਸਾਈਨ ਆਉਟ ਕਰੋ",
+    "profile": "ਪ੍ਰੋਫਾਈਲ",
+    "search": "ਸੇਵਾ ਲੱਭੋ...",
+    "language": "ਭਾਸ਼ਾ"
+  },
+  "services": {
+    "bookService": "ਸੇਵਾ ਬੁਕ ਕਰੋ",
+    "startDate": "ਸ਼ੁਰੂਆਤੀ ਤਾਰੀਖ",
+    "selectDate": "ਤਾਰੀਖ ਚੁਣੋ",
+    "location": "ਟਿਕਾਣਾ",
+    "selectLocation": "ਟਿਕਾਣਾ ਚੁਣੋ",
+    "serviceType": "ਸੇਵਾ ਦੀ ਕਿਸਮ",
+    "selectServiceType": "ਸੇਵਾ ਦੀ ਕਿਸਮ ਚੁਣੋ",
+    "bookNow": "ਹੁਣੇ ਬੁਕ ਕਰੋ",
+    "applyAsProfessional": "ਪੇਸ਼ੇਵਰ ਵਜੋਂ ਅਰਜ਼ੀ ਦਿਓ",
+    "joinNetwork": "ਸਾਡੇ ਹੁਨਰਮੰਦ ਪੇਸ਼ੇਵਰਾਂ ਦੇ ਨੈੱਟਵਰਕ ਨਾਲ ਜੁੜੋ ਅਤੇ ਆਪਣੇ ਖੇਤਰ ਵਿੱਚ ਗਾਹਕਾਂ ਨਾਲ ਜੁੜੋ।",
+    "availableServices": "ਉਪਲਬਧ ਸੇਵਾਵਾਂ",
+    "allServices": "ਸਾਰੀਆਂ ਸੇਵਾਵਾਂ"
+  },
+  "professionals": {
+    "carpenter": "ਬੜਈ",
+    "mason": "ਰਾਜ ਮਿਸਤਰੀ",
+    "helper": "ਸਹਾਇਕ",
+    "painter": "ਪੇਂਟਰ",
+    "welder": "ਵੈਲਡਰ",
+    "driver": "ਡਰਾਈਵਰ",
+    "steelCutter": "ਸਟੀਲ ਕੱਟਰ"
+  }
+} 

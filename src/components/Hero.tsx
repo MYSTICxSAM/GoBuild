@@ -1,10 +1,22 @@
-
 import React from 'react';
 import { ArrowRight, Search } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const Hero: React.FC = () => {
+  const handleSearchClick = () => {
+    const servicesSection = document.getElementById('services');
+    if (servicesSection) {
+      const navbarHeight = 80; // Approximate navbar height
+      const targetPosition = servicesSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <div className="relative pt-24 pb-16 sm:pt-32 sm:pb-24 hero-pattern">
       <div className="container mx-auto px-4">
@@ -28,7 +40,7 @@ const Hero: React.FC = () => {
                     className="pl-10 h-12"
                   />
                 </div>
-                <Button size="lg" className="animate-pulse-shadow">
+                <Button size="lg" className="animate-pulse-shadow" onClick={handleSearchClick}>
                   Search
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
