@@ -65,8 +65,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       </CardContent>
       
       <CardFooter className="pt-0 flex justify-between">
-        <Button variant="outline" className="w-[48%]">View Profile</Button>
-        <Button className="w-[48%]">{t('services.bookNow')}</Button>
+        <a href="/services"><Button variant="outline" className="w-[88%]">View Profile</Button></a>
+        <a href="/services"><Button className="w-[88%]">{t('services.bookNow')}</Button></a>
       </CardFooter>
     </Card>
   );
