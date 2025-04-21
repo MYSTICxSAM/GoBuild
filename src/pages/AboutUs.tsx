@@ -16,6 +16,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import teamMembers from '@/data/team-members.json';
 import { Button } from "@/components/ui/button";
+import { Link } from 'react-router-dom';
 
 const AboutUs: React.FC = () => {
   return (
@@ -48,12 +49,12 @@ const AboutUs: React.FC = () => {
                 We believe everyone deserves access to quality services at fair prices, while providing professionals with opportunities to grow their business and showcase their expertise.
               </p>
               <br />
-              <a href="./contact">
+              <Link to="/contact">
                 <Button size="lg" className="animate-pulse-shadow">
                     Contact Us
                     <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-              </a>
+              </Link>
             </div>
             <div className="relative">
               <div className="rounded-lg overflow-hidden shadow-xl">

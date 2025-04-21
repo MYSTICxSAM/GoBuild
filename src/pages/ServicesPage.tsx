@@ -14,6 +14,7 @@ import ServiceCard from '@/components/ServiceCard';
 import { ApplyAsProfessionalForm } from '@/components/ApplyAsProfessionalForm';
 import { useTranslation } from 'react-i18next';
 import HeroForm from '@/components/HeroForm';
+import { Link } from 'react-router-dom';
 
 const ServicesPage = () => {
   const { t } = useTranslation();
@@ -53,7 +54,7 @@ const ServicesPage = () => {
             <h2 className="text-3xl font-bold mb-8">{t('services.availableServices')}</h2>
             
             <div className="flex flex-wrap gap-2 mb-8">
-              <a href="/services"><Button variant="outline" className="rounded-full">{t('services.allServices')}</Button></a>
+              <Link to="/"><Button variant="outline" className="rounded-full">{t('services.allServices')}</Button></Link>
               <Button variant="outline" className="rounded-full">{t('professionals.carpenter')}</Button>
               <Button variant="outline" className="rounded-full">{t('professionals.mason')}</Button>
               <Button variant="outline" className="rounded-full">{t('professionals.helper')}</Button>

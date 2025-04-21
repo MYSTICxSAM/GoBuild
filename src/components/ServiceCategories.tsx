@@ -3,6 +3,7 @@ import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from 'react-router-dom';
 
 interface ServiceCardProps {
   icon: React.ReactNode;
@@ -22,10 +23,10 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, pro
           <p className="text-muted-foreground mb-4 flex-grow">{description}</p>
           <div className="flex items-center justify-between mt-auto">
             <span className="text-sm font-medium text-muted-foreground">{professionals}+ Professionals</span>
-            <a href="/services"><Button variant="ghost" size="sm" className="hover:animate-pulse-shadow">
+            <Link to="/services"><Button variant="ghost" size="sm" className="hover:animate-pulse-shadow">
               Book Now
               <ArrowRight className="ml-1 h-4 w-4" />
-            </Button></a>
+            </Button></Link>
           </div>
         </div>
       </CardContent>
@@ -168,12 +169,12 @@ const ServiceCategories: React.FC = () => {
         </div>
         
         <div className="text-center mt-12">
-            <a href="/services">
+            <Link to="/services">
               <Button size="lg">
               Browse All Services
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            </a>
+            </Link>
         </div>
       </div>
     </section>
