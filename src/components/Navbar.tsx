@@ -109,7 +109,7 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden pt-4 pb-4 animate-fade-in">
+          <div className="bg-white md:hidden pt-4 pb-4 animate-fade-in">
             <div className="flex flex-col space-y-4">
               <div className="relative">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
