@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, Search } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Link } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   const handleSearchClick = () => {
@@ -50,10 +51,10 @@ const Hero: React.FC = () => {
             <div className="flex items-center space-x-4 pt-4 text-sm text-muted-foreground">
               <span>Popular Services:</span>
               <div className="flex flex-wrap gap-2">
-                <a href="#" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Mason</a>
-                <a href="#" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Helper</a>
-                <a href="#" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Welder</a>
-                <a href="#" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Steel Cutter</a>
+                <Link to="/services" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Mason</Link>
+                <Link to="/services" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Helper</Link>
+                <Link to="/services" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Welder</Link>
+                <Link to="/services" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Steel Cutter</Link>
               </div>
             </div>
           </div>

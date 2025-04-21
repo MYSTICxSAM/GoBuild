@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, User, Search } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import UserProfileMenu from './UserProfileMenu';
 import LanguageSelector from './LanguageSelector';
@@ -49,9 +49,9 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <a href="/" className="flex items-center">
+            <NavLink to="/" className="flex items-center">
               <span className="text-2xl font-bold text-primary">Go<span className="text-accent">Build</span></span>
-            </a>
+            </NavLink>
           </div>
 
           {/* Desktop Menu */}

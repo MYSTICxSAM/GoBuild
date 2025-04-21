@@ -1,8 +1,30 @@
-
 import React from 'react';
 import { Facebook, Instagram, Twitter, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Footer: React.FC = () => {
+  const navigate = useNavigate();
+
+  const scrollToServices = () => {
+    // First navigate to home page if not already there
+    if (window.location.pathname !== '/') {
+      navigate('/');
+      // Wait for navigation to complete before scrolling
+      setTimeout(() => {
+        const servicesSection = document.getElementById('services');
+        if (servicesSection) {
+          servicesSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      // If already on home page, just scroll
+      const servicesSection = document.getElementById('services');
+      if (servicesSection) {
+        servicesSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-16">
@@ -13,18 +35,18 @@ const Footer: React.FC = () => {
               <p className="mt-3 text-gray-400">Connecting you with skilled professionals for all your service needs.</p>
             </div>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-accent transition-colors" aria-label="Facebook">
+              <Link to="/contact" className="hover:text-accent transition-colors" aria-label="Facebook">
                 <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="hover:text-accent transition-colors" aria-label="Instagram">
+              </Link>
+              <Link to="/contact" className="hover:text-accent transition-colors" aria-label="Instagram">
                 <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="hover:text-accent transition-colors" aria-label="Twitter">
+              </Link>
+              <Link to="/contact" className="hover:text-accent transition-colors" aria-label="Twitter">
                 <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="hover:text-accent transition-colors" aria-label="LinkedIn">
+              </Link>
+              <Link to="/contact" className="hover:text-accent transition-colors" aria-label="LinkedIn">
                 <Linkedin className="w-5 h-5" />
-              </a>
+              </Link>
             </div>
           </div>
           
@@ -32,22 +54,22 @@ const Footer: React.FC = () => {
             <h4 className="text-lg font-semibold mb-6">Services</h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Carpenter</a>
+                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">Carpenter</button>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Mason</a>
+                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">Mason</button>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Helper</a>
+                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">Helper</button>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Electrician</a>
+                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">Electrician</button>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Painter</a>
+                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">Painter</button>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Driver and Mechanic</a>
+                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">Driver and Mechanic</button>
               </li>
             </ul>
           </div>
@@ -56,13 +78,13 @@ const Footer: React.FC = () => {
             <h4 className="text-lg font-semibold mb-6">Company</h4>
             <ul className="space-y-3">
               <li>
-                <a href="/about" className="text-gray-400 hover:text-white transition-colors">About Us</a>
+                <Link to="/about" className="text-gray-400 hover:text-white transition-colors">About Us</Link>
               </li>
               <li>
-                <a href="/#how-it-works" className="text-gray-400 hover:text-white transition-colors">How It Works</a>
+                <Link to="/services" className="text-gray-400 hover:text-white transition-colors">How It Works</Link>
               </li>
               <li>
-                <a href="/contact" className="text-gray-400 hover:text-white transition-colors">Contact Us</a>
+                <Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact Us</Link>
               </li>
             </ul>
           </div>
@@ -76,11 +98,11 @@ const Footer: React.FC = () => {
               </li>
               <li className="flex items-center">
                 <Phone className="w-5 h-5 mr-3 text-accent" />
-                <a href="tel:+14155551234" className="text-gray-400 hover:text-white transition-colors">+91 7051514790</a>
+                <Link to="tel:+14155551234" className="text-gray-400 hover:text-white transition-colors">+91 7051514790</Link>
               </li>
               <li className="flex items-center">
                 <Mail className="w-5 h-5 mr-3 text-accent" />
-                <a href="mailto:info@gobuild.com" className="text-gray-400 hover:text-white transition-colors">info@gobuild.com</a>
+                <Link to="mailto:info@gobuild.com" className="text-gray-400 hover:text-white transition-colors">info@gobuild.com</Link>
               </li>
             </ul>
           </div>
@@ -91,9 +113,9 @@ const Footer: React.FC = () => {
             &copy; {new Date().getFullYear()} GoBuild. All rights reserved.
           </p>
           <div className="flex space-x-6">
-            <a href="#" className="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm">Terms of Service</a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm">Cookies</a>
+            <Link to="/" className="text-gray-400 hover:text-white text-sm">Privacy Policy</Link>
+            <Link to="/" className="text-gray-400 hover:text-white text-sm">Terms of Service</Link>
+            <Link to="/" className="text-gray-400 hover:text-white text-sm">Cookies</Link>
           </div>
         </div>
       </div>

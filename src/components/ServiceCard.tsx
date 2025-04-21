@@ -37,6 +37,20 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
     );
   };
 
+  // Function to scroll to hero form section
+  const scrollToHeroForm = () => {
+    const heroFormSection = document.getElementById('hero-form');
+    if (heroFormSection) {
+      const navbarHeight = 80; // Approximate navbar height
+      const targetPosition = heroFormSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <Card className={cn("overflow-hidden transition-all hover:shadow-lg", className)}>
       <div className="relative h-48 overflow-hidden">
@@ -65,8 +79,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       </CardContent>
       
       <CardFooter className="pt-0 flex justify-between">
-        <a href="/services"><Button variant="outline" className="w-[88%]">View Profile</Button></a>
-        <a href="/services"><Button className="w-[88%]">{t('services.bookNow')}</Button></a>
+        <Button variant="outline" className="w-[88%]" onClick={scrollToHeroForm}>View Profile</Button>
+        <Button className="w-[88%]" onClick={scrollToHeroForm}>{t('services.bookNow')}</Button>
       </CardFooter>
     </Card>
   );
