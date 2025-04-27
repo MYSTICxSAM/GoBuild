@@ -142,19 +142,19 @@ const AboutUs: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <p className="text-4xl font-bold mb-2">500+</p>
+              <p className="text-4xl font-bold mb-2">200+</p>
               <p className="text-lg">Service Providers</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl font-bold mb-2">10k+</p>
+              <p className="text-4xl font-bold mb-2">100+</p>
               <p className="text-lg">Happy Clients</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl font-bold mb-2">30+</p>
+              <p className="text-4xl font-bold mb-2">10+</p>
               <p className="text-lg">Service Categories</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl font-bold mb-2">4.8/5</p>
+              <p className="text-4xl font-bold mb-2">4.2/5</p>
               <p className="text-lg">Average Rating</p>
             </div>
           </div>
