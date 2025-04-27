@@ -23,7 +23,8 @@
     "applyAsProfessional": "Apply as Professional",
     "joinNetwork": "Join our network of skilled professionals and connect with clients in your area.",
     "availableServices": "Available Services",
-    "allServices": "All Services"
+    "allServices": "All Services",
+    "reviews":"Reviews"
   },
   "professionals": {
     "carpenter": "Carpenter",

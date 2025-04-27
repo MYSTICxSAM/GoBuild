@@ -118,6 +118,7 @@ return(
                     onSelect={setStartDate}
                     initialFocus
                     className="p-3 pointer-events-auto"
+                    disabled={(date) => date <= new Date(new Date().setHours(0, 0, 0, 0))}
                   />
                 </PopoverContent>
               </Popover>
