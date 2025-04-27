@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { Star, Quote } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface TestimonialProps {
   quote: string;
@@ -52,44 +52,46 @@ const Testimonial: React.FC<TestimonialProps> = ({
 };
 
 const Testimonials: React.FC = () => {
+  const { t } = useTranslation();
+  
   return (
     <section className="py-20 bg-muted/50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">What Our Customers Say</h2>
+          <h2 className="text-3xl font-bold mb-4">{t('testimonials.title')}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Real feedback from real customers who found exceptional professionals through GoBuild.
+            {t('testimonials.subtitle')}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <Testimonial
-            quote="I needed urgent help with carpenter and found a professional within an hour. The work was top-notch and the price was fair. Couldn't be happier!"
-            name="Tirath Das Dogra"
-            role="Homeowner"
+            quote={t('testimonials.testimonial1.quote')}
+            name={t('testimonials.testimonial1.name')}
+            role={t('testimonials.testimonial1.role')}
             image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
             rating={5}
-            service="Plumbing Services"
+            service={t('testimonials.testimonial1.service')}
             delay={100}
           />
           
           <Testimonial
-            quote="The carpenter we hired through HandyHub was exceptional. The attention to detail on our custom cabinets was beyond expectations. Very professional!"
-            name="Anjali Abrol"
-            role="Interior Designer"
+            quote={t('testimonials.testimonial2.quote')}
+            name={t('testimonials.testimonial2.name')}
+            role={t('testimonials.testimonial2.role')}
             image="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
             rating={5}
-            service="Carpentry Services"
+            service={t('testimonials.testimonial2.service')}
             delay={300}
           />
           
           <Testimonial
-            quote="Working with an architect from HandyHub completely transformed our renovation project. The ideas were innovative and the execution was flawless."
-            name="Shah Faesal"
-            role="Restaurant Owner"
+            quote={t('testimonials.testimonial3.quote')}
+            name={t('testimonials.testimonial3.name')}
+            role={t('testimonials.testimonial3.role')}
             image="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
             rating={4}
-            service="Architectural Design"
+            service={t('testimonials.testimonial3.service')}
             delay={500}
           />
         </div>

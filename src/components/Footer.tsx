@@ -1,9 +1,11 @@
 import React from 'react';
 import { Facebook, Instagram, Twitter, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Footer: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const scrollToServices = () => {
     // First navigate to home page if not already there
@@ -32,7 +34,7 @@ const Footer: React.FC = () => {
           <div>
             <div className="mb-6">
               <h3 className="text-2xl font-bold">Go<span className="text-accent">Build</span></h3>
-              <p className="mt-3 text-gray-400">Connecting you with skilled professionals for all your service needs.</p>
+              <p className="mt-3 text-gray-400">{t('footer.tagline')}</p>
             </div>
             <div className="flex space-x-4">
               <a href="https://www.facebook.com/profile.php?id=61575209711749&rdid=JTYVbMh4ok4a5cCN&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1aECBVh8hC%2F#" className="hover:text-accent transition-colors" aria-label="Facebook">
@@ -51,50 +53,50 @@ const Footer: React.FC = () => {
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-6">Services</h4>
+            <h4 className="text-lg font-semibold mb-6">{t('footer.services')}</h4>
             <ul className="space-y-3">
               <li>
-                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">Carpenter</button>
+                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">{t('professionals.carpenter')}</button>
               </li>
               <li>
-                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">Mason</button>
+                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">{t('professionals.mason')}</button>
               </li>
               <li>
-                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">Helper</button>
+                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">{t('professionals.helper')}</button>
               </li>
               <li>
-                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">Electrician</button>
+                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">{t('professionals.electrician')}</button>
               </li>
               <li>
-                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">Painter</button>
+                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">{t('professionals.painter')}</button>
               </li>
               <li>
-                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">Driver and Mechanic</button>
+                <button onClick={scrollToServices} className="text-gray-400 hover:text-white transition-colors">{t('professionals.driverAndMechanic')}</button>
               </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-6">Company</h4>
+            <h4 className="text-lg font-semibold mb-6">{t('footer.company')}</h4>
             <ul className="space-y-3">
               <li>
-                <Link to="/about" className="text-gray-400 hover:text-white transition-colors">About Us</Link>
+                <Link to="/about" className="text-gray-400 hover:text-white transition-colors">{t('common.about')}</Link>
               </li>
               <li>
-                <Link to="/services" className="text-gray-400 hover:text-white transition-colors">How It Works</Link>
+                <Link to="/services" className="text-gray-400 hover:text-white transition-colors">{t('footer.howItWorks')}</Link>
               </li>
               <li>
-                <Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact Us</Link>
+                <Link to="/contact" className="text-gray-400 hover:text-white transition-colors">{t('common.contact')}</Link>
               </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-6">Contact</h4>
+            <h4 className="text-lg font-semibold mb-6">{t('footer.contact')}</h4>
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin className="w-5 h-5 mr-3 text-accent" />
-                <span className="text-gray-400">SMVDU, Kakrayal Katra Reasi, Jammu & Kashmir</span>
+                <span className="text-gray-400">{t('footer.address')}</span>
               </li>
               <li className="flex items-center">
                 <Phone className="w-5 h-5 mr-3 text-accent" />

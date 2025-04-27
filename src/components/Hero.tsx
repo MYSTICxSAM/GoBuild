@@ -3,8 +3,11 @@ import { ArrowRight, Search } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Hero: React.FC = () => {
+  const { t } = useTranslation();
+
   const handleSearchClick = () => {
     const servicesSection = document.getElementById('services');
     if (servicesSection) {
@@ -24,11 +27,10 @@ const Hero: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <div className="w-full lg:w-1/2 space-y-6 animate-fade-in">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-              Find <span className="text-primary">Expert Professionals</span> For Any Job
+              {t('hero.title')}
             </h1>
             <p className="text-lg text-muted-foreground max-w-lg">
-              Connect with skilled professionals for all your home and office needs - from carpentry to architecture, 
-              plumbing to electrical work, all in one place.
+              {t('hero.subtitle')}
             </p>
             
             <div className="relative max-w-md">
@@ -37,24 +39,24 @@ const Hero: React.FC = () => {
                   <Search className="absolute left-2.5 top-2.5 h-5 w-5 text-muted-foreground" />
                   <Input 
                     type="search" 
-                    placeholder="What service do you need?" 
+                    placeholder={t('hero.searchPlaceholder')}
                     className="pl-10 h-12"
                   />
                 </div>
                 <Button size="lg" className="animate-pulse-shadow" onClick={handleSearchClick}>
-                  Search
+                  {t('hero.searchButton')}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
             </div>
             
             <div className="flex items-center space-x-4 pt-4 text-sm text-muted-foreground">
-              <span>Popular Services:</span>
+              <span>{t('common.popularServices')}</span>
               <div className="flex flex-wrap gap-2">
-                <Link to="/services" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Mason</Link>
-                <Link to="/services" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Helper</Link>
-                <Link to="/services" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Welder</Link>
-                <Link to="/services" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">Steel Cutter</Link>
+                <Link to="/services" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">{t('professionals.mason')}</Link>
+                <Link to="/services" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">{t('professionals.helper')}</Link>
+                <Link to="/services" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">{t('professionals.welder')}</Link>
+                <Link to="/services" className="px-3 py-1 bg-secondary rounded-full hover:bg-primary/10 transition-colors">{t('professionals.steelCutter')}</Link>
               </div>
             </div>
           </div>
@@ -77,8 +79,8 @@ const Hero: React.FC = () => {
                     </svg>
                   </div>
                   <div className="text-white">
-                    <p className="font-semibold text-lg">Carpentry Services</p>
-                    <p className="text-white/80 text-sm">20+ skilled professionals available now</p>
+                    <p className="font-semibold text-lg">{t('hero.carpentryServices')}</p>
+                    <p className="text-white/80 text-sm">{t('hero.professionalsAvailable')}</p>
                   </div>
                 </div>
               </div>
@@ -93,8 +95,8 @@ const Hero: React.FC = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-semibold text-sm">Verified Experts</p>
-                  <p className="text-xs text-muted-foreground">Background checked</p>
+                  <p className="font-semibold text-sm">{t('hero.verifiedExperts')}</p>
+                  <p className="text-xs text-muted-foreground">{t('hero.backgroundChecked')}</p>
                 </div>
               </div>
             </div>
@@ -110,7 +112,7 @@ const Hero: React.FC = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">happy customers</p>
+                  <p className="text-xs text-muted-foreground">{t('hero.happyCustomers')}</p>
                 </div>
               </div>
             </div>

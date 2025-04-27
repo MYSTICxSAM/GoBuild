@@ -2,29 +2,48 @@
   "common": {
     "home": "Home",
     "services": "Services",
-    "about": "About Us",
-    "contact": "Contact Us",
+    "about": "About",
+    "contact": "Contact",
     "signIn": "Sign In",
     "joinNow": "Join Now",
     "signOut": "Sign Out",
     "profile": "Profile",
-    "search": "Find a service...",
-    "language": "Language"
+    "search": "Search services...",
+    "language": "Language",
+    "find": "Find",
+    "popularServices": "Popular Services:"
+  },
+  "hero": {
+    "title": "Find Expert Professionals for Any Job",
+    "subtitle": "Connect with skilled professionals for all your home and office needs - from carpentry to architecture, plumbing to electrical work, all in one place.",
+    "searchPlaceholder": "What service do you need?",
+    "searchButton": "Search",
+    "verifiedExperts": "Verified Experts",
+    "backgroundChecked": "Background Checked",
+    "happyCustomers": "Happy Customers",
+    "carpentryServices": "Carpentry Services",
+    "professionalsAvailable": "20+ Skilled Professionals Available Now"
   },
   "services": {
-    "bookService": "Book a Service",
+    "bookService": "Book Service",
     "startDate": "Start Date",
-    "selectDate": "Select date",
+    "selectDate": "Select Date",
     "location": "Location",
     "selectLocation": "Select Location",
     "serviceType": "Service Type",
-    "selectServiceType": "Select service type",
+    "selectServiceType": "Select Service Type",
     "bookNow": "Book Now",
     "applyAsProfessional": "Apply as Professional",
     "joinNetwork": "Join our network of skilled professionals and connect with clients in your area.",
     "availableServices": "Available Services",
     "allServices": "All Services",
-    "reviews":"Reviews"
+    "reviews": "Reviews",
+    "expertServices": "Expert Services",
+    "expertServicesSubtitle": "Find the right professional from our vast network who are ready to help with your projects.",
+    "professionalsAvailable": "Available Professionals",
+    "carpenterDescription": "Expert carpentry services for all your wooden furniture, fixtures, and structural needs.",
+    "masonDescription": "Expert masonry services for construction, repairs, and decorative stone work.",
+    "helperDescription": "Complete plumbing solutions for installation, repairs, and water system maintenance."
   },
   "professionals": {
     "carpenter": "Carpenter",
@@ -33,6 +52,129 @@
     "painter": "Painter",
     "welder": "Welder",
     "driver": "Driver",
-    "steelCutter": "Steel Cutter"
+    "steelCutter": "Steel Cutter",
+    "electrician": "Electrician",
+    "driverAndMechanic": "Driver and Mechanic"
+  },
+  "footer": {
+    "tagline": "Connect with skilled professionals for all your service needs.",
+    "services": "Services",
+    "company": "Company",
+    "howItWorks": "How It Works",
+    "contact": "Contact",
+    "address": "SMVDU, Kakrayal Katra Reasi, Jammu & Kashmir"
+  },
+  "howItWorks": {
+    "title": "How GoBuild Works",
+    "subtitle": "Finding and booking professional services has never been easier. Our streamlined process ensures you get quality work with minimal hassle.",
+    "step1": {
+      "title": "Find the Right Professional",
+      "description": "Search through our vast network of verified professionals based on your specific needs and project requirements."
+    },
+    "step2": {
+      "title": "Book the Service",
+      "description": "Choose a convenient date and time from the professional's availability, and customize your booking to match your project needs."
+    },
+    "step3": {
+      "title": "Get the Job Done",
+      "description": "Meet your professional and complete your project to your satisfaction with our quality guarantee."
+    },
+    "satisfactionGuarantee": {
+      "title": "100% Satisfaction Guarantee",
+      "description": "If you're not completely satisfied with the service, we'll work to make it right or refund your payment. Your satisfaction is our top priority."
+    }
+  },
+  "testimonials": {
+    "title": "What Our Customers Say",
+    "subtitle": "Real feedback from real customers who found exceptional professionals through GoBuild.",
+    "testimonial1": {
+      "quote": "I needed a carpenter urgently and found a professional within an hour. The work was excellent and the price was fair. Very happy!",
+      "name": "Tirath Das Dogra",
+      "role": "Homeowner",
+      "service": "Plumbing Services"
+    },
+    "testimonial2": {
+      "quote": "The carpenter hired through HandyHub was exceptional. The attention to detail on our custom cabinet was beyond expectations. Very professional!",
+      "name": "Anjali Abrol",
+      "role": "Interior Designer",
+      "service": "Carpentry Services"
+    },
+    "testimonial3": {
+      "quote": "Working with an architect from HandyHub transformed our remodeling project completely. The ideas were innovative and the execution was flawless.",
+      "name": "Shah Faisal",
+      "role": "Restaurant Owner",
+      "service": "Architectural Design"
+    }
+  },
+  "featuredProfessionals": {
+    "title": "Meet Our Top Professionals",
+    "subtitle": "These skilled individuals have consistently delivered exceptional work and earned excellent reviews from customers like you.",
+    "topRated": "Top Rated",
+    "viewProfile": "View Profile",
+    "professional1": {
+      "name": "Parveen Sangral",
+      "profession": "Carpenter",
+      "location": "Jammu, Jammu & Kashmir",
+      "available": "Available Today",
+      "verification": ["Verified", "Background Checked", "Top Rated"]
+    }
+  },
+  "aboutUs": {
+    "hero": {
+      "title": "About GoBuild",
+      "subtitle": "We connect skilled professionals with customers who need quality services. Our platform makes it easy to find, book, and manage service providers for all needs."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description1": "At GoBuild, we're on a mission to revolutionize access to services by creating a platform that seamlessly connects skilled professionals with customers in need.",
+      "description2": "We believe everyone deserves access to quality services at fair prices, while providing professionals with opportunities to grow their business and showcase their expertise.",
+      "contactUs": "Contact Us"
+    },
+    "values": {
+      "title": "Our Values",
+      "excellence": {
+        "title": "Excellence",
+        "description": "We're committed to delivering exceptional quality in everything, from platform features to customer support."
+      },
+      "trust": {
+        "title": "Trust",
+        "description": "We build trust through transparency, reliability, and always prioritizing our users' best interests."
+      },
+      "community": {
+        "title": "Community",
+        "description": "We foster a supportive community where professionals and customers can connect and grow together."
+      }
+    },
+    "stats": {
+      "serviceProviders": "Service Providers",
+      "happyClients": "Happy Clients",
+      "serviceCategories": "Service Categories",
+      "averageRating": "Average Rating"
+    }
+  },
+  "contactUs": {
+    "title": "Contact Us",
+    "subtitle": "Let's get in touch",
+    "description": "Have questions about our services? Fill out the form and we'll be in touch as soon as possible.",
+    "form": {
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Your Name",
+      "email": "Email Address",
+      "emailPlaceholder": "YourEmail@gmail.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "How can we help you?",
+      "message": "Your Message",
+      "messagePlaceholder": "Tell us what you need...",
+      "send": "Send"
+    },
+    "contactInfo": {
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address"
+    },
+    "toast": {
+      "title": "Message sent!",
+      "description": "We'll get back to you as soon as possible."
+    }
   }
 } 
