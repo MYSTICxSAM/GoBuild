@@ -1,9 +1,9 @@
-
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface ServiceCardProps {
   icon: React.ReactNode;
@@ -14,6 +14,8 @@ interface ServiceCardProps {
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, professionals, delay }) => {
+  const { t } = useTranslation();
+  
   return (
     <Card className={`service-card animate-fade-in animation-delay-${delay}`}>
       <CardContent className="p-6">
@@ -22,9 +24,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, pro
           <h3 className="text-xl font-bold mb-2">{title}</h3>
           <p className="text-muted-foreground mb-4 flex-grow">{description}</p>
           <div className="flex items-center justify-between mt-auto">
-            <span className="text-sm font-medium text-muted-foreground">{professionals}+ Professionals</span>
+            <span className="text-sm font-medium text-muted-foreground">{professionals}+ {t('services.professionalsAvailable')}</span>
             <Link to="/services"><Button variant="ghost" size="sm" className="hover:animate-pulse-shadow">
-              Book Now
+              {t('services.bookNow')}
               <ArrowRight className="ml-1 h-4 w-4" />
             </Button></Link>
           </div>
@@ -35,14 +37,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, pro
 };
 
 const ServiceCategories: React.FC = () => {
+  const { t } = useTranslation();
+  
   return (
     <section id="services" className="py-20 bg-muted/50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Expert Services</h2>
+          <h2 className="text-3xl font-bold mb-4">{t('services.expertServices')}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Find the right professional for any job with our extensive network of qualified experts
-            ready to help with your projects.
+            {t('services.expertServicesSubtitle')}
           </p>
         </div>
 
@@ -55,8 +58,8 @@ const ServiceCategories: React.FC = () => {
                 <path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"></path>
               </svg>
             }
-            title="Carpenter"
-            description="Expert carpentry services for all your wooden furniture, fixture, and structural needs."
+            title={t('professionals.carpenter')}
+            description={t('services.carpenterDescription')}
             professionals={42}
             delay={100}
           />
@@ -72,8 +75,8 @@ const ServiceCategories: React.FC = () => {
                 <path d="M9 17h1"></path>
               </svg>
             }
-            title="Mason"
-            description="Expert masonry services for construction, repair, and decorative stonework."
+            title={t('professionals.mason')}
+            description={t('services.masonDescription')}
             professionals={28}
             delay={200}
           />
@@ -89,8 +92,8 @@ const ServiceCategories: React.FC = () => {
                 <path d="M12 15v.01"></path>
               </svg>
             }
-            title="Helper"
-            description="Complete plumbing solutions for installation, repair, and water system maintenance."
+            title={t('professionals.helper')}
+            description={t('services.helperDescription')}
             professionals={36}
             delay={300}
           />

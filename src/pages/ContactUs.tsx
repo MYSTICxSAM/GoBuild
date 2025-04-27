@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -8,15 +7,17 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { useTranslation } from 'react-i18next';
 
 const ContactUs: React.FC = () => {
   const { toast } = useToast();
+  const { t } = useTranslation();
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
-      title: "Message sent!",
-      description: "We'll get back to you as soon as possible.",
+      title: t('contactUs.toast.title'),
+      description: t('contactUs.toast.description'),
     });
   };
 
@@ -31,34 +32,34 @@ const ContactUs: React.FC = () => {
               {/* Left Column - Contact Form */}
               <div className="w-full lg:w-1/2 lg:pr-12">
                 <div className="mb-10">
-                  <h5 className="text-primary font-medium mb-2">Contact Us</h5>
-                  <h2 className="text-4xl md:text-5xl font-bold mb-4">Let's get in touch</h2>
+                  <h5 className="text-primary font-medium mb-2">{t('contactUs.title')}</h5>
+                  <h2 className="text-4xl md:text-5xl font-bold mb-4">{t('contactUs.subtitle')}</h2>
                   <p className="text-muted-foreground">
-                    Have questions about our services? Fill out the form and we'll be in touch as soon as possible.
+                    {t('contactUs.description')}
                   </p>
                 </div>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
-                    <Label htmlFor="fullName">Full Name</Label>
-                    <Input id="fullName" placeholder="Your Name" required />
+                    <Label htmlFor="fullName">{t('contactUs.form.fullName')}</Label>
+                    <Input id="fullName" placeholder={t('contactUs.form.fullNamePlaceholder')} required />
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email Address</Label>
-                    <Input id="email" type="email" placeholder="YourEmail@gmail.com" required />
+                    <Label htmlFor="email">{t('contactUs.form.email')}</Label>
+                    <Input id="email" type="email" placeholder={t('contactUs.form.emailPlaceholder')} required />
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
-                    <Input id="subject" placeholder="How can we help you?" required />
+                    <Label htmlFor="subject">{t('contactUs.form.subject')}</Label>
+                    <Input id="subject" placeholder={t('contactUs.form.subjectPlaceholder')} required />
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="message">Your Message</Label>
+                    <Label htmlFor="message">{t('contactUs.form.message')}</Label>
                     <Textarea 
                       id="message" 
-                      placeholder="Tell us what you need..." 
+                      placeholder={t('contactUs.form.messagePlaceholder')} 
                       className="min-h-[120px]" 
                       required 
                     />
@@ -66,7 +67,7 @@ const ContactUs: React.FC = () => {
                   
                   <Button type="submit" size="lg" className="w-full sm:w-auto">
                     <Send className="mr-2 h-4 w-4" />
-                    Send
+                    {t('contactUs.form.send')}
                   </Button>
                 </form>
               </div>
@@ -88,7 +89,7 @@ const ContactUs: React.FC = () => {
                       <Mail className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-lg">Email</h3>
+                      <h3 className="font-medium text-lg">{t('contactUs.contactInfo.email')}</h3>
                       <p className="text-muted-foreground">info@gobuild.com</p>
                       <p className="text-muted-foreground">admin@gobuild.com</p>
                     </div>
@@ -99,7 +100,7 @@ const ContactUs: React.FC = () => {
                       <Phone className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-lg">Phone</h3>
+                      <h3 className="font-medium text-lg">{t('contactUs.contactInfo.phone')}</h3>
                       <p className="text-muted-foreground">+91 7051514790</p>
                       <p className="text-muted-foreground">+91 9622981239</p>
                     </div>
@@ -110,7 +111,7 @@ const ContactUs: React.FC = () => {
                       <MapPin className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-lg">Address</h3>
+                      <h3 className="font-medium text-lg">{t('contactUs.contactInfo.address')}</h3>
                       <p className="text-muted-foreground">
                         SMVDU, Kakrayal Katra Reasi,<br></br>
                         Jammu & Kashmir

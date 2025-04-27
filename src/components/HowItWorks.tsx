@@ -1,29 +1,31 @@
-
 import React from 'react';
 import { Search, Calendar, UserCheck } from 'lucide-react';
-
-const steps = [
-  {
-    icon: <Search className="h-12 w-12" />,
-    title: "Find the right professional",
-    description: "Search through our extensive network of verified professionals based on your specific needs and project requirements.",
-    delay: 100,
-  },
-  {
-    icon: <Calendar className="h-12 w-12" />,
-    title: "Book a service",
-    description: "Choose a convenient date and time from the professional's availability, and customize your booking to match your project needs.",
-    delay: 300,
-  },
-  {
-    icon: <UserCheck className="h-12 w-12" />,
-    title: "Get the job done",
-    description: "Meet with your professional and get your project completed to your satisfaction with our quality guarantee.",
-    delay: 500,
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 const HowItWorks: React.FC = () => {
+  const { t } = useTranslation();
+  
+  const steps = [
+    {
+      icon: <Search className="h-12 w-12" />,
+      title: t('howItWorks.step1.title'),
+      description: t('howItWorks.step1.description'),
+      delay: 100,
+    },
+    {
+      icon: <Calendar className="h-12 w-12" />,
+      title: t('howItWorks.step2.title'),
+      description: t('howItWorks.step2.description'),
+      delay: 300,
+    },
+    {
+      icon: <UserCheck className="h-12 w-12" />,
+      title: t('howItWorks.step3.title'),
+      description: t('howItWorks.step3.description'),
+      delay: 500,
+    },
+  ];
+
   return (
     <section id="how-it-works" className="py-20 bg-white relative overflow-hidden">
       {/* Background decorations */}
@@ -32,9 +34,9 @@ const HowItWorks: React.FC = () => {
       
       <div className="container mx-auto px-4 relative">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold mb-4">How GoBuild Works</h2>
+          <h2 className="text-3xl font-bold mb-4">{t('howItWorks.title')}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Finding and booking professional services has never been easier. Our streamlined process ensures you get quality work with minimal hassle.
+            {t('howItWorks.subtitle')}
           </p>
         </div>
 
@@ -71,9 +73,9 @@ const HowItWorks: React.FC = () => {
               </svg>
             </div>
             <div>
-              <h4 className="text-lg font-bold mb-2">100% Satisfaction Guarantee</h4>
+              <h4 className="text-lg font-bold mb-2">{t('howItWorks.satisfactionGuarantee.title')}</h4>
               <p className="text-muted-foreground">
-                If you're not completely satisfied with the service, we'll work to make it right or refund your payment. Your satisfaction is our top priority.
+                {t('howItWorks.satisfactionGuarantee.description')}
               </p>
             </div>
           </div>

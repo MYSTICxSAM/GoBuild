@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -17,8 +16,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import teamMembers from '@/data/team-members.json';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const AboutUs: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -27,10 +29,9 @@ const AboutUs: React.FC = () => {
       <section className="pt-24 hero-pattern from-primary/10 to-accent/10">
         <div className="container mx-auto px-4 py-16">
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">About GoBuild</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('aboutUs.hero.title')}</h1>
             <p className="text-lg text-muted-foreground mb-8">
-              We connect skilled professionals with clients who need quality services.
-              Our platform makes it easy to find, book, and manage service providers for all your needs.
+              {t('aboutUs.hero.subtitle')}
             </p>
           </div>
         </div>
@@ -41,17 +42,17 @@ const AboutUs: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
+              <h2 className="text-3xl font-bold mb-6">{t('aboutUs.mission.title')}</h2>
               <p className="text-lg text-muted-foreground mb-6">
-                At GoBuild, we're on a mission to revolutionize how people access services by creating a platform that seamlessly connects skilled professionals with clients in need.
+                {t('aboutUs.mission.description1')}
               </p>
               <p className="text-lg text-muted-foreground">
-                We believe everyone deserves access to quality services at fair prices, while providing professionals with opportunities to grow their business and showcase their expertise.
+                {t('aboutUs.mission.description2')}
               </p>
               <br />
               <Link to="/contact">
                 <Button size="lg" className="animate-pulse-shadow">
-                    Contact Us
+                    {t('aboutUs.mission.contactUs')}
                     <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
@@ -76,33 +77,33 @@ const AboutUs: React.FC = () => {
       {/* Our Values */}
       <section className="py-16 bg-muted/20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Values</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">{t('aboutUs.values.title')}</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                 <Trophy className="text-primary h-6 w-6" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Excellence</h3>
+              <h3 className="text-xl font-bold mb-3">{t('aboutUs.values.excellence.title')}</h3>
               <p className="text-muted-foreground">
-                We're committed to delivering exceptional quality in everything we do, from platform features to customer support.
+                {t('aboutUs.values.excellence.description')}
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                 <ShieldCheck className="text-primary h-6 w-6" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Trust</h3>
+              <h3 className="text-xl font-bold mb-3">{t('aboutUs.values.trust.title')}</h3>
               <p className="text-muted-foreground">
-                We build trust through transparency, reliability, and always putting our users' best interests first.
+                {t('aboutUs.values.trust.description')}
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                 <Heart className="text-primary h-6 w-6" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Community</h3>
+              <h3 className="text-xl font-bold mb-3">{t('aboutUs.values.community.title')}</h3>
               <p className="text-muted-foreground">
-                We foster a supportive community where professionals and clients can connect and grow together.
+                {t('aboutUs.values.community.description')}
               </p>
             </div>
           </div>
@@ -143,19 +144,19 @@ const AboutUs: React.FC = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
               <p className="text-4xl font-bold mb-2">200+</p>
-              <p className="text-lg">Service Providers</p>
+              <p className="text-lg">{t('aboutUs.stats.serviceProviders')}</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-bold mb-2">100+</p>
-              <p className="text-lg">Happy Clients</p>
+              <p className="text-lg">{t('aboutUs.stats.happyClients')}</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-bold mb-2">10+</p>
-              <p className="text-lg">Service Categories</p>
+              <p className="text-lg">{t('aboutUs.stats.serviceCategories')}</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-bold mb-2">4.2/5</p>
-              <p className="text-lg">Average Rating</p>
+              <p className="text-lg">{t('aboutUs.stats.averageRating')}</p>
             </div>
           </div>
         </div>
