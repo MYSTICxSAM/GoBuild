@@ -10,7 +10,6 @@ interface ServiceCardProps {
   name: string;
   rating: number;
   reviews: number;
-  hourlyRate: number;
   description: string;
   className?: string;
 }
@@ -20,7 +19,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   name,
   rating,
   reviews,
-  hourlyRate,
   description,
   className,
 }) => {
@@ -59,9 +57,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           alt={name}
           className="w-full h-full object-cover object-center"
         />
-        <div className="absolute top-0 right-0 m-2 bg-white px-2 py-1 rounded-md text-sm font-medium text-primary">
-          Rs.{hourlyRate}/Day
-        </div>
       </div>
       
       <CardContent className="pt-4">

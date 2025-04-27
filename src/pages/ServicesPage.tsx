@@ -68,7 +68,6 @@ const ServicesPage = () => {
                 name={t('professionals.welder')}
                 rating={4.2}
                 reviews={124}
-                hourlyRate={45}
                 description="Experienced welder specializing in residential and commercial welding repairs, installations, and maintenance."
               />
               <ServiceCard 
@@ -76,15 +75,13 @@ const ServicesPage = () => {
                 name={t('professionals.mason')}
                 rating={4.3}
                 reviews={98}
-                hourlyRate={55}
                 description="Skilled mason with expertise in bricklaying, concrete work, and stone masonry for residential and commercial projects."
               />
               <ServiceCard 
-                image="/worker1.jpg"
+                image="/carpenter.jpg"
                 name={t('professionals.carpenter')}
                 rating={4.4}
                 reviews={86}
-                hourlyRate={40}
                 description="Skilled carpenter offering custom furniture building, cabinet installation, and general woodworking services."
               />
               <ServiceCard 
@@ -92,23 +89,20 @@ const ServicesPage = () => {
                 name={t('professionals.helper')}
                 rating={4.6}
                 reviews={77}
-                hourlyRate={35}
                 description="Reliable helper providing general assistance with construction, moving, and various manual labor tasks."
               />
               <ServiceCard 
-                image="/ppl3.jpg"
+                image="/driver2.jpg"
                 name={t('professionals.driver')}
                 rating={4.6}
                 reviews={112}
-                hourlyRate={30}
                 description="Professional driver offering transportation services for materials, equipment, and personnel to job sites."
               />
               <ServiceCard 
-                image="/pp5.jpg"
+                image="/steel_cutter2.jpg"
                 name={t('professionals.steelCutter')}
                 rating={4.8}
                 reviews={64}
-                hourlyRate={50}
                 description="Expert steel cutter specializing in precise metal cutting, fabrication, and installation for construction projects."
               />
             </div>
