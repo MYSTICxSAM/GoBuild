@@ -14,7 +14,9 @@
     "popularServices": "Popular Services:"
   },
   "hero": {
-    "title": "Find Expert Professionals for Any Job",
+    "t1":"Find",
+    "title": " Expert Professionals",
+    "t2":" for Any Job",
     "subtitle": "Connect with skilled professionals for all your home and office needs - from carpentry to architecture, plumbing to electrical work, all in one place.",
     "searchPlaceholder": "What service do you need?",
     "searchButton": "Search",

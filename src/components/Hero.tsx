@@ -27,7 +27,11 @@ const Hero: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <div className="w-full lg:w-1/2 space-y-6 animate-fade-in">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-              {t('hero.title')}
+            {t('hero.t1')} <span className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight" 
+              style={{ color: 'hsl(var(--primary))' }}
+              >
+                {t('hero.title')}
+              </span> {t('hero.t2')}
             </h1>
             <p className="text-lg text-muted-foreground max-w-lg">
               {t('hero.subtitle')}
