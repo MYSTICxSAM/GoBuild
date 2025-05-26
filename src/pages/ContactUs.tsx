@@ -90,8 +90,10 @@ const ContactUs: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-lg">{t('contactUs.contactInfo.email')}</h3>
-                      <p className="text-muted-foreground">info@gobuild.com</p>
-                      <p className="text-muted-foreground">admin@gobuild.com</p>
+                      <p className="text-muted-foreground">support@gobuild.in</p>
+                      <p className="text-muted-foreground">info@gobuild.in</p>
+                      <p className="text-muted-foreground">admin@gobuild.in</p>
+                      
                     </div>
                   </div>
                   
@@ -101,6 +103,7 @@ const ContactUs: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-lg">{t('contactUs.contactInfo.phone')}</h3>
+                      <p className="text-muted-foreground">+91 889931011</p>
                       <p className="text-muted-foreground">+91 7051514790</p>
                       <p className="text-muted-foreground">+91 9622981239</p>
                     </div>

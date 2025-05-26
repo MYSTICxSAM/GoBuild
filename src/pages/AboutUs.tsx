@@ -66,7 +66,7 @@ const AboutUs: React.FC = () => {
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 bg-primary text-primary-foreground p-4 rounded-lg shadow-lg">
-                <p className="font-bold">Since 2023</p>
+                <p className="font-bold">Since 2025</p>
                 <p>Serving communities</p>
               </div>
             </div>
@@ -106,6 +106,33 @@ const AboutUs: React.FC = () => {
                 {t('aboutUs.values.community.description')}
               </p>
             </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <Target className="text-primary h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">{t('aboutUs.values.innovation.title')}</h3>
+              <p className="text-muted-foreground">
+                {t('aboutUs.values.innovation.description')}
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <Building className="text-primary h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">{t('aboutUs.values.integrity.title')}</h3>
+              <p className="text-muted-foreground">
+                {t('aboutUs.values.integrity.description')}
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <Users className="text-primary h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">{t('aboutUs.values.collaboration.title')}</h3>
+              <p className="text-muted-foreground">
+                {t('aboutUs.values.collaboration.description')}
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -143,15 +170,15 @@ const AboutUs: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <p className="text-4xl font-bold mb-2">200+</p>
+              <p className="text-4xl font-bold mb-2">40+</p>
               <p className="text-lg">{t('aboutUs.stats.serviceProviders')}</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl font-bold mb-2">100+</p>
+              <p className="text-4xl font-bold mb-2">50+</p>
               <p className="text-lg">{t('aboutUs.stats.happyClients')}</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl font-bold mb-2">10+</p>
+              <p className="text-4xl font-bold mb-2">8+</p>
               <p className="text-lg">{t('aboutUs.stats.serviceCategories')}</p>
             </div>
             <div className="text-center">
