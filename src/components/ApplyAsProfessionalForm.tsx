@@ -8,6 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   Name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -16,6 +17,7 @@ const formSchema = z.object({
   MobileNo: z.number().min(1000000000, { message: "Please enter a valid mobile number." }),
   Area: z.string().min(2, { message: "Area must be at least 2 characters." }),
   Skill: z.string().min(2, { message: "Skill must be at least 2 characters." }),
+  Description: z.string(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -32,6 +34,7 @@ export function ApplyAsProfessionalForm() {
       MobileNo: undefined,
       Area: "",
       Skill: "",
+      Description:"",
     },
   });
 
@@ -174,7 +177,21 @@ export function ApplyAsProfessionalForm() {
           )}
         />
 
-        <Button type="submit" className="w-full">Submit Application</Button>
+        <FormField
+          control={form.control}
+          name="Description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea placeholder="Description" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button type="submit" className="w-full">Submit</Button>
       </form>
     </Form>
   );
