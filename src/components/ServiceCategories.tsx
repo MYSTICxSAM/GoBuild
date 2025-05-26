@@ -109,9 +109,9 @@ const ServiceCategories: React.FC = () => {
                 <path d="M15 2 9 8"></path>
               </svg>
             }
-            title="Electrician"
-            description="Licensed electrical services for safe, reliable installations and repairs."
-            professionals={45}
+            title="Tiles and Floor work"
+            description="All types of Tiles & floor work and repairs."
+            professionals={25}
             delay={400}
           />
 
@@ -151,10 +151,10 @@ const ServiceCategories: React.FC = () => {
                 <path d="M12 6v12"></path>
               </svg>
             }
-            title="Driver"
-            description="Professional vehicle operation services for logistics, transport, and personal commuting."
-            professionals={20}
-            delay={300}
+            title="Labour"
+            description="Labour services of all kinds."
+            professionals={120}
+            delay={30}
           />
 
           <ServiceCard

@@ -42,8 +42,8 @@ const ServicesPage = () => {
               </div>
 
               {/* Image - Right */}
-              <div className="w-full md:w-1/2">
-                <img src="./pp6.jpg" alt="Professional illustration" className="w-full h-auto rounded-lg shadow-lg" />
+              <div className="w-full md:w-1/2 ">
+                <img src="./pp6.jpg" alt="Professional illustration" className="w-full h-[580px] rounded-lg shadow-lg" />
               </div>
             </div>
           </div>
@@ -59,7 +59,7 @@ const ServicesPage = () => {
               <Button variant="outline" className="rounded-full">{t('professionals.mason')}</Button>
               <Button variant="outline" className="rounded-full">{t('professionals.helper')}</Button>
               <Button variant="outline" className="rounded-full">{t('professionals.steelCutter')}</Button>
-              <Button variant="outline" className="rounded-full">{t('professionals.driver')}</Button>
+              <Button variant="outline" className="rounded-full">{t('professionals.tiles')}</Button>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -93,10 +93,10 @@ const ServicesPage = () => {
               />
               <ServiceCard 
                 image="/driver2.jpg"
-                name={t('professionals.driver')}
+                name={t('professionals.tiles')}
                 rating={4.6}
                 reviews={112}
-                description="Professional driver offering transportation services for materials, equipment, and personnel to job sites."
+                description="Professional worker for floor and tiles work of all kinds."
               />
               <ServiceCard 
                 image="/steel_cutter2.jpg"

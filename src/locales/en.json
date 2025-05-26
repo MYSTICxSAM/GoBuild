@@ -53,10 +53,10 @@
     "helper": "Helper",
     "painter": "Painter",
     "welder": "Welder",
-    "driver": "Driver",
+    "tiles": "Tiles and Floor work",
     "steelCutter": "Steel Cutter",
     "electrician": "Electrician",
-    "driverAndMechanic": "Driver and Mechanic"
+    "labour": "labour"
   },
   "footer": {
     "tagline": "Connect with skilled professionals for all your service needs.",
@@ -145,6 +145,18 @@
       "community": {
         "title": "Community",
         "description": "We foster a supportive community where professionals and customers can connect and grow together."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "We embrace creativity and forward-thinking to continuously improve and evolve our platform."
+      },
+      "integrity": {
+        "title": "Integrity",
+        "description": "We operate with honesty and strong moral principles, ensuring ethical practices in all we do."
+      },
+      "collaboration": {
+        "title": "Collaboration",
+        "description": "We believe great things happen when people work together toward a shared goal."
       }
     },
     "stats": {
