@@ -132,6 +132,8 @@ return(
                 <SelectValue placeholder="Select Location" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="jaanipur">Sikandarpur, Delhi</SelectItem>
+                <SelectItem value="jaanipur">Aya Nagar, Delhi</SelectItem>
                 <SelectItem value="jaanipur">Jaanipur, Jammu</SelectItem>
                 <SelectItem value="highcourt">High Court, Jammu</SelectItem>
                 <SelectItem value="satwari">Satwari Chowk, Jammu</SelectItem>
@@ -181,8 +183,9 @@ return(
                 <SelectItem value="helper">Helper</SelectItem>
                 <SelectItem value="painter">Painter</SelectItem>
                 <SelectItem value="welder">Welder</SelectItem>
-                <SelectItem value="driver">Driver</SelectItem>
+                <SelectItem value="labour">Labour</SelectItem>
                 <SelectItem value="steelcutter">Steel Cutter</SelectItem>
+                <SelectItem value="tiles">Tiles and Floor Work</SelectItem>
               </SelectContent>
             </Select>
           </div>
