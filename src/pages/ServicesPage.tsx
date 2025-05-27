@@ -43,7 +43,7 @@ const ServicesPage = () => {
 
               {/* Image - Right */}
               <div className="w-full md:w-1/2 ">
-                <img src="./pp6.jpg" alt="Professional illustration" className="w-full h-[580px] rounded-lg shadow-lg" />
+                <img src="./pp6.jpg" alt="Professional illustration" className="w-full h-[500px] rounded-lg shadow-lg" />
               </div>
             </div>
           </div>
