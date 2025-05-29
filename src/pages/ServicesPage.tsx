@@ -92,7 +92,7 @@ const ServicesPage = () => {
                 description="Reliable helper providing general assistance with construction, moving, and various manual labor tasks."
               />
               <ServiceCard 
-                image="/driver2.jpg"
+                image="/tiles.png"
                 name={t('professionals.tiles')}
                 rating={4.6}
                 reviews={112}
