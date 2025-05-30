@@ -54,6 +54,7 @@ export type Database = {
           Location: string
           ServiceType: string
           Phone: string
+          hdfu: string
         }
         Insert: {
           id?: number
@@ -63,6 +64,7 @@ export type Database = {
           Location: string
           ServiceType: string
           Phone: string
+          hdfu: string
         }
         Update: {
           id?: number
@@ -72,6 +74,7 @@ export type Database = {
           Location?: string
           ServiceType?: string
           Phone?: string
+          hdfu?: string
         }
         Relationships: []
       }
