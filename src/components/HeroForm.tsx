@@ -17,6 +17,7 @@ const [startDate, setStartDate] = useState<Date>();
 const [location, setLocation] = useState<string>('');
 const [phoneNumber, setPhoneNumber] = useState<string>('');
 const [serviceType, setServiceType] = useState<string>('');
+const [hdfu, setHdfu] = useState<string>('');
 const [mapCenter, setMapCenter] = useState({ lat: 32.7266, lng: 74.8570 });
 const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 const { toast } = useToast();
@@ -62,6 +63,7 @@ const handleSubmit = async () => {
         Location: location,
         Phone: phoneNumber,
         ServiceType: serviceType,
+        hdfu: hdfu,
       });
 
     if (error) {
@@ -76,6 +78,7 @@ const handleSubmit = async () => {
     setLocation('');
     setPhoneNumber('');
     setServiceType('');
+    setHdfu('');
   } catch (error: any) {
     console.error('Error submitting form:', error);
     toast({
@@ -192,6 +195,23 @@ return(
             </Select>
           </div>
 
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-sky-900">How did you find Gobuild?</label>
+            <Select onValueChange={setHdfu} value={hdfu}>
+              <SelectTrigger className="bg-white">
+                <SelectValue placeholder="Select" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="social media">Social Media</SelectItem>
+                <SelectItem value="ads">Ads and Billboards</SelectItem>
+                <SelectItem value="newspaper">Newspaper</SelectItem>
+                <SelectItem value="pamphlets">Pamphlets</SelectItem>
+                <SelectItem value="friends">Friends</SelectItem>
+                <SelectItem value="others">Others</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
           <Button 
             className="w-full animate-pulse-shadow text-white font-semibold text-lg"
             onClick={handleSubmit}
@@ -202,7 +222,7 @@ return(
       </div>
 
       {/* MAP */}
-      <div className="bg-white rounded-2xl shadow-2xl overflow-hidden h-[545px]">
+      <div className="bg-white rounded-2xl shadow-2xl overflow-hidden h-[625px]">
         <UserLocationMap center={mapCenter} />
       </div>
     </div>
