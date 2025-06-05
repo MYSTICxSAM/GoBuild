@@ -26,6 +26,7 @@ const handleLocationChange = (value: string) => {
   setLocation(value);
 
   const locationCoords: { [key: string]: { lat: number; lng: number } } = {
+    katra: { lat: 32.9917, lng: 74.9319 },
     sikandarpur: { lat: 26.042059, lng: 84.041435 },
     ayanagar: { lat: 28.4706, lng: 77.1264 },
     jaanipur: { lat: 32.7496, lng: 74.8373 },
@@ -137,6 +138,7 @@ return(
                 <SelectValue placeholder="Select Location" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="katra">Katra, Jammu</SelectItem>
                 <SelectItem value="sikandarpur">Sikandarpur, Delhi</SelectItem>
                 <SelectItem value="ayanagar">Aya Nagar, Delhi</SelectItem>
                 <SelectItem value="jaanipur">Jaanipur, Jammu</SelectItem>
