@@ -21,6 +21,7 @@ const [hdfu, setHdfu] = useState<string>('');
 const [mapCenter, setMapCenter] = useState({ lat: 32.7266, lng: 74.8570 });
 const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 const { toast } = useToast();
+const [dateOpen, setDateOpen] = useState(false);
 
 const handleLocationChange = (value: string) => {
   setLocation(value);
@@ -104,10 +105,11 @@ return(
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="text-sm font-medium text-sky-900">Start Date</label>
-              <Popover>
+              <Popover open={dateOpen} onOpenChange={setDateOpen} >
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
+                    onClick={() => setDateOpen(!dateOpen)}
                     className={cn(
                       "w-full justify-start text-left font-normal bg-white",
                       !startDate && "text-muted-foreground"
@@ -121,7 +123,10 @@ return(
                   <Calendar
                     mode="single"
                     selected={startDate}
-                    onSelect={setStartDate}
+                    onSelect={(date)=>{
+                      setStartDate(date);
+                      setDateOpen(false);
+                    }}
                     initialFocus
                     className="p-3 pointer-events-auto"
                     disabled={(date) => date <= new Date(new Date().setHours(0, 0, 0, 0))}
