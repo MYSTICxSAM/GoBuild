@@ -49,7 +49,7 @@ const ServiceCategories: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 place-items-center">
           <ServiceCard
             icon={
               <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -92,8 +92,8 @@ const ServiceCategories: React.FC = () => {
                 <path d="M12 15v.01"></path>
               </svg>
             }
-            title={t('professionals.helper')}
-            description={t('services.helperDescription')}
+            title={t('professionals.electrician')}
+            description={t('services.electricianDescription')}
             professionals={36}
             delay={300}
           />
@@ -110,7 +110,7 @@ const ServiceCategories: React.FC = () => {
               </svg>
             }
             title="Tiles and Floor work"
-            description="All types of Tiles & floor work and repairs."
+            description="All types of Tiles work and flooring work and solutions from expert workers "
             professionals={25}
             delay={400}
           />
@@ -152,7 +152,7 @@ const ServiceCategories: React.FC = () => {
               </svg>
             }
             title="Labour"
-            description="Labour services of all kinds."
+            description="Labour and helper service of all kinds with current availability"
             professionals={120}
             delay={30}
           />

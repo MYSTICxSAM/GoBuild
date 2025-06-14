@@ -45,12 +45,12 @@
     "professionalsAvailable": "Available Professionals",
     "carpenterDescription": "Expert carpentry services for all your wooden furniture, fixtures, and structural needs.",
     "masonDescription": "Expert masonry services for construction, repairs, and decorative stone work.",
-    "helperDescription": "Complete plumbing solutions for installation, repairs, and water system maintenance."
+    "plumberDescription": "Complete plumbing solutions for installation, repairs, and water system maintenance.",
+    "electricianDescription":"Expert electrician service for all kinds of electrical work and maintenance"
   },
   "professionals": {
     "carpenter": "Carpenter",
     "mason": "Mason",
-    "helper": "Helper",
     "painter": "Painter",
     "welder": "Welder",
     "tiles": "Tiles and Floor work",
@@ -160,7 +160,7 @@
       }
     },
     "stats": {
-      "serviceProviders": "Service Providers",
+      "serviceProviders": "Registered Workers",
       "happyClients": "Happy Clients",
       "serviceCategories": "Service Categories",
       "averageRating": "Average Rating"
