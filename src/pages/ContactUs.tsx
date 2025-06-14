@@ -33,13 +33,13 @@ const ContactUs: React.FC = () => {
               <div className="w-full lg:w-1/2 lg:pr-12">
                 <div className="mb-10">
                   <h5 className="text-primary font-medium mb-2">{t('contactUs.title')}</h5>
-                  <h2 className="text-4xl md:text-5xl font-bold mb-4">{t('contactUs.subtitle')}</h2>
+                  {/* <h2 className="text-4xl md:text-5xl font-bold mb-4">{t('contactUs.subtitle')}</h2>
                   <p className="text-muted-foreground">
-                    {t('contactUs.description')}
-                  </p>
+                    {t('contactUs.description')} */}
+                  {/* </p> */}
                 </div>
                 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                {/* <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
                     <Label htmlFor="fullName">{t('contactUs.form.fullName')}</Label>
                     <Input id="fullName" placeholder={t('contactUs.form.fullNamePlaceholder')} required />
@@ -69,7 +69,14 @@ const ContactUs: React.FC = () => {
                     <Send className="mr-2 h-4 w-4" />
                     {t('contactUs.form.send')}
                   </Button>
-                </form>
+                </form> */}
+                <div className="rounded-lg overflow-hidden shadow-xl">
+                <img 
+                  src="/contact.jpg" 
+                  alt="Contact" 
+                  className="w-full h-[400px] object-cover"
+                />
+                </div>
               </div>
               
               {/* Right Column - Illustration and Contact Info */}

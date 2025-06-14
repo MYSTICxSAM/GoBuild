@@ -198,6 +198,8 @@ return(
                 <SelectItem value="labour">Labour</SelectItem>
                 <SelectItem value="steelcutter">Steel Cutter</SelectItem>
                 <SelectItem value="tiles">Tiles and Floor Work</SelectItem>
+                <SelectItem value="plumber">Plumber</SelectItem>
+                <SelectItem value="electrician">Electrician</SelectItem>
               </SelectContent>
             </Select>
           </div>

@@ -16,4 +16,5 @@ export function useIsMobile() {
   }, [])
 
   return !!isMobile
+  // !! to avoid NAN value 
 }

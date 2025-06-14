@@ -170,7 +170,7 @@ const AboutUs: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <p className="text-4xl font-bold mb-2">40+</p>
+              <p className="text-4xl font-bold mb-2">1000+</p>
               <p className="text-lg">{t('aboutUs.stats.serviceProviders')}</p>
             </div>
             <div className="text-center">
@@ -178,7 +178,7 @@ const AboutUs: React.FC = () => {
               <p className="text-lg">{t('aboutUs.stats.happyClients')}</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl font-bold mb-2">8+</p>
+              <p className="text-4xl font-bold mb-2">9+</p>
               <p className="text-lg">{t('aboutUs.stats.serviceCategories')}</p>
             </div>
             <div className="text-center">
