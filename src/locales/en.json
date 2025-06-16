@@ -56,7 +56,8 @@
     "tiles": "Tiles and Floor work",
     "steelCutter": "Steel Cutter",
     "electrician": "Electrician",
-    "labour": "labour"
+    "labour": "labour",
+    "helper": "Helper"
   },
   "footer": {
     "tagline": "Connect with skilled professionals for all your service needs.",
