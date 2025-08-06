@@ -164,14 +164,14 @@ const Navbar: React.FC = () => {
                   <>
                     <Button 
                       variant="outline" 
-                      className="w-full" 
+                      className="w-full animate-pulse-shadow" 
                       asChild
                       onClick={() => setIsOpen(false)}
                     >
                       <Link to="/auth/login">{t('common.signIn')}</Link>
                     </Button>
                     <Button 
-                      className="w-full"
+                      className="w-full animate-pulse-shadow"
                       asChild
                       onClick={() => setIsOpen(false)}
                     >

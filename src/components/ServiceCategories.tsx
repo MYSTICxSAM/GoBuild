@@ -173,7 +173,7 @@ const ServiceCategories: React.FC = () => {
         
         <div className="text-center mt-12">
             <Link to="/services">
-              <Button size="lg">
+              <Button size="lg" className='animate-pulse-shadow'>
               Browse All Services
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
