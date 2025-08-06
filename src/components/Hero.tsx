@@ -40,11 +40,11 @@ const Hero: React.FC = () => {
             <div className="relative max-w-md">
               <div className="flex w-full items-center space-x-2">
                 <div className="relative flex-grow">
-                  <Search className="absolute left-2.5 top-2.5 h-5 w-5 text-muted-foreground" />
+                  <Search className="absolute left-2.5 top-3.5 h-5 w-5 text-muted-foreground" />
                   <Input 
                     type="search" 
                     placeholder={t('hero.searchPlaceholder')}
-                    className="pl-10 h-12"
+                    className="pl-10 h-12 placeholder:text-xs placeholder:sm:text-sm placeholder:md:text-base placeholder:lg:text-lg placeholder:text-muted-foreground/70"
                   />
                 </div>
                 <Button size="lg" className="animate-pulse-shadow" onClick={handleSearchClick}>

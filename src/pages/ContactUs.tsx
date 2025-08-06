@@ -110,9 +110,9 @@ const ContactUs: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-lg">{t('contactUs.contactInfo.phone')}</h3>
-                      <p className="text-muted-foreground">+91 889931011</p>
+                      <p className="text-muted-foreground">+91 8899310111</p>
                       <p className="text-muted-foreground">+91 7051514790</p>
-                      <p className="text-muted-foreground">+91 9622981239</p>
+                      <p className="text-muted-foreground">+91 9596133638</p>
                     </div>
                   </div>
                   
