@@ -8,6 +8,7 @@ import { toast } from '@/hooks/use-toast';
 interface AuthContextType {
   user: User | null;
   session: Session | null;
+  userRole: string | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, fullName: string) => Promise<void>;
@@ -19,15 +20,46 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
+  const [userRole, setUserRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  // Function to fetch user role from database
+  const fetchUserRole = async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('profiles') // Assuming your table is named 'profiles'
+        .select('user_role')
+        .eq('id', userId)
+        .single();
+      
+      if (error && error.code !== 'PGRST116') { // PGRST116 is "not found" error
+        console.error('Error fetching user role:', error);
+        return null;
+      }
+      
+      return data?.user_role || null;
+    } catch (error) {
+      console.error('Error fetching user role:', error);
+      return null;
+    }
+  };
 
   useEffect(() => {
     // Set up the auth state listener first
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, currentSession) => {
+      async (event, currentSession) => {
         setSession(currentSession);
         setUser(currentSession?.user ?? null);
+        
+        if (currentSession?.user) {
+          // Fetch user role when user is signed in
+          const role = await fetchUserRole(currentSession.user.id);
+          setUserRole(role);
+        } else {
+          // Clear user role when user is signed out
+          setUserRole(null);
+        }
         
         // Handle events
         if (event === 'SIGNED_IN') {
@@ -45,9 +77,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
     
     // Then check for existing session
-    supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
+    supabase.auth.getSession().then(async ({ data: { session: currentSession } }) => {
       setSession(currentSession);
       setUser(currentSession?.user ?? null);
+      
+      if (currentSession?.user) {
+        // Fetch user role for existing session
+        const role = await fetchUserRole(currentSession.user.id);
+        setUserRole(role);
+      }
+      
       setLoading(false);
     });
 
@@ -116,6 +155,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const value = {
     user,
     session,
+    userRole,
     loading,
     signIn,
     signUp,
