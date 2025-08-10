@@ -46,6 +46,8 @@ const handleLocationChange = (value: string) => {
   setMapCenter(locationCoords[value] || { lat: 32.7266, lng: 74.8570 });
 };
 
+const [isSubmitting, setIsSubmitting] = useState(false);
+
 const handleSubmit = async () => {
   if (!startDate || !location || !phoneNumber || !serviceType) {
     toast({
@@ -55,6 +57,11 @@ const handleSubmit = async () => {
     });
     return;
   }
+
+  // Prevent multiple submissions
+  if (isSubmitting) return;
+
+  setIsSubmitting(true);
 
   try {
     const { error } = await supabase
@@ -88,6 +95,8 @@ const handleSubmit = async () => {
       description: error.message,
       variant: "destructive",
     });
+  } finally {
+    setIsSubmitting(false);
   }
 };
 
@@ -224,8 +233,9 @@ return(
           <Button 
             className="w-full animate-pulse-shadow text-white font-semibold text-lg"
             onClick={handleSubmit}
+            disabled={isSubmitting}
           >
-            Book Now
+            {isSubmitting ? "Submitting..." : "Book Now"}
           </Button>
         </div>
       </div>
