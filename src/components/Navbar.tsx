@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -71,6 +71,7 @@ const Navbar: React.FC = () => {
             </div>
             <Link to="/" className="text-foreground hover:text-primary transition-colors">{t('common.home')}</Link>
             <Link to="/services" className="text-foreground hover:text-primary transition-colors">{t('common.services')}</Link>
+            <Link to="/blog" className="text-foreground hover:text-primary transition-colors">{t('common.blog')}</Link>
             <Link to="/about" className="text-foreground hover:text-primary transition-colors">{t('common.about')}</Link>
             <Link to="/contact" className="text-foreground hover:text-primary transition-colors">{t('common.contact')}</Link>
           </div>
@@ -132,6 +133,12 @@ const Navbar: React.FC = () => {
               >
                 {t('common.services')}
               </Link>
+              <Link to="/blog"
+                className="block px-3 py-2 rounded-md text-base font-medium text-foreground     hover:bg-muted hover:text-primary transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                {t('common.blog')}
+              </Link>
               <Link 
                 to="/about" 
                 className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors"
@@ -153,7 +160,6 @@ const Navbar: React.FC = () => {
                     variant="outline" 
                     className="w-full"
                     onClick={() => {
-                      const { signOut } = useAuth();
                       signOut();
                       setIsOpen(false);
                     }}
