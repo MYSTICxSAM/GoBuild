@@ -36,16 +36,16 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, pro
   );
 };
 
-const ServiceCategories: React.FC = () => {
+const WorkerCategories: React.FC = () => {
   const { t } = useTranslation();
   
   return (
     <section id="services" className="py-20 bg-muted/50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">{t('services.expertServices')}</h2>
+          <h2 className="text-3xl font-bold mb-4">{t('services.workerServices')}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            {t('services.expertServicesSubtitle')}
+            {t('services.workerServicesSubtitle')}
           </p>
         </div>
 
@@ -184,4 +184,4 @@ const ServiceCategories: React.FC = () => {
   );
 };
 
-export default ServiceCategories;
+export default WorkerCategories;
