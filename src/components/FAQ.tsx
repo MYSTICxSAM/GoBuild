@@ -14,7 +14,7 @@ const FAQ: React.FC = () => {
   const faqData: FAQItem[] = [
     {
       question: "What is GoBuild?",
-      answer: "GoBuild is a platform that connects skilled workers and profesionals like Architects, Interior Designers and Material Providers with customers who need various construction services. We make it easy to find trusted workers for your projects."
+      answer: "GoBuild is a platform that connects skilled workers and professionals like Architects, Interior Designers and Material Providers with customers who need various construction services. We make it easy to find trusted workers for your projects."
     },
     {
       question: "How do I find the right professional for my project?",
