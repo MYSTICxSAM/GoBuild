@@ -68,7 +68,7 @@
     "company": "Company",
     "howItWorks": "How It Works",
     "contact": "Contact",
-    "address": "SMVDU, Kakrayal Katra Reasi, Jammu & Kashmir"
+    "address": "Front of Chaddha Classes,Rehari Colony,Jammu, Jammu & Kashmir"
   },
   "howItWorks": {
     "title": "How GoBuild Works",
@@ -194,5 +194,38 @@
       "title": "Message sent!",
       "description": "We'll get back to you as soon as possible."
     }
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "subtitle": "Can't find the answer you are looking for?",
+    "contactUs": "Reach out to us",
+    "questions": {
+      "whatIsGoBuild": {
+        "question": "What is GoBuild?",
+        "answer": "GoBuild is a platform that connects skilled workers and professionals like Architects, Interior Designers and Material Providers with customers who need various construction services. We make it easy to find trusted workers for your projects."
+      },
+      "howToFindProfessional": {
+        "question": "How do I find the right professional for my project?",
+        "answer": "Simply browse our categories, view professional profiles, read reviews, and contact the ones that best match your needs. You can also post your project and let professionals come to you."
+      },
+      "verifiedProfessionals": {
+        "question": "Are all professionals verified?",
+        "answer": "Yes, all professionals on our platform go through a verification process including identity verification, skill assessment, and background checks to ensure quality and safety."
+      },
+      "howPaymentsWork": {
+        "question": "How do payments work?",
+        "answer": "We offer secure payment processing. GoBuild charge 1% of fees as platform fees from the service providers. Payments are released to professionals upon project completion."
+      },
+      "unsatisfiedWork": {
+        "question": "What if I'm not satisfied with the work?",
+        "answer": "We have a dispute resolution system in place. If you're not satisfied, you can raise a complaint and our team will work to resolve the issue. We also offer protection policies for certain types of work."
+      },
+      "becomeProfessional": {
+        "question": "Can I become a professional on GoBuild?",
+        "answer": "Absolutely! If you're a skilled worker or contractor, you can apply to join our platform. You'll need to complete our verification process and provide proof of your skills and experience."
+      }
+    },
+    "stillHaveQuestions": "Still have questions? We're here to help!",
+    "contactSupport": "Contact Support"
   }
 } 
