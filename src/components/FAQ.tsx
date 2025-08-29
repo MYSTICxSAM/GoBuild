@@ -55,13 +55,13 @@ const FAQ: React.FC = () => {
             <div className="lg:col-span-5">
               <div className="flex flex-col justify-center h-full">
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6">
-                  Frequently asked questions
+                  {t('faq.title')}
                 </h2>
                 <p className="text-lg text-gray-600 mb-6">
-                  Can't find the answer you are looking for?
+                  {t('faq.subtitle')}
                 </p>
                 <a href="/contact" className="text-primary hover:text-primary/80 font-semibold">
-                  Reach out to us
+                  {t('faq.contactUs')}
                 </a>
               </div>
             </div>

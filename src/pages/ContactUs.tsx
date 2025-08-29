@@ -32,7 +32,7 @@ const ContactUs: React.FC = () => {
               {/* Left Column - Contact Form */}
               <div className="w-full lg:w-1/2 lg:pr-12">
                 <div className="mb-10">
-                  <h5 className="text-primary font-medium mb-2">{t('contactUs.title')}</h5>
+                  <h5 className="text-primary font-medium mb-2 text-6xl">{t('contactUs.title')}</h5>
                   {/* <h2 className="text-4xl md:text-5xl font-bold mb-4">{t('contactUs.subtitle')}</h2>
                   <p className="text-muted-foreground">
                     {t('contactUs.description')} */}
@@ -97,7 +97,7 @@ const ContactUs: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-lg">{t('contactUs.contactInfo.email')}</h3>
-                      <p className="text-muted-foreground">support@gobuild.in</p>
+                      {/* <p className="text-muted-foreground">support@gobuild.in</p> */}
                       <p className="text-muted-foreground">info@gobuild.in</p>
                       <p className="text-muted-foreground">admin@gobuild.in</p>
                       
@@ -123,7 +123,7 @@ const ContactUs: React.FC = () => {
                     <div>
                       <h3 className="font-medium text-lg">{t('contactUs.contactInfo.address')}</h3>
                       <p className="text-muted-foreground">
-                        SMVDU, Kakrayal Katra Reasi,<br></br>
+                        Front of Chaddha Classes,Rehari Colony,<br></br>
                         Jammu & Kashmir
                       </p>
                     </div>
