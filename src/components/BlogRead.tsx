@@ -233,7 +233,11 @@ export const BlogRead: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-0">
-              <img src={blog.image_url} alt="Blog Image" />
+              {blog.image_url && blog.image_url !== "" ? (
+                <img src={blog.image_url} alt="Blog Image" className="w-full h-48 object-cover rounded-lg mb-4" />
+              ) : (
+                <img src="/blog201.jpeg" alt="Blog Image" className="w-full h-48 object-cover rounded-lg mb-4" />
+              )}
               <p className="text-gray-600 mb-6 leading-relaxed">
                 {truncateContent(blog.content)}
               </p>
