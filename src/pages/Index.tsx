@@ -52,9 +52,9 @@ const Index: React.FC = () => {
       <WorkerCategories />
       {/* <ServiceCategories /> */}
       <HowItWorks />
+      <Testimonials />
       <FAQ />
       {/* <FeaturedProfessionals /> */}
-      {/* <Testimonials /> */}
       <Footer />
     </div>
   );
