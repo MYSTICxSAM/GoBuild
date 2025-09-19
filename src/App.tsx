@@ -15,6 +15,7 @@ import Blogs from "./pages/Blogs"
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import ScrollToTop from "./components/ScrollToTop";
+import Policy from "./pages/Policy";
 
 // Import i18n configuration
 import './i18n';
@@ -36,6 +37,7 @@ const AppRoutes = () => {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
       </Route>
+      <Route path="/policy" element={<Policy/>}/>
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
       <Route path="*" element={<NotFound />} />
     </Routes>
