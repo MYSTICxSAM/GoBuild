@@ -15,6 +15,8 @@ import Blogs from "./pages/Blogs"
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import ScrollToTop from "./components/ScrollToTop";
+import Profile from "./pages/Profile";
+import ForgotPassword from "./pages/auth/Forgot";
 
 // Import i18n configuration
 import './i18n';
@@ -32,9 +34,12 @@ const AppRoutes = () => {
       <Route path="/blog" element={<Blogs user_role={userRole} />} />
       <Route path="/about" element={<AboutUs />} />
       <Route path="/contact" element={<ContactUs />} />
+      <Route path="/profile" element={<Profile />} />
       <Route path="/auth" element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="Forgot" element={<ForgotPassword />} />
+        
       </Route>
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
       <Route path="*" element={<NotFound />} />
