@@ -117,7 +117,7 @@ const Footer: React.FC = () => {
             &copy; {new Date().getFullYear()} GoBuild. All rights reserved.
           </p>
           <div className="flex space-x-6">
-            <Link to="/" className="text-gray-400 hover:text-white text-sm">Privacy Policy</Link>
+            <Link to="/policy" className="text-gray-400 hover:text-white text-sm">Privacy Policy</Link>
             <Link to="/" className="text-gray-400 hover:text-white text-sm">Terms of Service</Link>
             <Link to="/" className="text-gray-400 hover:text-white text-sm">Cookies</Link>
           </div>

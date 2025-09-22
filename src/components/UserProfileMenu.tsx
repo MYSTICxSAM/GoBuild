@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useNavigate } from 'react-router-dom';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 const UserProfileMenu = () => {
   const { user, signOut } = useAuth();
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
   if (!user) {
     return null;
   }
@@ -42,7 +43,7 @@ const UserProfileMenu = () => {
           {user.user_metadata.full_name || user.email}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer">
+        <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/profile')}>
           <User className="mr-2 h-4 w-4" />
           <span>{t('common.profile')}</span>
         </DropdownMenuItem>
