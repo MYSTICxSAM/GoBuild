@@ -246,4 +246,33 @@
   .animate-pulse-line-reverse {
     animation: pulseBackward 3s ease-in-out infinite;
   }
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideOutToRight {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  .animate-slideInFromRight {
+    animation: slideInFromRight 0.3s ease-out forwards;
+  }
+
+  .animate-slideOutToRight {
+    animation: slideOutToRight 0.3s ease-in forwards;
+  }
 }
