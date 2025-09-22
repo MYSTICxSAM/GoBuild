@@ -48,11 +48,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     // Set up the auth state listener first
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, currentSession) => {
+      (event, currentSession) => {
         setSession(currentSession);
         setUser(currentSession?.user ?? null);
         
-        if (currentSession?.user) {
+        setTimeout(async()=>{
+          if (currentSession?.user) {
           // Fetch user role when user is signed in
           const role = await fetchUserRole(currentSession.user.id);
           setUserRole(role);
@@ -60,7 +61,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           // Clear user role when user is signed out
           setUserRole(null);
         }
-        
         // Handle events
         if (event === 'SIGNED_IN') {
           toast({
@@ -73,6 +73,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             description: "You have been signed out successfully.",
           });
         }
+        },0);
       }
     );
     
