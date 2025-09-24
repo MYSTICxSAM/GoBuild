@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import Navbar from '@/components/Navbar';
+import ReviewForm from '@/components/ReviewForm'; // ✅ Imported ReviewForm
 
 const accentColor = 'text-blue-600';
 
@@ -15,6 +16,8 @@ const Profile: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [deleting, setDeleting] = useState(false);
+
+  const [showReviewPopup, setShowReviewPopup] = useState(false);
 
   const navigate = useNavigate();
 
@@ -72,12 +75,20 @@ const Profile: React.FC = () => {
               Manage your <span className={accentColor}>service requests</span> and track their progress.
             </p>
           </div>
-          <button
-            className="bg-blue-600 text-white px-4 py-3 rounded-lg font-bold flex items-center justify-center gap-3 hover:bg-blue-700 transition text-base sm:text-lg shadow-lg min-w-[180px]"
-            onClick={() => navigate('/services')}
-          >
-            <span className="text-3xl font-extrabold leading-none">+</span> New Service Request
-          </button>
+          <div className="flex gap-4">
+            <button
+              className="bg-blue-600 text-white px-4 py-3 rounded-lg font-bold flex items-center justify-center gap-3 hover:bg-blue-700 transition text-base sm:text-lg shadow-lg min-w-[180px]"
+              onClick={() => navigate('/services')}
+            >
+              <span className="text-3xl font-extrabold leading-none">+</span> New Service Request
+            </button>
+            <button
+              onClick={() => setShowReviewPopup(true)}
+              className="bg-green-600 text-white px-4 py-3 rounded-lg font-bold hover:bg-green-700 transition text-base sm:text-lg shadow-lg min-w-[180px]"
+            >
+              Leave a Review
+            </button>
+          </div>
         </div>
 
         {/* Tabs */}
@@ -214,6 +225,9 @@ const Profile: React.FC = () => {
             </button>
           </div>
         )}
+
+        {/* Review Popup (from separate component) */}
+        {showReviewPopup && <ReviewForm onClose={() => setShowReviewPopup(false)} />}
       </div>
     </div>
   );
