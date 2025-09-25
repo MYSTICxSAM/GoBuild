@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.3 (519615d)"
@@ -20,6 +20,7 @@ export type Database = {
           content: string
           created_at: string | null
           id: string
+          image_url: string | null
           title: string
         }
         Insert: {
@@ -27,6 +28,7 @@ export type Database = {
           content: string
           created_at?: string | null
           id?: string
+          image_url?: string | null
           title: string
         }
         Update: {
@@ -34,6 +36,7 @@ export type Database = {
           content?: string
           created_at?: string | null
           id?: string
+          image_url?: string | null
           title?: string
         }
         Relationships: [
@@ -42,6 +45,93 @@ export type Database = {
             columns: ["author_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      Contractors: {
+        Row: {
+          created_at: string
+          Description: string | null
+          id: number
+          Location: string | null
+          Name: string | null
+          Payments: string | null
+          "Phone No": number | null
+          "Project Details": string | null
+        }
+        Insert: {
+          created_at?: string
+          Description?: string | null
+          id?: number
+          Location?: string | null
+          Name?: string | null
+          Payments?: string | null
+          "Phone No"?: number | null
+          "Project Details"?: string | null
+        }
+        Update: {
+          created_at?: string
+          Description?: string | null
+          id?: number
+          Location?: string | null
+          Name?: string | null
+          Payments?: string | null
+          "Phone No"?: number | null
+          "Project Details"?: string | null
+        }
+        Relationships: []
+      }
+      Financial: {
+        Row: {
+          created_at: string
+          Description: string | null
+          id: number
+          Income: number | null
+          Name: string | null
+          Profit: number | null
+          TranIN: string[] | null
+          TranOut: string[] | null
+          UserRequestID: number | null
+          WorkersID: number | null
+        }
+        Insert: {
+          created_at?: string
+          Description?: string | null
+          id: number
+          Income?: number | null
+          Name?: string | null
+          Profit?: number | null
+          TranIN?: string[] | null
+          TranOut?: string[] | null
+          UserRequestID?: number | null
+          WorkersID?: number | null
+        }
+        Update: {
+          created_at?: string
+          Description?: string | null
+          id?: number
+          Income?: number | null
+          Name?: string | null
+          Profit?: number | null
+          TranIN?: string[] | null
+          TranOut?: string[] | null
+          UserRequestID?: number | null
+          WorkersID?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Financial_UserRequestID_fkey"
+            columns: ["UserRequestID"]
+            isOneToOne: false
+            referencedRelation: "User Request"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Financial_WorkersID_fkey"
+            columns: ["WorkersID"]
+            isOneToOne: false
+            referencedRelation: "GoBuild"
             referencedColumns: ["id"]
           },
         ]
@@ -57,6 +147,7 @@ export type Database = {
           MobileNo: string
           Name: string | null
           Skill: string | null
+          WorkerCode: string | null
         }
         Insert: {
           Age?: number | null
@@ -68,6 +159,7 @@ export type Database = {
           MobileNo: string
           Name?: string | null
           Skill?: string | null
+          WorkerCode?: string | null
         }
         Update: {
           Age?: number | null
@@ -79,12 +171,14 @@ export type Database = {
           MobileNo?: string
           Name?: string | null
           Skill?: string | null
+          WorkerCode?: string | null
         }
         Relationships: []
       }
       "Material Suppliers": {
         Row: {
           created_at: string
+          History: string | null
           id: number
           Location: string | null
           Name: string | null
@@ -93,6 +187,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          History?: string | null
           id?: number
           Location?: string | null
           Name?: string | null
@@ -101,11 +196,42 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          History?: string | null
           id?: number
           Location?: string | null
           Name?: string | null
           "Phone Number"?: number | null
           Work?: string | null
+        }
+        Relationships: []
+      }
+      "Monthly Workers": {
+        Row: {
+          Attendence: number | null
+          created_at: string
+          id: number
+          Location: string | null
+          Name: string | null
+          Payment: number | null
+          PhoneNo: number | null
+        }
+        Insert: {
+          Attendence?: number | null
+          created_at?: string
+          id?: number
+          Location?: string | null
+          Name?: string | null
+          Payment?: number | null
+          PhoneNo?: number | null
+        }
+        Update: {
+          Attendence?: number | null
+          created_at?: string
+          id?: number
+          Location?: string | null
+          Name?: string | null
+          Payment?: number | null
+          PhoneNo?: number | null
         }
         Relationships: []
       }
@@ -115,6 +241,7 @@ export type Database = {
           created_at: string
           full_name: string | null
           id: string
+          PhoneNo: number | null
           updated_at: string
           user_role: string
         }
@@ -123,6 +250,7 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id: string
+          PhoneNo?: number | null
           updated_at?: string
           user_role?: string
         }
@@ -131,8 +259,33 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id?: string
+          PhoneNo?: number | null
           updated_at?: string
           user_role?: string
+        }
+        Relationships: []
+      }
+      Review: {
+        Row: {
+          created_at: string
+          "Customer Name": string
+          "Customer Review": string | null
+          id: number
+          Rating: number
+        }
+        Insert: {
+          created_at?: string
+          "Customer Name": string
+          "Customer Review"?: string | null
+          id?: number
+          Rating: number
+        }
+        Update: {
+          created_at?: string
+          "Customer Name"?: string
+          "Customer Review"?: string | null
+          id?: number
+          Rating?: number
         }
         Relationships: []
       }
