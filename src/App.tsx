@@ -17,7 +17,13 @@ import ContactUs from "./pages/ContactUs";
 import ScrollToTop from "./components/ScrollToTop";
 import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/auth/Forgot";
-
+import Workers from "./pages/categories/Workers";
+import Suppliers from "./pages/categories/Suppliers";
+import HouseOwner from "./pages/categories/HouseOwner";
+import Developers from "./pages/categories/Developers";
+import Architects from "./pages/categories/Architects";
+import Contractors from "./pages/categories/Contractors";
+import CategoriesLayout from "./pages/categories/CategoriesLayout";
 // Import i18n configuration
 import './i18n';
 
@@ -35,6 +41,14 @@ const AppRoutes = () => {
       <Route path="/about" element={<AboutUs />} />
       <Route path="/contact" element={<ContactUs />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/categories" element={<CategoriesLayout />}>
+        <Route path="workers" element={<Workers />} />   
+        <Route path="suppliers" element={<Suppliers />} />
+        <Route path="houseowners" element={<HouseOwner />} />
+        <Route path="developers" element={<Developers />} />
+        <Route path="architects" element={<Architects />} />
+        <Route path="contractors" element={<Contractors />} />
+      </Route>
       <Route path="/auth" element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
