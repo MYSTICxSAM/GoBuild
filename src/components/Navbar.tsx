@@ -160,17 +160,17 @@ const Navbar: React.FC = () => {
 
                 {/* Profile Button added above sign out */}
                 {user && (
-                   <Button 
-            variant="outline" 
-            className="w-full flex items-center justify-center space-x-2"
-            onClick={() => {
-              setIsOpen(false);
-              navigate('/profile'); // Navigate to profile route using react-router-dom
-            }}
-          >
-            <User className="h-5 w-5" />
-            <span>{t('common.profile')}</span>
-          </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full flex items-center justify-center space-x-2"
+                    onClick={() => {
+                      setIsOpen(false);
+                      navigate('/profile'); // Navigate to profile route using react-router-dom
+                    }}
+                  >
+                    <User className="h-5 w-5" />
+                    <span>{t('common.profile')}</span>
+                  </Button>
                 )}
 
                 {user ? (
