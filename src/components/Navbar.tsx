@@ -130,6 +130,13 @@ const Navbar: React.FC = () => {
                 />
               </div>
               <Link 
+                to="/" 
+                className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                {"Home"}
+              </Link>
+              <Link 
                 to="/services" 
                 className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors"
                 onClick={() => setIsOpen(false)}
@@ -174,16 +181,7 @@ const Navbar: React.FC = () => {
                 )}
 
                 {user ? (
-                  <Button 
-                    variant="outline" 
-                    className="w-full"
-                    onClick={() => {
-                      signOut();
-                      setIsOpen(false);
-                    }}
-                  >
-                    {t('common.signOut')}
-                  </Button>
+                  <UserProfileMenu />
                 ) : (
                   <>
                     <Button 
