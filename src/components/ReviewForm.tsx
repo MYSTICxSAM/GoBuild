@@ -8,7 +8,7 @@ interface ReviewFormProps {
 const ReviewForm: React.FC<ReviewFormProps> = ({ onClose }) => {
   const [reviewName, setReviewName] = useState('');
   const [reviewText, setReviewText] = useState('');
-  const [reviewStars, setReviewStars] = useState(5);
+  const [reviewStars, setReviewStars] = useState(0);
 
   const handleSubmitReview = async () => {
     if (!reviewName || !reviewText) {
