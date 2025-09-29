@@ -7,12 +7,15 @@ import { useAuth } from '@/contexts/AuthContext';
 import UserProfileMenu from './UserProfileMenu';
 import LanguageSelector from './LanguageSelector';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { user, signOut } = useAuth();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -161,7 +164,22 @@ const Navbar: React.FC = () => {
                 {t('common.contact')}
               </Link>
               <div className="pt-2 space-y-2">
-                <LanguageSelector />
+
+                {/* Profile Button added above sign out */}
+                {user && (
+                  <Button 
+                    variant="outline" 
+                    className="w-full flex items-center justify-center space-x-2"
+                    onClick={() => {
+                      setIsOpen(false);
+                      navigate('/profile'); // Navigate to profile route using react-router-dom
+                    }}
+                  >
+                    <User className="h-5 w-5" />
+                    <span>{t('common.profile')}</span>
+                  </Button>
+                )}
+
                 {user ? (
                   <UserProfileMenu />
                 ) : (
