@@ -2,8 +2,38 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { Description } from '@radix-ui/react-toast';
+import { sub } from 'date-fns';
 
 const accentColor = 'text-purple-600';
+
+// Gallery data organized by groups
+const gallerySections = [
+  {
+    title: 'Aviral Group',
+    description: 'Leading architectural firm known for innovative designs and sustainable solutions',
+    images: [
+      '../../../public/architects/Aviral_Design_Studio/image01.png',
+      '../../../public/architects/Aviral_Design_Studio/image02.png',
+      '../../../public/architects/Aviral_Design_Studio/image03.png',
+      '../../../public/architects/Aviral_Design_Studio/image04.png',
+      '../../../public/architects/Aviral_Design_Studio/image05.png',
+      '../../../public/architects/Aviral_Design_Studio/image06.png',
+    ],
+  },
+  {
+    title: 'Aashiana Architects',
+    subtitle: 'Specialized in Modular kitchen and Bathroom',
+    description: 'Renowned for blending traditional aesthetics with modern functionality in residential projects',
+    images: [
+      'https://images.pexels.com/photos/7587861/pexels-photo-7587861.jpeg',
+      'https://images.pexels.com/photos/27065116/pexels-photo-27065116.jpeg',
+      'https://images.pexels.com/photos/7031580/pexels-photo-7031580.jpeg',
+
+
+    ],
+  }
+];
 
 const Architecture: React.FC = () => {
   const navigate = useNavigate();
@@ -40,6 +70,37 @@ const Architecture: React.FC = () => {
             />
           </div>
         </div>
+      </div>
+
+      {/* Gallery Sections */}
+      <div className="max-w-6xl mx-auto px-4 md:px-0 mt-20">
+        {gallerySections.map((section, secIndex) => (
+          <div key={secIndex} className="mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-2 text-center animate-fade-in">
+              <span className={accentColor}>{section.title}</span>
+            </h2>
+             <p className="text-center text-gray-600 mb-6 text-lg">
+            
+      {section.description}
+    </p>
+     
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {section.images.map((img, index) => (
+                <div
+                  key={index}
+                  className="overflow-hidden rounded-2xl transform transition hover:scale-105 shadow-md hover:shadow-[0_0_25px_rgba(128,0,128,0.5)]"
+                >
+                  <img
+                    src={img}
+                    alt={`${section.title} Project ${index + 1}`}
+                    className="w-full h-60 object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="mt-20">
