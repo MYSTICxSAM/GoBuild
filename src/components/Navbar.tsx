@@ -12,7 +12,9 @@ import { useNavigate } from 'react-router-dom';
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { user, signOut } = useAuth();
+  const [isServicesOpen, setIsServicesOpen] = useState(false); // Desktop dropdown
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false); // Mobile dropdown
+  const { user } = useAuth();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -74,6 +76,34 @@ const Navbar: React.FC = () => {
             </div>
             <Link to="/" className="text-foreground hover:text-primary transition-colors">{t('common.home')}</Link>
             <Link to="/services" className="text-foreground hover:text-primary transition-colors">{t('common.services')}</Link>
+
+            {/* New "All Services" dropdown button */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setIsServicesOpen(true)}
+              onMouseLeave={() => setIsServicesOpen(false)}
+            >
+            <button
+              className="text-foreground hover:text-primary px-1 py-2 rounded-md text-base font-low transition-colors "
+            >
+              {t('common.solutions')}
+            </button>
+              <div
+                className={`absolute top-full left-0 mt-2 w-48 bg-white shadow-lg rounded-md border border-gray-200 z-50
+                  overflow-hidden transition-all duration-300 ease-in-out
+                  ${isServicesOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}
+                onMouseEnter={() => setIsServicesOpen(true)}
+                onMouseLeave={() => setIsServicesOpen(false)}
+              >
+                <Link to="/categories/workers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Worker</Link>
+                {/* <Link to="/categories/houseowners" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Home Owners</Link> */}
+                <Link to="/categories/architects" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Architects/Designers</Link>
+                <Link to="/categories/contractors" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Contractors</Link>
+                <Link to="/categories/developers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Developers</Link>
+                <Link to="/categories/suppliers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Material Suppliers</Link>
+              </div>
+            </div>
+
             <Link to="/blog" className="text-foreground hover:text-primary transition-colors">{t('common.blog')}</Link>
             <Link to="/about" className="text-foreground hover:text-primary transition-colors">{t('common.about')}</Link>
             <Link to="/contact" className="text-foreground hover:text-primary transition-colors">{t('common.contact')}</Link>
@@ -129,40 +159,36 @@ const Navbar: React.FC = () => {
                   }}
                 />
               </div>
-              <Link 
-                to="/" 
-                className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors"
-                onClick={() => setIsOpen(false)}
+
+              <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Home</Link>
+
+              {/* Services main link (redirect only) */}
+              <Link to="/services" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Services</Link>
+
+              {/* New "All Services" mobile button */}
+              <button
+                className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors flex justify-between items-center"
+                onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
               >
-                {"Home"}
-              </Link>
-              <Link 
-                to="/services" 
-                className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                {t('common.services')}
-              </Link>
-              <Link to="/blog"
-                className="block px-3 py-2 rounded-md text-base font-medium text-foreground     hover:bg-muted hover:text-primary transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                {t('common.blog')}
-              </Link>
-              <Link 
-                to="/about" 
-                className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                {t('common.about')}
-              </Link>
-              <Link 
-                to="/contact" 
-                className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                {t('common.contact')}
-              </Link>
+                {t('common.solutions')}
+                <span className={`transform transition-transform duration-200 ${isMobileServicesOpen ? 'rotate-180' : 'rotate-0'}`}>▼</span>
+              </button>
+
+              {isMobileServicesOpen && (
+                <div className="pl-4 mt-2 space-y-1">
+                  <Link to="/categories/workers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Worker</Link>
+                  {/* <Link to="/categories/houseowners" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Home Owners</Link> */}
+                  <Link to="/categories/architects" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Architects/Designers</Link>
+                  <Link to="/categories/contractors" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Contractors</Link>
+                  <Link to="/categories/developers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Developers</Link>
+                  <Link to="/categories/suppliers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Material Suppliers</Link>
+                </div>
+              )}
+
+              <Link to="/blog" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Blog</Link>
+              <Link to="/about" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>About</Link>
+              <Link to="/contact" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Contact</Link>
+
               <div className="pt-2 space-y-2">
 
                 {/* Profile Button added above sign out */}

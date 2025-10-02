@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 function Bmodel() {
   const stakeholders = [
-    { name: 'Workers', position: 'left-top', side: 'left', icon: '👷', color: 'from-orange-400 to-red-500' },
-    { name: 'Home Owners', position: 'left-middle', side: 'left', icon: '🏠', color: 'from-green-400 to-emerald-500' },
-    { name: 'Architects/\nDesigners', position: 'left-bottom', side: 'left', icon: '📐', color: 'from-purple-400 to-violet-500' },
-    { name: 'Contractors', position: 'right-top', side: 'right', icon: '🔨', color: 'from-yellow-400 to-amber-500' },
-    { name: 'Developers', position: 'right-middle', side: 'right', icon: '🏗️', color: 'from-blue-400 to-cyan-500' },
-    { name: 'Material\nSuppliers', position: 'right-bottom', side: 'right', icon: '📦', color: 'from-teal-400 to-green-500' }
+    { name: 'Workers', position: 'left-top', side: 'left', icon: '👷', color: 'from-orange-400 to-red-500',link: '/categories/workers' },
+    { name: 'Home Owners', position: 'left-middle', side: 'left', icon: '🏠', color: 'from-green-400 to-emerald-500',link: '/categories/houseowners' },
+    { name: 'Architects/\nDesigners', position: 'left-bottom', side: 'left', icon: '📐', color: 'from-purple-400 to-violet-500',link: '/categories/architects' },
+    { name: 'Contractors', position: 'right-top', side: 'right', icon: '🔨', color: 'from-yellow-400 to-amber-500',link: '/categories/contractors' },
+    { name: 'Developers', position: 'right-middle', side: 'right', icon: '🏗️', color: 'from-blue-400 to-cyan-500',link: '/categories/developers' },
+    { name: 'Material\nSuppliers', position: 'right-bottom', side: 'right', icon: '📦', color: 'from-teal-400 to-green-500',link: '/categories/suppliers' }
   ];
 
   const getPositionClasses = (position: string) => {
@@ -126,49 +127,41 @@ function Bmodel() {
               </div>
             ))}
 
-            {/* Stakeholder Circles */}
-            {stakeholders.map((stakeholder, index) => (
-              <div key={index} 
-                   className={`absolute ${getPositionClasses(stakeholder.position)} z-30 group cursor-pointer`}>
-                <div className="relative">
-                  {/* Outer glow ring */}
-                  <div className={`absolute inset-0 w-24 h-24 sm:w-36 sm:h-36 lg:w-40 lg:h-40 rounded-full bg-gradient-to-r ${stakeholder.color} opacity-0 group-hover:opacity-40 transition-all duration-700 scale-125 blur-xl -m-1 sm:-m-3 lg:-m-4`}></div>
-                  
-                  {/* Animated border ring */}
-                  <div className={`absolute inset-0 w-22 h-22 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-full bg-gradient-to-r ${stakeholder.color} opacity-15 animate-pulse -m-0.5 sm:-m-2 lg:-m-2`}
-                       style={{ animationDelay: `${index * 0.5}s` }}></div>
-                  
-                  {/* Glass morphism circle */}
-                  <div className="relative w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 bg-white/80 backdrop-blur-md rounded-full shadow-xl border border-gray-200/40 flex flex-col items-center justify-center 
-                                  transform transition-all duration-500 group-hover:scale-110 group-hover:shadow-2xl 
-                                  group-hover:bg-white/90 group-hover:border-gray-300/50 group-hover:-translate-y-2 sm:group-hover:-translate-y-3">
-                    
-                    {/* Icon */}
-                    <div className="text-lg sm:text-2xl lg:text-3xl mb-0.5 sm:mb-1 lg:mb-1 transition-all duration-300 group-hover:scale-125 group-hover:animate-bounce">
-                      {stakeholder.icon}
-                    </div>
-                    
-                    {/* Text */}
-                    <div className="text-center px-0.5 sm:px-2">
-                      <div className="text-xs sm:text-sm lg:text-sm font-bold text-gray-800 leading-tight whitespace-pre-line group-hover:text-gray-900 transition-all duration-300">
-                        {stakeholder.name}
-                      </div>
-                    </div>
-                    
-                    {/* Connection dots */}
-                    <div className={`absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-1.5 h-1.5 sm:w-2.5 sm:h-2.5 lg:w-3 lg:h-3 bg-gradient-to-r ${stakeholder.color} rounded-full animate-ping`}
-                         style={{ animationDelay: `${index * 0.8}s` }}></div>
-                  </div>
+             {/* Stakeholder Circles */}
+      {stakeholders.map((stakeholder, index) => (
+        <Link 
+          key={index} 
+          to={stakeholder.link} 
+          className={`absolute ${getPositionClasses(stakeholder.position)} z-30 group cursor-pointer`}
+        >
+          <div className="relative">
+            {/* Outer glow ring */}
+            <div className={`absolute inset-0 w-24 h-24 sm:w-36 sm:h-36 lg:w-40 lg:h-40 rounded-full bg-gradient-to-r ${stakeholder.color} opacity-0 group-hover:opacity-40 transition-all duration-700 scale-125 blur-xl -m-1 sm:-m-3 lg:-m-4`}></div>
 
-                  {/* Floating animation with trail effect */}
-                  <div className="absolute inset-0 w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full"
-                       style={{ animation: `float 5s ease-in-out infinite ${index * 0.8}s` }}>
-                    <div className={`w-1 h-1 sm:w-2 sm:h-2 lg:w-2 lg:h-2 bg-gradient-to-r ${stakeholder.color} rounded-full absolute top-0 left-1/2 transform -translate-x-1/2 opacity-40 animate-ping`}
-                         style={{ animationDelay: `${index * 0.3}s` }}></div>
-                  </div>
+            {/* Animated border ring */}
+            <div className={`absolute inset-0 w-22 h-22 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-full bg-gradient-to-r ${stakeholder.color} opacity-15 animate-pulse -m-0.5 sm:-m-2 lg:-m-2`}
+              style={{ animationDelay: `${index * 0.5}s` }}></div>
+
+            {/* Glass morphism circle */}
+            <div className="relative w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 bg-white/80 backdrop-blur-md rounded-full shadow-xl border border-gray-200/40 flex flex-col items-center justify-center 
+                            transform transition-all duration-500 group-hover:scale-110 group-hover:shadow-2xl 
+                            group-hover:bg-white/90 group-hover:border-gray-300/50 group-hover:-translate-y-2 sm:group-hover:-translate-y-3">
+
+              {/* Icon */}
+              <div className="text-lg sm:text-2xl lg:text-3xl mb-0.5 sm:mb-1 lg:mb-1 transition-all duration-300 group-hover:scale-125 group-hover:animate-bounce">
+                {stakeholder.icon}
+              </div>
+
+              {/* Text */}
+              <div className="text-center px-0.5 sm:px-2">
+                <div className="text-xs sm:text-sm lg:text-sm font-bold text-gray-800 leading-tight whitespace-pre-line group-hover:text-gray-900 transition-all duration-300">
+                  {stakeholder.name}
                 </div>
               </div>
-            ))}
+            </div>
+          </div>
+        </Link>
+      ))}
 
             {/* Artistic decorative elements */}
             <div className="absolute top-[8%] left-[42%] sm:left-[45%] w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-20">
