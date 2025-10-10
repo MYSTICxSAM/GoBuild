@@ -27,11 +27,14 @@ const Hero: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <div className="w-full lg:w-1/2 space-y-6 animate-fade-in">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-            {t('hero.t1')} <span className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight" 
-              style={{ color: 'hsl(var(--primary))' }}
+              {t('hero.t1')}{" "}
+              <span
+                className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight"
+                style={{ color: 'hsl(var(--primary))' }}
               >
                 {t('hero.title')}
-              </span> {t('hero.t2')}
+              </span>{" "}
+              {t('hero.t2')}
             </h1>
             <p className="text-lg text-muted-foreground max-w-lg">
               {t('hero.subtitle')}
@@ -67,11 +70,16 @@ const Hero: React.FC = () => {
           
           <div className="w-full lg:w-1/2 relative">
             <div className="relative rounded-2xl overflow-hidden shadow-xl animate-fade-in animation-delay-200">
-              <img
-                src="/worker1.jpg"
-                alt="Professional carpenter working" 
-                className="w-full h-[400px] object-cover"
-              />
+              <div className="aspect-w-16 aspect-h-9">
+                   <iframe
+                        className="w-full h-[400px]"
+                        src="https://www.youtube.com/embed/In1KOe8za5g"
+                        title="YouTube video"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+              </div>
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
                 <div className="flex items-start space-x-4">
                   <div className="bg-white p-3 rounded-full">
