@@ -11,15 +11,15 @@ const accentColor = 'text-purple-600';
 // Gallery data organized by groups
 const gallerySections = [
   {
-    title: 'Aviral Group',
+    title: 'Aviral Design Studio Jammu',
     description: 'Leading architectural firm known for innovative designs and sustainable solutions',
     images: [
-      '../../../public/architects/Aviral_Design_Studio/image01.png',
-      '../../../public/architects/Aviral_Design_Studio/image02.png',
-      '../../../public/architects/Aviral_Design_Studio/image03.png',
-      '../../../public/architects/Aviral_Design_Studio/image04.png',
-      '../../../public/architects/Aviral_Design_Studio/image05.png',
-      '../../../public/architects/Aviral_Design_Studio/image06.png',
+      '../../../architects/Aviral_Design_Studio/image01.png',
+      '../../../architects/Aviral_Design_Studio/image02.png',
+      '../../../architects/Aviral_Design_Studio/image03.png',
+      '../../../architects/Aviral_Design_Studio/image04.png',
+      '../../../architects/Aviral_Design_Studio/image05.png',
+      '../../../architects/Aviral_Design_Studio/image06.png',
     ],
   },
   {
