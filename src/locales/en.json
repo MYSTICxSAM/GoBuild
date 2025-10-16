@@ -16,16 +16,16 @@
     "popularServices": "Popular Services:"
   },
   "hero": {
-    "t1":"Find",
-    "title": " Expert Professionals",
-    "t2":" for Any Job",
+    "t1":"Hire",
+    "title": "Skilled Workers",
+    "t2":"in Minutes",
     "subtitle": "Connect with skilled professionals for all your home and office needs - from carpentry to architecture, plumbing to electrical work, all in one place.",
     "searchPlaceholder": "Search services",
     "searchButton": "Search",
     "verifiedExperts": "Verified Experts",
     "backgroundChecked": "Background Checked",
     "happyCustomers": "Happy Customers",
-    "carpentryServices": "Carpentry Services",
+    "Services": "Worker Services",
     "professionalsAvailable": "20+ Skilled Professionals Available Now"
   },
   "services": {
