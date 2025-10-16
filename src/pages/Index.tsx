@@ -12,6 +12,7 @@ import HeroForm from "@/components/HeroForm";
 import FAQ from "../components/FAQ";
 import Bmodel from "@/components/Bmodel";
 import VideoTestimonials from "@/components/VideoTestimonials";
+import Solutions from "@/components/Solutions";
 // import { Banner } from "@/components/Banner";
 
 const Index: React.FC = () => {
@@ -50,6 +51,7 @@ const Index: React.FC = () => {
       {/* <Banner/> */}
       <Bmodel/>
       <HeroForm/>
+      <Solutions/>
       <WorkerCategories />
       {/* <ServiceCategories /> */}
       <HowItWorks />
