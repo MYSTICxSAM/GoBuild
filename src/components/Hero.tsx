@@ -91,7 +91,7 @@ const Hero: React.FC = () => {
                     </svg>
                   </div>
                   <div className="text-white">
-                    <p className="font-semibold text-lg">{t('hero.carpentryServices')}</p>
+                    <p className="font-semibold text-lg">{t('hero.Services')}</p>
                     <p className="text-white/80 text-sm">{t('hero.professionalsAvailable')}</p>
                   </div>
                 </div>
