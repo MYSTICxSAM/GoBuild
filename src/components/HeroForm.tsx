@@ -17,6 +17,7 @@ const [startDate, setStartDate] = useState<Date>();
 const [location, setLocation] = useState<string>('');
 const [phoneNumber, setPhoneNumber] = useState<string>('');
 const [serviceType, setServiceType] = useState<string>('');
+const [referralCode, setReferralCode] = useState<string>('');
 const [hdfu, setHdfu] = useState<string>('');
 const [mapCenter, setMapCenter] = useState({ lat: 32.7266, lng: 74.8570 });
 const [showSuccessDialog, setShowSuccessDialog] = useState(false);
@@ -73,6 +74,7 @@ const handleSubmit = async () => {
         Phone: phoneNumber,
         ServiceType: serviceType,
         hdfu: hdfu,
+        ReferalCode: referralCode,
       });
 
     if (error) {
@@ -88,6 +90,7 @@ const handleSubmit = async () => {
     setPhoneNumber('');
     setServiceType('');
     setHdfu('');
+    setReferralCode('');
   } catch (error: any) {
     console.error('Error submitting form:', error);
     toast({
@@ -112,9 +115,10 @@ return(
 
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
             <div className="space-y-2">
               <label className="text-sm font-medium text-sky-900">Start Date</label>
-              <Popover open={dateOpen} onOpenChange={setDateOpen} >
+              <Popover open={dateOpen} onOpenChange={setDateOpen}>
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
@@ -132,7 +136,7 @@ return(
                   <Calendar
                     mode="single"
                     selected={startDate}
-                    onSelect={(date)=>{
+                    onSelect={(date) => {
                       setStartDate(date);
                       setDateOpen(false);
                     }}
@@ -142,6 +146,17 @@ return(
                   />
                 </PopoverContent>
               </Popover>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-sky-900">Referral Code</label>
+              <Input
+                type="text"
+                placeholder="Enter referral code (Optional)"
+                className="bg-white"
+                value={referralCode}
+                onChange={(e) => setReferralCode(e.target.value)}
+              />
             </div>
           </div>
 
