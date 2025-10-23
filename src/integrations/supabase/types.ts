@@ -298,6 +298,7 @@ export type Database = {
           Location: string | null
           Name: string | null
           Phone: string | null
+          ReferalCode: number | null
           Results: boolean | null
           Results_description: string | null
           ServiceType: string | null
@@ -310,6 +311,7 @@ export type Database = {
           Location?: string | null
           Name?: string | null
           Phone?: string | null
+          ReferalCode?: number | null
           Results?: boolean | null
           Results_description?: string | null
           ServiceType?: string | null
@@ -322,6 +324,7 @@ export type Database = {
           Location?: string | null
           Name?: string | null
           Phone?: string | null
+          ReferalCode?: number | null
           Results?: boolean | null
           Results_description?: string | null
           ServiceType?: string | null
