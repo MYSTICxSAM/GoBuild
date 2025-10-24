@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, User, Search } from 'lucide-react';
+import { Menu, X, User, Search, LayoutDashboard } from 'lucide-react'; // ⚡ added LayoutDashboard icon
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link, NavLink } from 'react-router-dom';
@@ -111,6 +111,19 @@ const Navbar: React.FC = () => {
 
           <div className="hidden md:flex items-center space-x-2">
             <LanguageSelector />
+
+            {/* ⚡ Architect Dashboard button added here */}
+            {user && (
+              <Button
+                variant="outline"
+                className="flex items-center space-x-2 border-primary text-primary hover:bg-primary hover:text-white"
+                onClick={() => navigate('/architectDashboard')}
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                <span>Dashboard</span>
+              </Button>
+            )}
+
             {user ? (
               <UserProfileMenu />
             ) : (
@@ -142,98 +155,115 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Menu */}
-        {isOpen && (
-          <div className="bg-white md:hidden pt-4 pb-4 animate-fade-in">
-            <div className="flex flex-col space-y-4">
-              <div className="relative">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input 
-                  type="search" 
-                  placeholder={t('common.search')} 
-                  className="pl-8"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      handleSearchClick();
-                      setIsOpen(false);
-                    }
-                  }}
-                />
-              </div>
+{isOpen && (
+  <div className="bg-white md:hidden pt-4 pb-4 animate-fade-in">
+    <div className="flex flex-col space-y-4">
+      <div className="relative">
+        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+        <Input 
+          type="search" 
+          placeholder={t('common.search')} 
+          className="pl-8"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSearchClick();
+              setIsOpen(false);
+            }
+          }}
+        />
+      </div>
 
-              <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Home</Link>
+      <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Home</Link>
 
-              {/* Services main link (redirect only) */}
-              <Link to="/services" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Services</Link>
+      {/* Services main link (redirect only) */}
+      <Link to="/services" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Services</Link>
 
-              {/* New "All Services" mobile button */}
-              <button
-                className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors flex justify-between items-center"
-                onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-              >
-                {t('common.solutions')}
-                <span className={`transform transition-transform duration-200 ${isMobileServicesOpen ? 'rotate-180' : 'rotate-0'}`}>▼</span>
-              </button>
+      {/* New "All Services" mobile button */}
+      <button
+        className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors flex justify-between items-center"
+        onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
+      >
+        {t('common.solutions')}
+        <span className={`transform transition-transform duration-200 ${isMobileServicesOpen ? 'rotate-180' : 'rotate-0'}`}>▼</span>
+      </button>
 
-              {isMobileServicesOpen && (
-                <div className="pl-4 mt-2 space-y-1">
-                  <Link to="/categories/workers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Worker</Link>
-                  {/* <Link to="/categories/houseowners" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Home Owners</Link> */}
-                  <Link to="/categories/architects" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Architects/Designers</Link>
-                  <Link to="/categories/contractors" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Contractors</Link>
-                  <Link to="/categories/developers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Developers</Link>
-                  <Link to="/categories/suppliers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Material Suppliers</Link>
-                </div>
-              )}
+      {isMobileServicesOpen && (
+        <div className="pl-4 mt-2 space-y-1">
+          <Link to="/categories/workers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Worker</Link>
+          {/* <Link to="/categories/houseowners" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Home Owners</Link> */}
+          <Link to="/categories/architects" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Architects/Designers</Link>
+          <Link to="/categories/contractors" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Contractors</Link>
+          <Link to="/categories/developers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Developers</Link>
+          <Link to="/categories/suppliers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Material Suppliers</Link>
+        </div>
+      )}
 
-              <Link to="/blog" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Blog</Link>
-              <Link to="/about" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>About</Link>
-              <Link to="/contact" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Contact</Link>
+      <Link to="/blog" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Blog</Link>
+      <Link to="/about" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>About</Link>
+      <Link to="/contact" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Contact</Link>
 
-              <div className="pt-2 space-y-2">
+      <div className="pt-2 space-y-2">
 
-                {/* Profile Button added above sign out */}
-                {user && (
-                  <Button 
-                    variant="outline" 
-                    className="w-full flex items-center justify-center space-x-2"
-                    onClick={() => {
-                      setIsOpen(false);
-                      navigate('/profile'); // Navigate to profile route using react-router-dom
-                    }}
-                  >
-                    <User className="h-5 w-5" />
-                    <span>{t('common.profile')}</span>
-                  </Button>
-                )}
-
-                {user ? (
-                  <UserProfileMenu />
-                ) : (
-                  <>
-                    <Button 
-                      variant="outline" 
-                      className="w-full animate-pulse-shadow" 
-                      asChild
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <Link to="/auth/login">{t('common.signIn')}</Link>
-                    </Button>
-                    <Button 
-                      className="w-full animate-pulse-shadow"
-                      asChild
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <Link to="/auth/register">{t('common.joinNow')}</Link>
-                    </Button>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
+        {/* Profile Button added above sign out */}
+        {user && (
+          <Button 
+            variant="outline" 
+            className="w-full flex items-center justify-center space-x-2"
+            onClick={() => {
+              setIsOpen(false);
+              navigate('/profile'); // Navigate to profile route using react-router-dom
+            }}
+          >
+            <User className="h-5 w-5" />
+            <span>{t('common.profile')}</span>
+          </Button>
         )}
+
+        {/* 🔹 Architect Dashboard Button (added, do not remove) */}
+        {user && (
+          <Button
+            variant="outline"
+            className="w-full flex items-center justify-center space-x-2"
+            onClick={() => {
+              setIsOpen(false);
+              navigate('/architectDashboard');
+            }}
+          >
+            <span>Architect Dashboard</span>
+          </Button>
+        )}
+
+        {user ? (
+          <UserProfileMenu />
+        ) : (
+          <>
+            <Button 
+              variant="outline" 
+              className="w-full animate-pulse-shadow" 
+              asChild
+              onClick={() => setIsOpen(false)}
+            >
+              <Link to="/auth/login">{t('common.signIn')}</Link>
+            </Button>
+            <Button 
+              className="w-full animate-pulse-shadow"
+              asChild
+              onClick={() => setIsOpen(false)}
+            >
+              <Link to="/auth/register">{t('common.joinNow')}</Link>
+            </Button>
+          </>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
       </div>
     </nav>
   );
 };
 
 export default Navbar;
+
+
