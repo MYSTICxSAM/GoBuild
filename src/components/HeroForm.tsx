@@ -74,7 +74,7 @@ const handleSubmit = async () => {
         Phone: phoneNumber,
         ServiceType: serviceType,
         hdfu: hdfu,
-        ReferalCode: referralCode,
+        ReferalCode: referralCode?.trim() || null,
       });
 
     if (error) {
