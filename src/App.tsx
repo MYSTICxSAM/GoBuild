@@ -24,9 +24,6 @@ import Developers from "./pages/categories/Developers";
 import Architects from "./pages/categories/Architects";
 import Contractors from "./pages/categories/Contractors";
 import CategoriesLayout from "./pages/categories/CategoriesLayout";
-import ArchitectDetail from "./pages/categories/ArchitectDetail";
-
-
 // Import i18n configuration
 import './i18n';
 
@@ -51,7 +48,6 @@ const AppRoutes = () => {
         <Route path="developers" element={<Developers />} />
         <Route path="architects" element={<Architects />} />
         <Route path="contractors" element={<Contractors />} />
-        <Route path="architect-detail/:id" element={<ArchitectDetail />} />
       </Route>
       <Route path="/auth" element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
