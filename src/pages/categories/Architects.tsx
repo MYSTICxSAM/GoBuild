@@ -13,6 +13,7 @@ const ArchitectsPage = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     specialization: "",
@@ -21,6 +22,7 @@ const ArchitectsPage = () => {
   });
   const [message, setMessage] = useState("");
 
+  // Fetch architects
   const fetchArchitects = async () => {
     setLoading(true);
     const { data, error } = await supabase.from("architects").select("*");
@@ -33,14 +35,60 @@ const ArchitectsPage = () => {
     fetchArchitects();
   }, []);
 
+  // Handle input
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // ✅ Handle file upload
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      if (!user) {
+        setMessage("Please log in to upload an image.");
+        return;
+      }
+
+      setUploading(true);
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${user.id}_${Date.now()}.${fileExt}`;
+
+      const { data, error: uploadError } = await supabase.storage
+        .from("Architects")
+        .upload(fileName, file, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+
+      if (uploadError) throw uploadError;
+
+      const { data: publicUrlData } = supabase.storage
+        .from("Architects")
+        .getPublicUrl(fileName);
+
+      if (publicUrlData?.publicUrl) {
+        setFormData((prev) => ({
+          ...prev,
+          image_url: publicUrlData.publicUrl,
+        }));
+        setMessage("Image uploaded successfully!");
+      }
+    } catch (error: any) {
+      console.error(error);
+      setMessage(`Upload failed: ${error.message}`);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  // Handle form submit
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!user) {
       setMessage("Please log in first.");
       return;
@@ -83,6 +131,14 @@ const ArchitectsPage = () => {
     }
   };
 
+  const handleRegisterClick = () => {
+    if (!user) {
+      navigate("/auth/login");
+    } else {
+      setShowForm(true);
+    }
+  };
+
   const filteredArchitects = architects.filter(
     (arch) =>
       arch.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -93,22 +149,22 @@ const ArchitectsPage = () => {
     <div className="bg-white min-h-screen font-sans">
       <Navbar />
 
-      {/* Hero Section (Professional Look) */}
+      {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        {/* Left content */}
         <div>
           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
-            Hire <span className="text-blue-600">Skilled</span> Architect <br /> in{" "}
-            <span className="text-blue-600">Minutes</span>
+            Hire <span className="text-blue-600">Top Architects</span> <br /> for
+            Your Dream Project
           </h1>
           <p className="text-gray-600 text-lg mb-6">
-            Connect with expert architects to design your dream spaces — from modern homes to smart offices, all with precision and creativity
+            Design your ideal space with the best architects — experts in
+            innovative planning, interior design, and modern construction
+            solutions.
           </p>
-
           <div className="relative w-full max-w-md mb-6">
             <input
               type="text"
-              placeholder="Search services"
+              placeholder="Search architects..."
               className="w-full py-3 px-5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -117,38 +173,28 @@ const ArchitectsPage = () => {
               Search →
             </button>
           </div>
-
-          <div className="flex flex-wrap gap-3 text-sm text-gray-700 mb-4">
-            <span>Popular Services:</span>
-            <span className="px-3 py-1 bg-gray-100 rounded-full">Aashiana Architect</span>
-            <span className="px-3 py-1 bg-gray-100 rounded-full">Aviral Design Studio</span>
-          </div>
-
-          {user && (
-            <button
-              onClick={() => setShowForm(!showForm)}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
-            >
-              {showForm ? "Cancel" : "Register as Architect"}
-            </button>
-          )}
+          <button
+            onClick={handleRegisterClick}
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
+          >
+            Register as Architect
+          </button>
         </div>
 
-        {/* Right Video */}
+        {/* Right Side Video */}
         <div className="relative">
           <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-200">
             <iframe
               width="100%"
               height="320"
               src="https://www.youtube.com/embed/5aJjXXQPqpM"
-              title="Customer Review"
+              title="Architect Promo Video"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               className="w-full rounded-2xl"
             ></iframe>
           </div>
 
-          {/* Floating Popups */}
           <div className="absolute top-4 right-4 bg-white shadow-lg rounded-xl px-4 py-2 flex items-center gap-2">
             <CheckCircle2 className="text-green-500 w-5 h-5" />
             <div className="text-sm">
@@ -160,15 +206,23 @@ const ArchitectsPage = () => {
           <div className="absolute bottom-4 left-4 bg-white shadow-lg rounded-xl px-4 py-2 flex items-center gap-2">
             <Smile className="text-blue-500 w-5 h-5" />
             <div className="text-sm">
-              <p className="font-semibold text-gray-800">Happy Customers</p>
+              <p className="font-semibold text-gray-800">Happy Clients</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Architect Registration Form */}
-      {showForm && (
-        <section className="max-w-4xl mx-auto mt-10 bg-gray-50 p-6 rounded-2xl shadow-md border border-gray-200">
+      {/* ✅ Registration Form with Close Button */}
+      {showForm && user && (
+        <section className="max-w-4xl mx-auto mt-10 bg-gray-50 p-6 rounded-2xl shadow-md border border-gray-200 relative">
+          {/* ❌ Close Button */}
+          <button
+            onClick={() => setShowForm(false)}
+            className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 text-3xl font-bold"
+          >
+            &times;
+          </button>
+
           <h2 className="text-2xl font-bold mb-4 text-center text-blue-700">
             Register as an Architect
           </h2>
@@ -201,27 +255,45 @@ const ArchitectsPage = () => {
               rows={4}
               required
             />
-            <input
-              type="text"
-              name="image_url"
-              placeholder="Image URL (optional)"
-              value={formData.image_url}
-              onChange={handleChange}
-              className="p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:outline-none"
-            />
+
+            {/* Image Upload */}
+            <div className="flex flex-col gap-2">
+              <label className="text-gray-700 font-medium">
+                Upload Profile Image
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileUpload}
+                className="p-2 border border-gray-300 rounded-lg"
+              />
+              {uploading && (
+                <p className="text-blue-500 text-sm">Uploading...</p>
+              )}
+              {formData.image_url && (
+                <img
+                  src={formData.image_url}
+                  alt="Preview"
+                  className="w-40 h-40 rounded-lg object-cover mt-2 border border-gray-200"
+                />
+              )}
+            </div>
 
             <button
               type="submit"
               className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+              disabled={uploading}
             >
-              Register
+              {uploading ? "Please wait..." : "Register"}
             </button>
           </form>
 
           {message && (
             <p
               className={`mt-3 text-center font-medium ${
-                message.includes("Successfully") ? "text-green-600" : "text-red-600"
+                message.includes("Successfully")
+                  ? "text-green-600"
+                  : "text-red-600"
               }`}
             >
               {message}
