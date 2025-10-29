@@ -4,7 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Loader2 } from "lucide-react";
+import { Loader2, CheckCircle2, Smile } from "lucide-react";
 
 const ArchitectsPage = () => {
   const { user } = useAuth();
@@ -13,6 +13,7 @@ const ArchitectsPage = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     specialization: "",
@@ -34,14 +35,60 @@ const ArchitectsPage = () => {
     fetchArchitects();
   }, []);
 
-  // Handle form input
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  // Handle input
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Register architect
+  // ✅ Handle file upload
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      if (!user) {
+        setMessage("Please log in to upload an image.");
+        return;
+      }
+
+      setUploading(true);
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${user.id}_${Date.now()}.${fileExt}`;
+
+      const { data, error: uploadError } = await supabase.storage
+        .from("Architects")
+        .upload(fileName, file, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+
+      if (uploadError) throw uploadError;
+
+      const { data: publicUrlData } = supabase.storage
+        .from("Architects")
+        .getPublicUrl(fileName);
+
+      if (publicUrlData?.publicUrl) {
+        setFormData((prev) => ({
+          ...prev,
+          image_url: publicUrlData.publicUrl,
+        }));
+        setMessage("Image uploaded successfully!");
+      }
+    } catch (error: any) {
+      console.error(error);
+      setMessage(`Upload failed: ${error.message}`);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  // Handle form submit
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!user) {
       setMessage("Please log in first.");
       return;
@@ -56,17 +103,15 @@ const ArchitectsPage = () => {
     setLoading(true);
     setMessage("");
 
-    const { error } = await supabase
-      .from("architects")
-      .insert([
-        {
-          name,
-          specialization,
-          description,
-          image_url,
-          user_id: user.id, // must match your Supabase table column exactly
-        },
-      ]);
+    const { error } = await supabase.from("architects").insert([
+      {
+        name,
+        specialization,
+        description,
+        image_url,
+        user_id: user.id,
+      },
+    ]);
 
     setLoading(false);
 
@@ -75,13 +120,25 @@ const ArchitectsPage = () => {
       setMessage(`Failed to register: ${error.message}`);
     } else {
       setMessage("Successfully registered as architect!");
-      setFormData({ name: "", specialization: "", description: "", image_url: "" });
+      setFormData({
+        name: "",
+        specialization: "",
+        description: "",
+        image_url: "",
+      });
       setShowForm(false);
       fetchArchitects();
     }
   };
 
-  // Filtered architects
+  const handleRegisterClick = () => {
+    if (!user) {
+      navigate("/auth/login");
+    } else {
+      setShowForm(true);
+    }
+  };
+
   const filteredArchitects = architects.filter(
     (arch) =>
       arch.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -92,35 +149,81 @@ const ArchitectsPage = () => {
     <div className="bg-white min-h-screen font-sans">
       <Navbar />
 
-      <section className="max-w-6xl mx-auto px-4 md:px-0 pt-12 sm:pt-20 flex flex-col md:flex-row items-center justify-between gap-10">
-        <div className="md:w-1/2">
-          <h1 className="text-4xl sm:text-5xl font-extrabold mb-6">
-            Find <span className="text-purple-600">Top Architects</span> for Your Project
+      {/* Hero Section */}
+      <section className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+            Hire <span className="text-blue-600">Top Architects</span> <br /> for
+            Your Dream Project
           </h1>
-
-          {user && (
-            <button
-              onClick={() => setShowForm(!showForm)}
-              className="bg-purple-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-purple-700 transition"
-            >
-              {showForm ? "Cancel" : "Register as Architect"}
+          <p className="text-gray-600 text-lg mb-6">
+            Design your ideal space with the best architects — experts in
+            innovative planning, interior design, and modern construction
+            solutions.
+          </p>
+          <div className="relative w-full max-w-md mb-6">
+            <input
+              type="text"
+              placeholder="Search architects..."
+              className="w-full py-3 px-5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+              Search →
             </button>
-          )}
+          </div>
+          <button
+            onClick={handleRegisterClick}
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
+          >
+            Register as Architect
+          </button>
         </div>
 
-        <div className="md:w-1/2 flex justify-center hidden md:flex">
-          <img
-            src="https://thearchitectsdiary.com/wp-content/uploads/2019/12/architect-construction-plans.jpg"
-            alt="Architectural planning"
-            className="rounded-2xl shadow-xl object-cover w-full h-[300px] sm:h-[340px] md:max-w-[420px]"
-          />
+        {/* Right Side Video */}
+        <div className="relative">
+          <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-200">
+            <iframe
+              width="100%"
+              height="320"
+              src="https://www.youtube.com/embed/5aJjXXQPqpM"
+              title="Architect Promo Video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full rounded-2xl"
+            ></iframe>
+          </div>
+
+          <div className="absolute top-4 right-4 bg-white shadow-lg rounded-xl px-4 py-2 flex items-center gap-2">
+            <CheckCircle2 className="text-green-500 w-5 h-5" />
+            <div className="text-sm">
+              <p className="font-semibold text-gray-800">Verified Experts</p>
+              <p className="text-gray-500 text-xs">Background Checked</p>
+            </div>
+          </div>
+
+          <div className="absolute bottom-4 left-4 bg-white shadow-lg rounded-xl px-4 py-2 flex items-center gap-2">
+            <Smile className="text-blue-500 w-5 h-5" />
+            <div className="text-sm">
+              <p className="font-semibold text-gray-800">Happy Clients</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Registration Form */}
-      {showForm && (
-        <section className="max-w-4xl mx-auto mt-10 bg-gray-50 p-6 rounded-2xl shadow-md border border-gray-200">
-          <h2 className="text-2xl font-bold mb-4 text-center text-purple-700">
+      {/* ✅ Registration Form with Close Button */}
+      {showForm && user && (
+        <section className="max-w-4xl mx-auto mt-10 bg-gray-50 p-6 rounded-2xl shadow-md border border-gray-200 relative">
+          {/* ❌ Close Button */}
+          <button
+            onClick={() => setShowForm(false)}
+            className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 text-3xl font-bold"
+          >
+            &times;
+          </button>
+
+          <h2 className="text-2xl font-bold mb-4 text-center text-blue-700">
             Register as an Architect
           </h2>
 
@@ -131,7 +234,7 @@ const ArchitectsPage = () => {
               placeholder="Full Name"
               value={formData.name}
               onChange={handleChange}
-              className="p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-600 focus:outline-none"
+              className="p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:outline-none"
               required
             />
             <input
@@ -140,7 +243,7 @@ const ArchitectsPage = () => {
               placeholder="Specialization (e.g. Interior Design)"
               value={formData.specialization}
               onChange={handleChange}
-              className="p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-600 focus:outline-none"
+              className="p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:outline-none"
               required
             />
             <textarea
@@ -148,31 +251,49 @@ const ArchitectsPage = () => {
               placeholder="Short Description about your work"
               value={formData.description}
               onChange={handleChange}
-              className="p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-600 focus:outline-none"
+              className="p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:outline-none"
               rows={4}
               required
             />
-            <input
-              type="text"
-              name="image_url"
-              placeholder="Image URL (optional)"
-              value={formData.image_url}
-              onChange={handleChange}
-              className="p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-600 focus:outline-none"
-            />
+
+            {/* Image Upload */}
+            <div className="flex flex-col gap-2">
+              <label className="text-gray-700 font-medium">
+                Upload Profile Image
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileUpload}
+                className="p-2 border border-gray-300 rounded-lg"
+              />
+              {uploading && (
+                <p className="text-blue-500 text-sm">Uploading...</p>
+              )}
+              {formData.image_url && (
+                <img
+                  src={formData.image_url}
+                  alt="Preview"
+                  className="w-40 h-40 rounded-lg object-cover mt-2 border border-gray-200"
+                />
+              )}
+            </div>
 
             <button
               type="submit"
-              className="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+              disabled={uploading}
             >
-              Register
+              {uploading ? "Please wait..." : "Register"}
             </button>
           </form>
 
           {message && (
             <p
               className={`mt-3 text-center font-medium ${
-                message.includes("Successfully") ? "text-green-600" : "text-red-600"
+                message.includes("Successfully")
+                  ? "text-green-600"
+                  : "text-red-600"
               }`}
             >
               {message}
@@ -181,22 +302,11 @@ const ArchitectsPage = () => {
         </section>
       )}
 
-      {/* Search Bar */}
-      <section className="max-w-6xl mx-auto px-4 md:px-0 mt-8">
-        <input
-          type="text"
-          placeholder="Search architects by name or specialization"
-          className="w-full sm:w-1/2 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-600 focus:outline-none mb-6"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </section>
-
       {/* Architects Grid */}
-      <section className="max-w-6xl mx-auto px-4 md:px-0 mt-4 mb-20">
+      <section className="max-w-6xl mx-auto px-4 md:px-0 mt-12 mb-20">
         {loading ? (
           <div className="flex justify-center items-center h-40">
-            <Loader2 className="animate-spin w-8 h-8 text-purple-600" />
+            <Loader2 className="animate-spin w-8 h-8 text-blue-600" />
           </div>
         ) : filteredArchitects.length === 0 ? (
           <p className="text-center text-gray-500">No architects found.</p>
@@ -222,17 +332,19 @@ const ArchitectsPage = () => {
                       {arch.specialization || "Specialization not specified"}
                     </p>
                     <p className="text-gray-700 mb-5 text-sm line-clamp-3">
-                      {arch.description || "Expert in architectural design and planning."}
+                      {arch.description ||
+                        "Expert in architectural design and planning."}
                     </p>
                   </div>
 
-                  {/* View Details Button */}
                   <button
-  onClick={() => navigate(`/categories/architect-detail/${arch.id}`)}
-  className="mt-auto bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
->
-  View Details
-</button>
+                    onClick={() =>
+                      navigate(`/categories/architect-detail/${arch.id}`)
+                    }
+                    className="mt-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+                  >
+                    View Details
+                  </button>
                 </div>
               </div>
             ))}
