@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Loader2, Upload } from "lucide-react";
+import { Loader2, Upload, X } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function ArchitectDetail() {
@@ -16,6 +16,13 @@ export default function ArchitectDetail() {
   const [photoError, setPhotoError] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [canUpload, setCanUpload] = useState(false);
+
+  // Request state
+  const [requesting, setRequesting] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [clientName, setClientName] = useState("");
+  const [projectName, setProjectName] = useState("");
+  const [price, setPrice] = useState("");
 
   // ✅ Get current logged-in user
   useEffect(() => {
@@ -105,6 +112,42 @@ export default function ArchitectDetail() {
     }
   };
 
+  // ✅ Handle service request submission
+  const handleSubmitRequest = async () => {
+    if (!clientName.trim() || !projectName.trim() || !price.trim()) {
+      alert("Please fill in all details.");
+      return;
+    }
+
+    setRequesting(true);
+
+    try {
+      const { error } = await supabase.from("ArchitectRequest").insert([
+        {
+          arcID: Number(id),
+          project_Name: projectName,
+          client_name: clientName,
+          price: Number(price),
+          status: "pending",
+          created_at: new Date().toISOString(),
+        },
+      ]);
+
+      if (error) throw error;
+      setShowForm(false);
+      alert("Service request sent successfully!");
+      setClientName("");
+      setProjectName("");
+      setPrice("");
+    } catch (err) {
+      console.error("Error creating request:", err);
+      alert("Failed to send request. Please try again.");
+    } finally {
+      setRequesting(false);
+    }
+  };
+
+  // ✅ Loading screen
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -113,6 +156,7 @@ export default function ArchitectDetail() {
     );
   }
 
+  // ✅ Architect not found
   if (!architect) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center text-center">
@@ -127,6 +171,7 @@ export default function ArchitectDetail() {
     );
   }
 
+  // ✅ Main return
   return (
     <div className="bg-white min-h-screen font-sans">
       <Navbar />
@@ -172,12 +217,71 @@ export default function ArchitectDetail() {
                 />
               </label>
             )}
+
+            {/* ===== Request Button ===== */}
+            {!canUpload && (
+              <button
+                onClick={() => setShowForm(true)}
+                disabled={requesting}
+                className="mt-6 px-6 py-2 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition"
+              >
+                {requesting ? "Requesting..." : "Request Service"}
+              </button>
+            )}
+
             {photoError && (
               <p className="text-red-500 text-sm mt-2">{photoError}</p>
             )}
           </div>
         </div>
       </div>
+
+      {/* ======= Request Form Modal ======= */}
+      {showForm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md relative">
+            <button
+              onClick={() => setShowForm(false)}
+              className="absolute top-3 right-3 text-gray-600 hover:text-gray-800"
+            >
+              <X size={20} />
+            </button>
+            <h2 className="text-xl font-semibold text-center mb-4 text-purple-700">
+              Request Service
+            </h2>
+            <div className="space-y-3">
+              <input
+                type="text"
+                placeholder="Enter Your Name"
+                value={clientName}
+                onChange={(e) => setClientName(e.target.value)}
+                className="border rounded-lg px-4 py-2 w-full"
+              />
+              <input
+                type="text"
+                placeholder="Enter Project Name"
+                value={projectName}
+                onChange={(e) => setProjectName(e.target.value)}
+                className="border rounded-lg px-4 py-2 w-full"
+              />
+              <input
+                type="text"
+                placeholder="Enter Expected Price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                className="border rounded-lg px-4 py-2 w-full"
+              />
+              <button
+                onClick={handleSubmitRequest}
+                disabled={requesting}
+                className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition"
+              >
+                {requesting ? "Submitting..." : "Submit Request"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ======= Gallery Section ======= */}
       <div className="max-w-6xl mx-auto p-6">
