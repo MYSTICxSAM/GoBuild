@@ -78,7 +78,7 @@ const ArchitectsPage = () => {
       const fileExt = file.name.split(".").pop();
       const fileName = `${user.id}_${Date.now()}.${fileExt}`;
 
-      const { data, error: uploadError } = await supabase.storage
+      const { error: uploadError } = await supabase.storage
         .from("Architects")
         .upload(fileName, file, {
           cacheControl: "3600",
@@ -106,7 +106,7 @@ const ArchitectsPage = () => {
     }
   };
 
-  // ✅ Handle form submit with duplicate prevention
+  // ✅ Handle form submit with duplicate prevention + update role
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -153,6 +153,14 @@ const ArchitectsPage = () => {
       ]);
 
       if (error) throw error;
+
+      // ✅ Step 3: Update user_role to 'architect' in profiles table
+      const { error: roleError } = await supabase
+        .from("profiles")
+        .update({ user_role: "architect" })
+        .eq("id", user.id);
+
+      if (roleError) throw roleError;
 
       setMessage("Successfully registered as architect!");
       setFormData({
@@ -408,4 +416,3 @@ const ArchitectsPage = () => {
 };
 
 export default ArchitectsPage;
-  
