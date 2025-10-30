@@ -125,7 +125,6 @@ const ArchitectsPage = () => {
     setMessage("");
 
     try {
-      // ✅ Step 1: Check if already registered
       const { data: existingArchitect, error: checkError } = await supabase
         .from("architects")
         .select("id")
@@ -141,7 +140,6 @@ const ArchitectsPage = () => {
         return;
       }
 
-      // ✅ Step 2: Register new architect
       const { error } = await supabase.from("architects").insert([
         {
           name,
@@ -154,7 +152,6 @@ const ArchitectsPage = () => {
 
       if (error) throw error;
 
-      // ✅ Step 3: Update user_role to 'architect' in profiles table
       const { error: roleError } = await supabase
         .from("profiles")
         .update({ user_role: "architect" })
@@ -180,7 +177,6 @@ const ArchitectsPage = () => {
     }
   };
 
-  // ✅ Handle Register button click
   const handleRegisterClick = () => {
     if (!user) {
       navigate("/auth/login");
@@ -191,7 +187,6 @@ const ArchitectsPage = () => {
     }
   };
 
-  // ✅ Filter Architects for Search
   const filteredArchitects = architects.filter(
     (arch) =>
       arch.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -203,7 +198,7 @@ const ArchitectsPage = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      <section className="max-w-7xl mx-auto px-6 py-24 pb-4 grid grid-cols-1 md:grid-cols-2 gap-10 items-center relative">
         <div>
           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
             Hire <span className="text-blue-600">Top Architects</span> <br /> for
@@ -254,18 +249,28 @@ const ArchitectsPage = () => {
             ></iframe>
           </div>
 
-          <div className="absolute top-4 right-4 bg-white shadow-lg rounded-xl px-4 py-2 flex items-center gap-2">
-            <CheckCircle2 className="text-green-500 w-5 h-5" />
-            <div className="text-sm">
-              <p className="font-semibold text-gray-800">Verified Experts</p>
-              <p className="text-gray-500 text-xs">Background Checked</p>
+          {/* Floating Verified Experts */}
+          <div className="absolute -top-6 -right-6 bg-white rounded-lg p-4 shadow-lg animate-fade-in animation-delay-300 animate-bounce-slow hidden md:block">
+            <div className="flex items-center space-x-2">
+              <div className="bg-green-100 rounded-full p-2">
+                <CheckCircle2 className="text-green-600 w-5 h-5" />
+              </div>
+              <div>
+                <p className="font-semibold text-sm text-gray-800">Verified Experts</p>
+                <p className="text-xs text-gray-500">Background Checked</p>
+              </div>
             </div>
           </div>
 
-          <div className="absolute bottom-4 left-4 bg-white shadow-lg rounded-xl px-4 py-2 flex items-center gap-2">
-            <Smile className="text-blue-500 w-5 h-5" />
-            <div className="text-sm">
-              <p className="font-semibold text-gray-800">Happy Clients</p>
+          {/* Floating Happy Clients */}
+          <div className="absolute -bottom-6 -left-6 bg-white rounded-lg p-4 shadow-lg animate-fade-in animation-delay-400 animate-bounce-slow hidden md:block">
+            <div className="flex items-center space-x-2">
+              <div className="bg-blue-100 rounded-full p-2">
+                <Smile className="text-blue-600 w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-xs text-gray-500">Happy Clients</p>
+              </div>
             </div>
           </div>
         </div>
@@ -360,8 +365,18 @@ const ArchitectsPage = () => {
         </section>
       )}
 
+      {/* ✅ Heading Added Below Cards Section */}
+      <section className="max-w-6xl mx-auto px-4 md:px-0 mt-16 mb-8 text-center">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">
+          Our Best Architects
+        </h2>
+        <p className="text-gray-600 mt-2 text-lg">
+          Explore profiles of talented architects ready to design your dream space.
+        </p>
+      </section>
+
       {/* Architects Grid */}
-      <section className="max-w-6xl mx-auto px-4 md:px-0 mt-12 mb-20">
+      <section className="max-w-6xl mx-auto px-4 md:px-0 mt-6 mb-20">
         {loading ? (
           <div className="flex justify-center items-center h-40">
             <Loader2 className="animate-spin w-8 h-8 text-blue-600" />
