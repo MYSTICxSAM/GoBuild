@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Loader2, CheckCircle2, Smile } from "lucide-react";
@@ -9,6 +9,8 @@ import { Loader2, CheckCircle2, Smile } from "lucide-react";
 const ArchitectsPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const formRef = useRef<HTMLElement>(null);
   const [architects, setArchitects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -55,6 +57,25 @@ const ArchitectsPage = () => {
   useEffect(() => {
     if (user) checkIfRegistered();
   }, [user]);
+
+  useEffect(() => {
+    const shouldShowForm = searchParams.get("showForm");
+
+    if (shouldShowForm === "true" && user && !isAlreadyRegistered) {
+      setShowForm(true);
+
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.delete("showForm");
+      setSearchParams(newSearchParams, { replace: true });
+
+      setTimeout(() => {
+        formRef.current?.scrollIntoView({ 
+          behavior: "smooth", 
+          block: "start" 
+        });
+      }, 300);
+    }
+  }, [user, isAlreadyRegistered]);
 
   // ✅ Handle input
   const handleChange = (
@@ -179,11 +200,17 @@ const ArchitectsPage = () => {
 
   const handleRegisterClick = () => {
     if (!user) {
-      navigate("/auth/login");
+      navigate("/auth/login?redirect=/categories/architects&showForm=true");
     } else if (isAlreadyRegistered) {
       setMessage("You are already registered as an architect.");
     } else {
       setShowForm(true);
+      setTimeout(() => {
+        formRef.current?.scrollIntoView({ 
+          behavior: "smooth", 
+          block: "start" 
+        });
+      }, 100);
     }
   };
 
@@ -278,7 +305,10 @@ const ArchitectsPage = () => {
 
       {/* Registration Form */}
       {showForm && user && !isAlreadyRegistered && (
-        <section className="max-w-4xl mx-auto mt-10 bg-gray-50 p-6 rounded-2xl shadow-md border border-gray-200 relative">
+        <section 
+          ref={formRef}
+          className="max-w-4xl mx-auto mt-10 bg-gray-50 p-6 rounded-2xl shadow-md border border-gray-200 relative"
+        >
           <button
             onClick={() => setShowForm(false)}
             className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 text-3xl font-bold"
