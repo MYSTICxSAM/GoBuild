@@ -21,8 +21,9 @@ const ArchitectsPage = () => {
     image_url: "",
   });
   const [message, setMessage] = useState("");
+  const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
 
-  // Fetch architects
+  // ✅ Fetch architects
   const fetchArchitects = async () => {
     setLoading(true);
     const { data, error } = await supabase.from("architects").select("*");
@@ -31,11 +32,31 @@ const ArchitectsPage = () => {
     setLoading(false);
   };
 
+  // ✅ Check if user already registered as architect
+  const checkIfRegistered = async () => {
+    if (!user) return;
+    const { data, error } = await supabase
+      .from("architects")
+      .select("id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (!error && data) {
+      setIsAlreadyRegistered(true);
+    } else {
+      setIsAlreadyRegistered(false);
+    }
+  };
+
   useEffect(() => {
     fetchArchitects();
   }, []);
 
-  // Handle input
+  useEffect(() => {
+    if (user) checkIfRegistered();
+  }, [user]);
+
+  // ✅ Handle input
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -85,7 +106,7 @@ const ArchitectsPage = () => {
     }
   };
 
-  // Handle form submit
+  // ✅ Handle form submit with duplicate prevention
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -103,22 +124,36 @@ const ArchitectsPage = () => {
     setLoading(true);
     setMessage("");
 
-    const { error } = await supabase.from("architects").insert([
-      {
-        name,
-        specialization,
-        description,
-        image_url,
-        user_id: user.id,
-      },
-    ]);
+    try {
+      // ✅ Step 1: Check if already registered
+      const { data: existingArchitect, error: checkError } = await supabase
+        .from("architects")
+        .select("id")
+        .eq("user_id", user.id)
+        .maybeSingle();
 
-    setLoading(false);
+      if (checkError) throw checkError;
 
-    if (error) {
-      console.error(error);
-      setMessage(`Failed to register: ${error.message}`);
-    } else {
+      if (existingArchitect) {
+        setMessage("You are already registered as an architect.");
+        setLoading(false);
+        setIsAlreadyRegistered(true);
+        return;
+      }
+
+      // ✅ Step 2: Register new architect
+      const { error } = await supabase.from("architects").insert([
+        {
+          name,
+          specialization,
+          description,
+          image_url,
+          user_id: user.id,
+        },
+      ]);
+
+      if (error) throw error;
+
       setMessage("Successfully registered as architect!");
       setFormData({
         name: "",
@@ -127,18 +162,28 @@ const ArchitectsPage = () => {
         image_url: "",
       });
       setShowForm(false);
+      setIsAlreadyRegistered(true);
       fetchArchitects();
+    } catch (err: any) {
+      console.error(err);
+      setMessage(`Failed to register: ${err.message}`);
+    } finally {
+      setLoading(false);
     }
   };
 
+  // ✅ Handle Register button click
   const handleRegisterClick = () => {
     if (!user) {
       navigate("/auth/login");
+    } else if (isAlreadyRegistered) {
+      setMessage("You are already registered as an architect.");
     } else {
       setShowForm(true);
     }
   };
 
+  // ✅ Filter Architects for Search
   const filteredArchitects = architects.filter(
     (arch) =>
       arch.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -173,11 +218,17 @@ const ArchitectsPage = () => {
               Search →
             </button>
           </div>
+
           <button
             onClick={handleRegisterClick}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
+            className={`${
+              isAlreadyRegistered
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700"
+            } text-white px-6 py-2 rounded-lg font-semibold transition`}
+            disabled={isAlreadyRegistered}
           >
-            Register as Architect
+            {isAlreadyRegistered ? "Already Registered" : "Register as Architect"}
           </button>
         </div>
 
@@ -212,10 +263,9 @@ const ArchitectsPage = () => {
         </div>
       </section>
 
-      {/* ✅ Registration Form with Close Button */}
-      {showForm && user && (
+      {/* Registration Form */}
+      {showForm && user && !isAlreadyRegistered && (
         <section className="max-w-4xl mx-auto mt-10 bg-gray-50 p-6 rounded-2xl shadow-md border border-gray-200 relative">
-          {/* ❌ Close Button */}
           <button
             onClick={() => setShowForm(false)}
             className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 text-3xl font-bold"
@@ -358,3 +408,4 @@ const ArchitectsPage = () => {
 };
 
 export default ArchitectsPage;
+  
