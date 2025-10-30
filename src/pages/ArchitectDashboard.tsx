@@ -2,33 +2,41 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import {
+  ArrowLeft,
+  LogOut,
+  Edit2,
+  Save,
+  X,
+  CheckCircle,
+} from "lucide-react";
+import { motion } from "framer-motion";
 
-// Define a TypeScript interface for the project
 interface Project {
   id: string | number;
   arcID: string | number;
   project_Name: string;
   client_name: string;
   price: number;
-  status: "active" | "completed" | string;
-  created_at: string;
+  status: string;
 }
 
 export default function ArchitectDashboard() {
-  const { user, userRole, loading: authLoading } = useAuth();
+  const { user, userRole, loading: authLoading, signOut } = useAuth();
   const navigate = useNavigate();
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [architectName, setArchitectName] = useState<string>("");
+  const [editingId, setEditingId] = useState<string | number | null>(null);
+  const [editedProject, setEditedProject] = useState<Partial<Project>>({});
 
   useEffect(() => {
     if (authLoading) return;
-
     if (!user) {
       navigate("/auth/login");
       return;
     }
-
     if (userRole !== "architect") {
       navigate("/");
       return;
@@ -36,112 +44,344 @@ export default function ArchitectDashboard() {
 
     const fetchProjects = async () => {
       setLoading(true);
-
-      // ✅ Explicitly type the response to avoid deep type inference
-      const {
-        data: architectData,
-        error: architectError,
-      } = await supabase
+      const { data: architectData } = await supabase
         .from("architects")
-        .select("id")
+        .select("id, name")
         .eq("user_id", user.id)
         .single();
 
-      if (architectError || !architectData) {
-        console.error("Error fetching architect:", architectError);
+      if (!architectData) {
         setProjects([]);
         setLoading(false);
         return;
       }
 
-      const architectId = architectData.id;
+      setArchitectName(architectData.name || "Architect");
 
-      // ✅ Explicit type annotation again to avoid inference recursion
-      const {
-        data: projectsData,
-        error: projectsError,
-      }: { data: Project[] | null; error: any } = await supabase
+      const { data: projectsData } = await supabase
         .from("ArchitectRequest")
         .select("*")
-        .eq("arcID", architectId)
-        .order("created_at", { ascending: false });
+        .eq("arcID", architectData.id)
+        .order("id", { ascending: false });
 
-      if (projectsError) {
-        console.error("Error fetching projects:", projectsError);
-        setProjects([]);
-      } else {
-        setProjects(projectsData || []);
-      }
+      setProjects(projectsData || []);
       setLoading(false);
     };
 
     fetchProjects();
   }, [user, userRole, authLoading, navigate]);
 
-  if (authLoading || loading) {
-    return <p className="p-6 text-lg">Loading dashboard...</p>;
-  }
+  const handleLogout = async () => {
+    await signOut();
+    navigate("/auth/login");
+  };
+
+  const handleEdit = (project: Project) => {
+    setEditingId(project.id);
+    setEditedProject({ ...project });
+  };
+
+  const handleCancel = () => {
+    setEditingId(null);
+    setEditedProject({});
+  };
+
+  const handleSave = async (id: string | number) => {
+    const { error } = await supabase
+      .from("ArchitectRequest")
+      .update({
+        project_Name: editedProject.project_Name,
+        price: editedProject.price,
+        client_name: editedProject.client_name,
+        status: editedProject.status,
+      })
+      .eq("id", Number(id));
+
+    if (!error) {
+      setProjects((prev) =>
+        prev.map((p) => (p.id === id ? { ...p, ...editedProject } : p))
+      );
+      setEditingId(null);
+      setEditedProject({});
+    }
+  };
+
+  const handleComplete = async (id: string | number) => {
+    await supabase
+      .from("ArchitectRequest")
+      .update({ status: "completed" })
+      .eq("id", Number(id));
+
+    setProjects((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, status: "completed" } : p))
+    );
+  };
+
+  const activeProjects = projects.filter((p) => p.status !== "completed");
+  const completedProjects = projects.filter((p) => p.status === "completed");
+
+  if (authLoading || loading)
+    return (
+      <div className="flex justify-center items-center min-h-screen text-gray-700 text-lg">
+        Loading dashboard...
+      </div>
+    );
 
   return (
-    <div className="p-6 min-h-screen bg-gray-50">
-      <h1 className="text-3xl font-bold mb-6">🏗️ Architect CRM Dashboard</h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 font-inter text-gray-900">
+      {/* Navbar */}
+      <motion.div
+        initial={{ y: -40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="backdrop-blur-md bg-white/70 shadow-sm sticky top-0 z-10 flex items-center justify-between px-4 md:px-6 py-4 border-b border-gray-200"
+      >
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-1 text-blue-600 font-medium hover:underline"
+        >
+          <ArrowLeft size={18} /> Back
+        </button>
+        <h1 className="text-base md:text-xl font-semibold tracking-tight text-center">
+          {architectName}'s Dashboard
+        </h1>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-1 text-red-600 font-medium hover:underline"
+        >
+          <LogOut size={18} /> Logout
+        </button>
+      </motion.div>
 
-      {/* Summary cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-white p-4 rounded shadow text-center">
-          <p>Total Projects</p>
-          <p className="text-2xl font-bold">{projects.length}</p>
-        </div>
-        <div className="bg-white p-4 rounded shadow text-center">
-          <p>Active Projects</p>
-          <p className="text-2xl font-bold">
-            {projects.filter((p) => p.status === "active").length}
-          </p>
-        </div>
-        <div className="bg-white p-4 rounded shadow text-center">
-          <p>Completed Projects</p>
-          <p className="text-2xl font-bold">
-            {projects.filter((p) => p.status === "completed").length}
-          </p>
-        </div>
-      </div>
+      {/* Dashboard Content */}
+      <div className="p-4 md:p-8 space-y-10 max-w-6xl mx-auto">
+        {/* Stats Cards */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"
+        >
+          {[
+            {
+              title: "Total Projects",
+              count: projects.length,
+              gradient: "from-blue-500 to-blue-700",
+              icon: "📁",
+            },
+            {
+              title: "Active Projects",
+              count: activeProjects.length,
+              gradient: "from-green-500 to-emerald-600",
+              icon: "⚙️",
+            },
+            {
+              title: "Completed Projects",
+              count: completedProjects.length,
+              gradient: "from-purple-500 to-indigo-600",
+              icon: "✅",
+            },
+          ].map((card, i) => (
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              key={i}
+              className={`bg-gradient-to-br ${card.gradient} text-white rounded-2xl p-5 shadow-lg`}
+            >
+              <div className="flex justify-between items-center">
+                <p className="text-sm uppercase tracking-wide opacity-80">
+                  {card.title}
+                </p>
+                <span className="text-2xl">{card.icon}</span>
+              </div>
+              <p className="text-3xl md:text-4xl font-bold mt-3">{card.count}</p>
+            </motion.div>
+          ))}
+        </motion.div>
 
-      {/* Project Table */}
-      <div className="bg-white p-4 rounded shadow">
-        <h2 className="text-xl mb-4">Your Projects</h2>
-        {projects.length > 0 ? (
-          <table className="min-w-full border-collapse">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="px-4 py-2 border-b">Name</th>
-                <th className="px-4 py-2 border-b">Client</th>
-                <th className="px-4 py-2 border-b">Price</th>
-                <th className="px-4 py-2 border-b">Status</th>
-                <th className="px-4 py-2 border-b">Created</th>
-              </tr>
-            </thead>
-            <tbody>
-              {projects.map((p) => (
-                <tr key={p.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-2 border-b">{p.project_Name}</td>
-                  <td className="px-4 py-2 border-b">{p.client_name}</td>
-                  <td className="px-4 py-2 border-b">₹{p.price}</td>
-                  <td
-                    className={`px-4 py-2 border-b font-semibold ${p.status === "active" ? "text-green-600" : "text-gray-500"
-                      }`}
-                  >
-                    {p.status.charAt(0).toUpperCase() + p.status.slice(1)}
-                  </td>
-                  <td className="px-4 py-2 border-b">
-                    {new Date(p.created_at).toLocaleDateString()}
-                  </td>
+        {/* Active Projects */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="bg-white/90 backdrop-blur-sm shadow-xl rounded-2xl p-4 md:p-6 border border-gray-100 overflow-x-auto"
+        >
+          <h2 className="text-xl md:text-2xl font-semibold mb-4 text-gray-800 flex items-center gap-2">
+            🔧 Active Projects
+          </h2>
+          {activeProjects.length > 0 ? (
+            <table className="min-w-full border-separate border-spacing-y-2 text-sm md:text-base">
+              <thead>
+                <tr className="text-gray-500 uppercase text-xs md:text-sm">
+                  <th className="px-3 py-2 text-left">Name</th>
+                  <th className="px-3 py-2 text-left">Client</th>
+                  <th className="px-3 py-2 text-left">Price</th>
+                  <th className="px-3 py-2 text-left">Status</th>
+                  <th className="px-3 py-2 text-left">Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p>No projects found.</p>
-        )}
+              </thead>
+              <tbody>
+                {activeProjects.map((p) => (
+                  <motion.tr
+                    key={p.id}
+                    whileHover={{ scale: 1.01 }}
+                    className="bg-gray-50 hover:bg-gray-100 transition rounded-xl shadow-sm"
+                  >
+                    {/* Project Name */}
+                    <td className="px-3 py-3 font-medium">
+                      {editingId === p.id ? (
+                        <input
+                          value={editedProject.project_Name || ""}
+                          onChange={(e) =>
+                            setEditedProject({
+                              ...editedProject,
+                              project_Name: e.target.value,
+                            })
+                          }
+                          className="border p-2 rounded w-full"
+                        />
+                      ) : (
+                        p.project_Name
+                      )}
+                    </td>
+
+                    {/* Client */}
+                    <td className="px-3 py-3">
+                      {editingId === p.id ? (
+                        <input
+                          value={editedProject.client_name || ""}
+                          onChange={(e) =>
+                            setEditedProject({
+                              ...editedProject,
+                              client_name: e.target.value,
+                            })
+                          }
+                          className="border p-2 rounded w-full"
+                        />
+                      ) : (
+                        p.client_name
+                      )}
+                    </td>
+
+                    {/* Price */}
+                    <td className="px-3 py-3">
+                      {editingId === p.id ? (
+                        <input
+                          type="number"
+                          value={editedProject.price || ""}
+                          onChange={(e) =>
+                            setEditedProject({
+                              ...editedProject,
+                              price: Number(e.target.value),
+                            })
+                          }
+                          className="border p-2 rounded w-full"
+                        />
+                      ) : (
+                        `₹${p.price}`
+                      )}
+                    </td>
+
+                    {/* Status */}
+                    <td className="px-3 py-3">
+                      <span
+                        className={`px-3 py-1 text-xs font-semibold rounded-full ${
+                          p.status === "pending"
+                            ? "bg-yellow-100 text-yellow-800"
+                            : "bg-green-100 text-green-800"
+                        }`}
+                      >
+                        {p.status}
+                      </span>
+                    </td>
+
+                    {/* Action Buttons */}
+                    <td className="px-3 py-3 flex gap-3">
+                      {editingId === p.id ? (
+                        <>
+                          <button
+                            onClick={() => handleSave(p.id)}
+                            className="text-green-600 hover:text-green-700"
+                            title="Save"
+                          >
+                            <Save size={18} />
+                          </button>
+                          <button
+                            onClick={handleCancel}
+                            className="text-red-600 hover:text-red-700"
+                            title="Cancel"
+                          >
+                            <X size={18} />
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            onClick={() => handleEdit(p)}
+                            className="text-blue-600 hover:text-blue-700"
+                            title="Edit"
+                          >
+                            <Edit2 size={18} />
+                          </button>
+                          <button
+                            onClick={() => handleComplete(p.id)}
+                            className="text-gray-700 hover:text-gray-900"
+                            title="Complete"
+                          >
+                            <CheckCircle size={18} />
+                          </button>
+                        </>
+                      )}
+                    </td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p className="text-gray-600 text-center py-4">
+              No active projects found.
+            </p>
+          )}
+        </motion.div>
+
+        {/* Completed Projects */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="bg-white/90 backdrop-blur-sm shadow-xl rounded-2xl p-4 md:p-6 border border-gray-100 overflow-x-auto"
+        >
+          <h2 className="text-xl md:text-2xl font-semibold mb-4 text-gray-800 flex items-center gap-2">
+            🏁 Completed Projects
+          </h2>
+          {completedProjects.length > 0 ? (
+            <table className="min-w-full border-separate border-spacing-y-2 text-sm md:text-base">
+              <thead>
+                <tr className="text-gray-500 uppercase text-xs md:text-sm">
+                  <th className="px-3 py-2 text-left">Name</th>
+                  <th className="px-3 py-2 text-left">Client</th>
+                  <th className="px-3 py-2 text-left">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {completedProjects.map((p) => (
+                  <motion.tr
+                    key={p.id}
+                    whileHover={{ scale: 1.01 }}
+                    className="bg-gray-50 hover:bg-gray-100 transition rounded-xl shadow-sm"
+                  >
+                    <td className="px-3 py-3 font-medium">{p.project_Name}</td>
+                    <td className="px-3 py-3">{p.client_name}</td>
+                    <td className="px-3 py-3">₹{p.price}</td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p className="text-gray-600 text-center py-4">
+              No completed projects yet.
+            </p>
+          )}
+        </motion.div>
       </div>
     </div>
   );
