@@ -100,7 +100,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
-      navigate('/');
+      // Don't navigate here - let the Login component handle it via <Navigate>
     } catch (error: any) {
       toast({
         title: "Error signing in",
@@ -129,7 +129,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         description: "Please check your email to verify your account.",
       });
       
-      navigate('/auth/login');
+      // Don't navigate here - let the Register component handle it via <Navigate>
     } catch (error: any) {
       toast({
         title: "Error signing up",
