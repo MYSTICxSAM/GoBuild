@@ -24,6 +24,10 @@ import Developers from "./pages/categories/Developers";
 import Architects from "./pages/categories/Architects";
 import Contractors from "./pages/categories/Contractors";
 import CategoriesLayout from "./pages/categories/CategoriesLayout";
+import ArchitectDetail from "./pages/categories/ArchitectDetail";
+import ProtectedRoute from "./components/ProtectedRoute";
+import ArchitectDashboard from "./pages/ArchitectDashboard.tsx";
+
 // Import i18n configuration
 import './i18n';
 
@@ -41,6 +45,7 @@ const AppRoutes = () => {
       <Route path="/about" element={<AboutUs />} />
       <Route path="/contact" element={<ContactUs />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/architectDashboard" element={<ProtectedRoute requiredRole="architect"><ArchitectDashboard /></ProtectedRoute>} />
       <Route path="/categories" element={<CategoriesLayout />}>
         <Route path="workers" element={<Workers />} />   
         <Route path="suppliers" element={<Suppliers />} />
@@ -48,6 +53,7 @@ const AppRoutes = () => {
         <Route path="developers" element={<Developers />} />
         <Route path="architects" element={<Architects />} />
         <Route path="contractors" element={<Contractors />} />
+        <Route path="architect-detail/:id" element={<ArchitectDetail />} />
       </Route>
       <Route path="/auth" element={<AuthLayout />}>
         <Route path="login" element={<Login />} />

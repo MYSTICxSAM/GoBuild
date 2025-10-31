@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, User, Search } from 'lucide-react';
+import { Menu, X, User, Search, LayoutDashboard } from 'lucide-react'; // ⚡ added LayoutDashboard icon
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link, NavLink } from 'react-router-dom';
@@ -8,30 +8,39 @@ import UserProfileMenu from './UserProfileMenu';
 import LanguageSelector from './LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from "@/integrations/supabase/client"; // ✅ Supabase client import
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isServicesOpen, setIsServicesOpen] = useState(false); // Desktop dropdown
-  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false); // Mobile dropdown
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const [userRole, setUserRole] = useState<string | null>(null); // ✅ Store role
   const { user } = useAuth();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-
+  // ✅ Fetch user role
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+    const fetchUserRole = async () => {
+      if (user?.id) {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('user_role')
+          .eq('id', user.id)
+          .single();
+        if (!error && data) {
+          setUserRole(data.user_role);
+        }
       }
     };
+    fetchUserRole();
+  }, [user]);
 
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleSearchClick = () => {
@@ -90,27 +99,54 @@ const Navbar: React.FC = () => {
             </button>
               <div
                 className={`absolute top-full left-0 mt-2 w-48 bg-white shadow-lg rounded-md border border-gray-200 z-50
-                  overflow-hidden transition-all duration-300 ease-in-out
-                  ${isServicesOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}
-                onMouseEnter={() => setIsServicesOpen(true)}
-                onMouseLeave={() => setIsServicesOpen(false)}
+                overflow-hidden transition-all duration-300 ease-in-out
+                ${isServicesOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}
               >
-                <Link to="/categories/workers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Worker</Link>
-                {/* <Link to="/categories/houseowners" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Home Owners</Link> */}
-                <Link to="/categories/architects" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Architects/Designers</Link>
-                <Link to="/categories/contractors" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Contractors</Link>
-                <Link to="/categories/developers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Developers</Link>
-                <Link to="/categories/suppliers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Material Suppliers</Link>
+                <Link to="/categories/workers" className="block px-4 py-2 hover:bg-gray-100">
+                  Worker
+                </Link>
+                <Link to="/categories/architects" className="block px-4 py-2 hover:bg-gray-100">
+                  Architects/Designers
+                </Link>
+                <Link to="/categories/contractors" className="block px-4 py-2 hover:bg-gray-100">
+                  Contractors
+                </Link>
+                <Link to="/categories/developers" className="block px-4 py-2 hover:bg-gray-100">
+                  Developers
+                </Link>
+                <Link to="/categories/suppliers" className="block px-4 py-2 hover:bg-gray-100">
+                  Material Suppliers
+                </Link>
               </div>
             </div>
 
-            <Link to="/blog" className="text-foreground hover:text-primary transition-colors">{t('common.blog')}</Link>
-            <Link to="/about" className="text-foreground hover:text-primary transition-colors">{t('common.about')}</Link>
-            <Link to="/contact" className="text-foreground hover:text-primary transition-colors">{t('common.contact')}</Link>
+            <Link to="/blog" className="text-foreground hover:text-primary">
+              {t('common.blog')}
+            </Link>
+            <Link to="/about" className="text-foreground hover:text-primary">
+              {t('common.about')}
+            </Link>
+            <Link to="/contact" className="text-foreground hover:text-primary">
+              {t('common.contact')}
+            </Link>
           </div>
 
+          {/* Desktop Right Side */}
           <div className="hidden md:flex items-center space-x-2">
             <LanguageSelector />
+
+            {/* ✅ Only for architects */}
+            {user && userRole === 'architect' && (
+              <Button
+                variant="outline"
+                className="flex items-center space-x-2 border-primary text-primary hover:bg-primary hover:text-white"
+                onClick={() => navigate('/architectDashboard')}
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                <span>Dashboard</span>
+              </Button>
+            )}
+
             {user ? (
               <UserProfileMenu />
             ) : (
@@ -142,67 +178,87 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Menu */}
-        {isOpen && (
-          <div className="bg-white md:hidden pt-4 pb-4 animate-fade-in">
-            <div className="flex flex-col space-y-4">
-              <div className="relative">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input 
-                  type="search" 
-                  placeholder={t('common.search')} 
-                  className="pl-8"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      handleSearchClick();
-                      setIsOpen(false);
-                    }
-                  }}
-                />
-              </div>
+{isOpen && (
+  <div className="bg-white md:hidden pt-4 pb-4 animate-fade-in">
+    <div className="flex flex-col space-y-4">
+      <div className="relative">
+        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+        <Input 
+          type="search" 
+          placeholder={t('common.search')} 
+          className="pl-8"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSearchClick();
+              setIsOpen(false);
+            }
+          }}
+        />
+      </div>
 
-              <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Home</Link>
+      <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Home</Link>
 
-              {/* Services main link (redirect only) */}
-              <Link to="/services" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Services</Link>
+      {/* Services main link (redirect only) */}
+      <Link to="/services" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Services</Link>
 
-              {/* New "All Services" mobile button */}
+              {/* Solutions dropdown */}
               <button
-                className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors flex justify-between items-center"
+                className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted flex justify-between items-center"
                 onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
               >
                 {t('common.solutions')}
-                <span className={`transform transition-transform duration-200 ${isMobileServicesOpen ? 'rotate-180' : 'rotate-0'}`}>▼</span>
+                <span
+                  className={`transform transition-transform duration-200 ${
+                    isMobileServicesOpen ? 'rotate-180' : 'rotate-0'
+                  }`}
+                >
+                  ▼
+                </span>
               </button>
 
               {isMobileServicesOpen && (
                 <div className="pl-4 mt-2 space-y-1">
-                  <Link to="/categories/workers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Worker</Link>
-                  {/* <Link to="/categories/houseowners" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Home Owners</Link> */}
-                  <Link to="/categories/architects" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Architects/Designers</Link>
-                  <Link to="/categories/contractors" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Contractors</Link>
-                  <Link to="/categories/developers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Developers</Link>
-                  <Link to="/categories/suppliers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md" onClick={() => setIsOpen(false)}>Material Suppliers</Link>
+                  <Link to="/categories/workers" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                    Worker
+                  </Link>
+                  <Link to="/categories/architects" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                    Architects/Designers
+                  </Link>
+                  <Link to="/categories/contractors" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                    Contractors
+                  </Link>
+                  <Link to="/categories/developers" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                    Developers
+                  </Link>
+                  <Link to="/categories/suppliers" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                    Material Suppliers
+                  </Link>
                 </div>
               )}
 
-              <Link to="/blog" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Blog</Link>
-              <Link to="/about" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>About</Link>
-              <Link to="/contact" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Contact</Link>
+              <Link to="/blog" className="block px-3 py-2 hover:bg-muted" onClick={() => setIsOpen(false)}>
+                Blog
+              </Link>
+              <Link to="/about" className="block px-3 py-2 hover:bg-muted" onClick={() => setIsOpen(false)}>
+                About
+              </Link>
+              <Link to="/contact" className="block px-3 py-2 hover:bg-muted" onClick={() => setIsOpen(false)}>
+                Contact
+              </Link>
 
               <div className="pt-2 space-y-2">
-
-                {/* Profile Button added above sign out */}
-                {user && (
-                  <Button 
-                    variant="outline" 
+                {/* ✅ Only show Architect Dashboard if user role = architect */}
+                {user && userRole === 'architect' && (
+                  <Button
+                    variant="outline"
                     className="w-full flex items-center justify-center space-x-2"
                     onClick={() => {
                       setIsOpen(false);
-                      navigate('/profile'); // Navigate to profile route using react-router-dom
+                      navigate('/architectDashboard');
                     }}
                   >
-                    <User className="h-5 w-5" />
-                    <span>{t('common.profile')}</span>
+                    <LayoutDashboard className="h-4 w-4" />
+                    <span>Architect Dashboard</span>
                   </Button>
                 )}
 
@@ -210,19 +266,10 @@ const Navbar: React.FC = () => {
                   <UserProfileMenu />
                 ) : (
                   <>
-                    <Button 
-                      variant="outline" 
-                      className="w-full animate-pulse-shadow" 
-                      asChild
-                      onClick={() => setIsOpen(false)}
-                    >
+                    <Button variant="outline" className="w-full" asChild onClick={() => setIsOpen(false)}>
                       <Link to="/auth/login">{t('common.signIn')}</Link>
                     </Button>
-                    <Button 
-                      className="w-full animate-pulse-shadow"
-                      asChild
-                      onClick={() => setIsOpen(false)}
-                    >
+                    <Button className="w-full" asChild onClick={() => setIsOpen(false)}>
                       <Link to="/auth/register">{t('common.joinNow')}</Link>
                     </Button>
                   </>

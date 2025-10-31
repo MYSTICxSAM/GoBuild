@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -18,6 +18,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 const Login = () => {
   const { user, signIn } = useAuth();
+  const [searchParams] = useSearchParams();
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -38,6 +39,14 @@ const Login = () => {
   };
 
   if (user) {
+    const redirect = searchParams.get('redirect');
+    const showForm = searchParams.get('showForm');
+        
+    if (redirect) {
+      const redirectUrl = showForm ? `${redirect}?showForm=${showForm}` : redirect;
+      return <Navigate to={redirectUrl} replace />;
+    }
+    
     return <Navigate to="/" replace />;
   }
 
@@ -102,7 +111,10 @@ const Login = () => {
 
         <p className="mt-4 text-center text-sm text-muted-foreground">
           Don't have an account?{' '}
-          <Link to="/auth/register" className="font-medium text-primary hover:text-accent">
+          <Link 
+            to={`/auth/register${searchParams.toString() ? `?${searchParams.toString()}` : ''}`}
+            className="font-medium text-primary hover:text-accent"
+          >
             Sign up
           </Link>
         </p>
