@@ -8,7 +8,7 @@ import UserProfileMenu from './UserProfileMenu';
 import LanguageSelector from './LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from "@/integrations/supabase/client"; // ✅ Supabase client import
+import { supabase } from "@/integrations/supabase/client";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -135,12 +135,14 @@ const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center space-x-2">
             <LanguageSelector />
 
-            {/* ✅ Only for architects */}
-            {user && userRole === 'architect' && (
+            {/*  Dashboard for Architect and Supplier */}
+            {user && (userRole === 'architect' || userRole === 'supplier') && (
               <Button
                 variant="outline"
                 className="flex items-center space-x-2 border-primary text-primary hover:bg-primary hover:text-white"
-                onClick={() => navigate('/architectDashboard')}
+                onClick={() =>
+                  navigate(userRole === 'architect' ? '/architectDashboard' : '/supplierDashboard')
+                }
               >
                 <LayoutDashboard className="h-4 w-4" />
                 <span>Dashboard</span>
@@ -178,28 +180,26 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Menu */}
-{isOpen && (
-  <div className="bg-white md:hidden pt-4 pb-4 animate-fade-in">
-    <div className="flex flex-col space-y-4">
-      <div className="relative">
-        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-        <Input 
-          type="search" 
-          placeholder={t('common.search')} 
-          className="pl-8"
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              handleSearchClick();
-              setIsOpen(false);
-            }
-          }}
-        />
-      </div>
+        {isOpen && (
+          <div className="bg-white md:hidden pt-4 pb-4 animate-fade-in">
+            <div className="flex flex-col space-y-4">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input 
+                  type="search" 
+                  placeholder={t('common.search')} 
+                  className="pl-8"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleSearchClick();
+                      setIsOpen(false);
+                    }
+                  }}
+                />
+              </div>
 
-      <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Home</Link>
-
-      {/* Services main link (redirect only) */}
-      <Link to="/services" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Services</Link>
+              <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Home</Link>
+              <Link to="/services" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Services</Link>
 
               {/* Solutions dropdown */}
               <button
@@ -207,58 +207,40 @@ const Navbar: React.FC = () => {
                 onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
               >
                 {t('common.solutions')}
-                <span
-                  className={`transform transition-transform duration-200 ${
-                    isMobileServicesOpen ? 'rotate-180' : 'rotate-0'
-                  }`}
-                >
+                <span className={`transform transition-transform duration-200 ${
+                  isMobileServicesOpen ? 'rotate-180' : 'rotate-0'
+                }`}>
                   ▼
                 </span>
               </button>
 
               {isMobileServicesOpen && (
                 <div className="pl-4 mt-2 space-y-1">
-                  <Link to="/categories/workers" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
-                    Worker
-                  </Link>
-                  <Link to="/categories/architects" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
-                    Architects/Designers
-                  </Link>
-                  <Link to="/categories/contractors" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
-                    Contractors
-                  </Link>
-                  <Link to="/categories/developers" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
-                    Developers
-                  </Link>
-                  <Link to="/categories/suppliers" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
-                    Material Suppliers
-                  </Link>
+                  <Link to="/categories/workers" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Worker</Link>
+                  <Link to="/categories/architects" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Architects/Designers</Link>
+                  <Link to="/categories/contractors" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Contractors</Link>
+                  <Link to="/categories/developers" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Developers</Link>
+                  <Link to="/categories/suppliers" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>Material Suppliers</Link>
                 </div>
               )}
 
-              <Link to="/blog" className="block px-3 py-2 hover:bg-muted" onClick={() => setIsOpen(false)}>
-                Blog
-              </Link>
-              <Link to="/about" className="block px-3 py-2 hover:bg-muted" onClick={() => setIsOpen(false)}>
-                About
-              </Link>
-              <Link to="/contact" className="block px-3 py-2 hover:bg-muted" onClick={() => setIsOpen(false)}>
-                Contact
-              </Link>
+              <Link to="/blog" className="block px-3 py-2 hover:bg-muted" onClick={() => setIsOpen(false)}>Blog</Link>
+              <Link to="/about" className="block px-3 py-2 hover:bg-muted" onClick={() => setIsOpen(false)}>About</Link>
+              <Link to="/contact" className="block px-3 py-2 hover:bg-muted" onClick={() => setIsOpen(false)}>Contact</Link>
 
               <div className="pt-2 space-y-2">
-                {/* ✅ Only show Architect Dashboard if user role = architect */}
-                {user && userRole === 'architect' && (
+                {/* ✅ Dashboard for Architect and Supplier in Mobile */}
+                {user && (userRole === 'architect' || userRole === 'supplier') && (
                   <Button
                     variant="outline"
                     className="w-full flex items-center justify-center space-x-2"
                     onClick={() => {
                       setIsOpen(false);
-                      navigate('/architectDashboard');
+                      navigate(userRole === 'architect' ? '/architectDashboard' : '/supplierDashboard');
                     }}
                   >
                     <LayoutDashboard className="h-4 w-4" />
-                    <span>Architect Dashboard</span>
+                    <span>Dashboard</span>
                   </Button>
                 )}
 
