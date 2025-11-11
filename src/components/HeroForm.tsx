@@ -15,6 +15,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 const HeroForm: React.FC = () => {
 const [startDate, setStartDate] = useState<Date>();
 const [location, setLocation] = useState<string>('');
+const [showSuggestions, setShowSuggestions] = useState(false); 
 const [phoneNumber, setPhoneNumber] = useState<string>('');
 const [serviceType, setServiceType] = useState<string>('');
 const [referralCode, setReferralCode] = useState<string>('');
@@ -23,31 +24,50 @@ const [mapCenter, setMapCenter] = useState({ lat: 32.7266, lng: 74.8570 });
 const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 const { toast } = useToast();
 const [dateOpen, setDateOpen] = useState(false);
+const [isSubmitting, setIsSubmitting] = useState(false);
 
-const handleLocationChange = (value: string) => {
-  setLocation(value);
+const locationList = [
+  'Katra, Jammu',
+  'Jaanipur, Jammu',
+  'High Court, Jammu',
+  'Satwari Chowk, Jammu',
+  'Gandhinagar, Jammu',
+  'Ganghiyal Industrial Area, Jammu',
+  'Bahu Plaza, Jammu',
+  'RaghuNath Nagar, Jammu',
+  'Bus Stand, Jammu',
+  'Bari Brahmana, Jammu',
+  'Sainik Colony, Jammu',
+];
 
-  const locationCoords: { [key: string]: { lat: number; lng: number } } = {
-    katra: { lat: 32.9917, lng: 74.9319 },
-    sikandarpur: { lat: 26.042059, lng: 84.041435 },
-    ayanagar: { lat: 28.4706, lng: 77.1264 },
-    jaanipur: { lat: 32.7496, lng: 74.8373 },
-    highcourt: { lat: 32.7294, lng: 74.8648 }, // near Janipur-HC area
-    satwari: { lat: 32.6887, lng: 74.8371 },
-    gandhinagar: { lat: 32.7266, lng: 74.8570 },
-    ganghiyal: { lat: 32.6749, lng: 74.8090 },
-    bahuplaza: { lat: 32.7150, lng: 74.8600 },
-    raghunath: { lat: 32.7300, lng: 74.8605 },
-    busstand: { lat: 32.7357, lng: 74.8733 },
-    baribrahmana: { lat: 32.6204, lng: 74.9072 },
-    sainik: { lat: 32.6927, lng: 74.8905 },
-    other: { lat: 0, lng: 0 }, // default/fallback for unknown
-  };
-
-  setMapCenter(locationCoords[value] || { lat: 32.7266, lng: 74.8570 });
+const locationCoords: any = {
+  'katra, jammu': { lat: 32.9917, lng: 74.9319 },
+  'jaanipur, jammu': { lat: 32.7496, lng: 74.8373 },
+  'high court, jammu': { lat: 32.7294, lng: 74.8648 },
+  'satwari chowk, jammu': { lat: 32.6887, lng: 74.8371 },
+  'gandhinagar, jammu': { lat: 32.7266, lng: 74.8570 },
+  'ganghiyal industrial area, jammu': { lat: 32.6749, lng: 74.8090 },
+  'bahu plaza, jammu': { lat: 32.7150, lng: 74.8600 },
+  'raghunath nagar, jammu': { lat: 32.7300, lng: 74.8605 },
+  'bus stand, jammu': { lat: 32.7357, lng: 74.8733 },
+  'bari brahmana, jammu': { lat: 32.6204, lng: 74.9072 },
+  'sainik colony, jammu': { lat: 32.6927, lng: 74.8905 },
 };
 
-const [isSubmitting, setIsSubmitting] = useState(false);
+const handleLocationSelect = (value: string) => {
+  setLocation(value);
+  setShowSuggestions(false);
+
+  const key = value.toLowerCase();
+  if (locationCoords[key]) {
+    setMapCenter(locationCoords[key]);
+  }
+};
+
+
+const filteredLocations = locationList.filter((loc) =>
+  loc.toLowerCase().includes(location.toLowerCase())
+);
 
 const handleSubmit = async () => {
   if (!startDate || !location || !phoneNumber || !serviceType) {
@@ -160,29 +180,33 @@ return(
             </div>
           </div>
 
-          <div className="space-y-2">
+          {/* LOCATION AUTOCOMPLETE */}
+          <div className="space-y-2 relative">
             <label className="text-sm font-medium text-sky-900">Location</label>
-            <Select onValueChange={handleLocationChange} value={location}>
-              <SelectTrigger className="bg-white">
-                <SelectValue placeholder="Select Location" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="katra">Katra, Jammu</SelectItem>
-                {/* <SelectItem value="sikandarpur">Sikandarpur, Delhi</SelectItem> */}
-                {/* <SelectItem value="ayanagar">Aya Nagar, Delhi</SelectItem> */}
-                <SelectItem value="jaanipur">Jaanipur, Jammu</SelectItem>
-                <SelectItem value="highcourt">High Court, Jammu</SelectItem>
-                <SelectItem value="satwari">Satwari Chowk, Jammu</SelectItem>
-                <SelectItem value="gandhinagar">Gandhinagar, Jammu</SelectItem>
-                <SelectItem value="ganghiyal">Ganghiyal Industrial Area, Jammu</SelectItem>
-                <SelectItem value="bahuplaza">Bahu Plaza, Jammu</SelectItem>
-                <SelectItem value="raghunath">RaghuNath Nagar, Jammu</SelectItem>
-                <SelectItem value="busstand">Bus Stand, Jammu</SelectItem>
-                <SelectItem value="baribrahmana">Bari Brahmana, Jammu</SelectItem>
-                <SelectItem value="sainik">Sainik Colony, Jammu</SelectItem>
-                <SelectItem value="other">Other</SelectItem>
-              </SelectContent>
-            </Select>
+
+            <Input
+              placeholder="Enter location"
+              className="bg-white"
+              value={location}
+              onChange={(e) => {
+                setLocation(e.target.value);
+                setShowSuggestions(true);
+              }}
+            />
+
+            {showSuggestions && location && filteredLocations.length > 0 && (
+              <div className="absolute left-0 right-0 top-full mt-1 border rounded-md bg-white max-h-60 overflow-auto shadow-lg z-50">
+                {filteredLocations.map((loc) => (
+                  <div
+                    key={loc}
+                    className="p-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => handleLocationSelect(loc)}
+                  >
+                    {loc}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="space-y-2">
