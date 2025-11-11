@@ -5,6 +5,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Loader2, CheckCircle2, Smile } from "lucide-react";
+import BmodelArchitect from "@/components/BmodelArchitect";
+import ImageSlider from "@/components/ImageSlider";
 
 const ArchitectsPage = () => {
   const { user } = useAuth();
@@ -25,7 +27,7 @@ const ArchitectsPage = () => {
   const [message, setMessage] = useState("");
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
 
-  // ✅ Fetch architects
+  //  Fetch architects
   const fetchArchitects = async () => {
     setLoading(true);
     const { data, error } = await supabase.from("architects").select("*");
@@ -34,7 +36,7 @@ const ArchitectsPage = () => {
     setLoading(false);
   };
 
-  // ✅ Check if user already registered as architect
+  //  Check if user already registered as architect
   const checkIfRegistered = async () => {
     if (!user) return;
     const { data, error } = await supabase
@@ -77,14 +79,14 @@ const ArchitectsPage = () => {
     }
   }, [user, isAlreadyRegistered]);
 
-  // ✅ Handle input
+  //  Handle input
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // ✅ Handle file upload
+  //  Handle file upload
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       const file = e.target.files?.[0];
@@ -127,7 +129,7 @@ const ArchitectsPage = () => {
     }
   };
 
-  // ✅ Handle form submit with duplicate prevention + update role
+  //  Handle form submit with duplicate prevention + update role
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -223,9 +225,10 @@ const ArchitectsPage = () => {
   return (
     <div className="bg-white min-h-screen font-sans">
       <Navbar />
+      <ImageSlider/>
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 py-24 pb-4 grid grid-cols-1 md:grid-cols-2 gap-10 items-center relative">
+      <section className="max-w-7xl mx-auto px-6 py-12 pb-4 grid grid-cols-1 md:grid-cols-2 gap-10 items-center relative">
         <div>
           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
             Hire <span className="text-blue-600">Top Architects</span> <br /> for
@@ -394,8 +397,8 @@ const ArchitectsPage = () => {
           )}
         </section>
       )}
-
-      {/* ✅ Heading Added Below Cards Section */}
+      <BmodelArchitect />
+      {/*  Heading Added Below Cards Section */}
       <section className="max-w-6xl mx-auto px-4 md:px-0 mt-16 mb-8 text-center">
         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">
           Our Best Architects
@@ -404,6 +407,8 @@ const ArchitectsPage = () => {
           Explore profiles of talented architects ready to design your dream space.
         </p>
       </section>
+
+      
 
       {/* Architects Grid */}
       <section className="max-w-6xl mx-auto px-4 md:px-0 mt-6 mb-20">
