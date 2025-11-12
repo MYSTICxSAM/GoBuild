@@ -123,7 +123,7 @@ const ContactUs: React.FC = () => {
                     <div>
                       <h3 className="font-medium text-lg">{t('contactUs.contactInfo.address')}</h3>
                       <p className="text-muted-foreground">
-                      H/No- 251, Front of Chaddha Classes,Rehari Colony,<br></br>
+                      House No - 251 <br></br> Near Chaddha Classes, Rehari Colony <br></br>
                         Jammu & Kashmir
                       </p>
                     </div>
