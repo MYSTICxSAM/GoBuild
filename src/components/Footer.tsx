@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
               </a>
             </div>
           </div>
-          
+
           <div>
             <h4 className="text-lg font-semibold mb-6">{t('footer.services')}</h4>
             <ul className="space-y-3">
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
               </li>
             </ul>
           </div>
-          
+
           <div>
             <h4 className="text-lg font-semibold mb-6">{t('footer.company')}</h4>
             <ul className="space-y-3">
@@ -90,13 +90,16 @@ const Footer: React.FC = () => {
               </li>
             </ul>
           </div>
-          
+
           <div>
             <h4 className="text-lg font-semibold mb-6">{t('footer.contact')}</h4>
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin className="w-5 h-5 mr-3 text-accent" />
-                <span className="text-gray-400">{t('footer.address')}</span>
+                <span className="text-gray-400 whitespace-pre-line">
+                  {t('footer.address')}
+                </span>
+
               </li>
               <li className="flex items-center">
                 <Phone className="w-5 h-5 mr-3 text-accent" />
@@ -111,7 +114,7 @@ const Footer: React.FC = () => {
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm mb-4 md:mb-0">
             &copy; {new Date().getFullYear()} GoBuild. All rights reserved.
