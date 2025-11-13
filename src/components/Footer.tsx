@@ -101,12 +101,21 @@ const Footer: React.FC = () => {
                 </span>
 
               </li>
-              <li className="flex items-center">
-                <Phone className="w-5 h-5 mr-3 text-accent" />
-                <Link to="tel:+91889931011" className="text-gray-400 hover:text-white transition-colors">+91 8899310111</Link>
-                <Link to="tel:+917051514790" className="text-gray-400 hover:text-white transition-colors">+91 7051514790</Link>
-                <Link to="tel:+919596133638" className="text-gray-400 hover:text-white transition-colors">+91 9596133638</Link>
-              </li>
+              <li className="flex items-start">
+  <Phone className="w-5 h-5 mr-3 text-accent mt-1" />
+  <div className="flex flex-col">
+    <Link to="tel:+918899310111" className="text-gray-400 hover:text-white transition-colors">
+      +91 8899310111
+    </Link>
+    <Link to="tel:+917051514790" className="text-gray-400 hover:text-white transition-colors">
+      +91 7051514790
+    </Link>
+    <Link to="tel:+919596133638" className="text-gray-400 hover:text-white transition-colors">
+      +91 9596133638
+    </Link>
+  </div>
+</li>
+
               <li className="flex items-center">
                 <Mail className="w-5 h-5 mr-3 text-accent" />
                 <Link to="mailto:info@gobuild.in" className="text-gray-400 hover:text-white transition-colors">info@gobuild.in</Link>
