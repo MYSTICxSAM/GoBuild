@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight, Search } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,12 +6,50 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const Hero: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [displayText, setDisplayText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const titles = [
+      t('hero.title2'),
+      t('hero.title3'),
+      t('hero.title4'),
+      t('hero.title5'),
+    ];
+
+    const current = titles[currentIndex] ?? '';
+    const typeSpeed = isDeleting ? 50 : 120;
+
+    if (!isDeleting && displayText === current) {
+      const pauseTimeout = setTimeout(() => setIsDeleting(true), 1400);
+      return () => clearTimeout(pauseTimeout);
+    }
+
+    if (isDeleting && displayText === '') {
+      const nextTimeout = setTimeout(() => {
+        setIsDeleting(false);
+        setCurrentIndex((ci) => (ci + 1) % titles.length);
+      }, 300);
+      return () => clearTimeout(nextTimeout);
+    }
+
+    const timeout = setTimeout(() => {
+      const next = isDeleting
+        ? current.substring(0, Math.max(0, displayText.length - 1))
+        : current.substring(0, displayText.length + 1);
+      setDisplayText(next);
+    }, typeSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, currentIndex, i18n.language, t]);
 
   const handleSearchClick = () => {
     const servicesSection = document.getElementById('services');
     if (servicesSection) {
-      const navbarHeight = 80; // Approximate navbar height
+      const navbarHeight = 80;
       const targetPosition = servicesSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
       
       window.scrollTo({
@@ -27,14 +65,21 @@ const Hero: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <div className="w-full lg:w-1/2 space-y-6 animate-fade-in">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-              {t('hero.t1')}{" "}
-              <span
-                className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight"
-                style={{ color: 'hsl(var(--primary))' }}
-              >
-                {t('hero.title')}
-              </span>{" "}
-              {t('hero.t2')}
+              <span className="block">
+                {t('hero.t1')}{' '}
+                <span className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight" style={{ color: 'hsl(var(--primary))' }}>
+                  {t('hero.title1')}
+                </span>
+              </span>
+
+              <span className="block text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight" style={{ color: 'hsl(var(--primary))' }}>
+                {displayText}
+                <span className="ml-1 inline-block animate-pulse">|</span>
+              </span>
+
+              <span className="block">
+                {t('hero.t2')}
+              </span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-lg">
               {t('hero.subtitle')}

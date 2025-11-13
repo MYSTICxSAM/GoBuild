@@ -17,7 +17,11 @@
   },
   "hero": {
     "t1":"Hire",
-    "title": "Skilled Workers",
+    "title1": "Skilled ",
+    "title2": "Workers",
+    "title3": "Architects",
+    "title4": "Designers",
+    "title5": "Contractors",
     "t2":"in Minutes",
     "subtitle": "Connect with skilled professionals for all your home and office needs - from carpentry to architecture, plumbing to electrical work, all in one place.",
     "searchPlaceholder": "Search services",
