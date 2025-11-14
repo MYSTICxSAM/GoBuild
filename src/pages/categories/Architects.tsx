@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 import { Loader2, CheckCircle2, Smile } from "lucide-react";
 import BmodelArchitect from "@/components/BmodelArchitect";
 import ImageSlider from "@/components/ImageSlider";
-import { ApplyAsProfessionalForm } from "@/components/ApplyAsProfessionalForm";
 
 const ArchitectsPage = () => {
   const { user } = useAuth();
@@ -398,7 +397,6 @@ const ArchitectsPage = () => {
           )}
         </section>
       )}
-      <ApplyAsProfessionalForm/>
       <BmodelArchitect />
       {/*  Heading Added Below Cards Section */}
       <section className="max-w-6xl mx-auto px-4 md:px-0 mt-16 mb-8 text-center">
