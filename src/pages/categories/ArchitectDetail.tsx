@@ -179,7 +179,7 @@ export default function ArchitectDetail() {
       {/* ======= Banner Section ======= */}
       <div className="relative w-full h-64 md:h-80 bg-gray-100">
         <img
-          src={architect.cover_url || photos[0] || "/placeholder-banner.jpg"}
+          src={architect.image_url || photos[0] || "/placeholder-banner.jpg"}
           alt="Banner"
           className="w-full h-full object-cover"
         />

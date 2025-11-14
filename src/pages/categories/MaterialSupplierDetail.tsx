@@ -185,7 +185,7 @@ export default function MaterialSupplierDetail() {
       {/* ======= Banner Section ======= */}
       <div className="relative w-full h-64 md:h-80 bg-gray-100">
         <img
-          src={supplier.Image_url || photos[0] || "/placeholder-banner.jpg"}
+          src={supplier.image_url || photos[0] || "/placeholder-banner.jpg"}
           alt="Banner"
           className="w-full h-full object-cover"
         />
