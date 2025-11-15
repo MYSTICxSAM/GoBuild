@@ -15,9 +15,9 @@ import { motion } from "framer-motion";
 interface Project {
   id: string | number;
   arcID: string | number;
-  project_Name: string;
+  projectType: string;     // NEW
   client_name: string;
-  price: number;
+  budget: number;          // NEW
   status: string;
 }
 
@@ -44,6 +44,7 @@ export default function ArchitectDashboard() {
 
     const fetchProjects = async () => {
       setLoading(true);
+
       const { data: architectData } = await supabase
         .from("architects")
         .select("id, name")
@@ -60,7 +61,7 @@ export default function ArchitectDashboard() {
 
       const { data: projectsData } = await supabase
         .from("ArchitectRequest")
-        .select("*")
+        .select("id, arcID, projectType, client_name, budget, status")
         .eq("arcID", architectData.id)
         .order("id", { ascending: false });
 
@@ -90,8 +91,8 @@ export default function ArchitectDashboard() {
     const { error } = await supabase
       .from("ArchitectRequest")
       .update({
-        project_Name: editedProject.project_Name,
-        price: editedProject.price,
+        projectType: editedProject.projectType,
+        budget: editedProject.budget,
         client_name: editedProject.client_name,
         status: editedProject.status,
       })
@@ -155,6 +156,7 @@ export default function ArchitectDashboard() {
 
       {/* Dashboard Content */}
       <div className="p-4 md:p-8 space-y-10 max-w-6xl mx-auto">
+        
         {/* Stats Cards */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -212,9 +214,9 @@ export default function ArchitectDashboard() {
             <table className="min-w-full border-separate border-spacing-y-2 text-sm md:text-base">
               <thead>
                 <tr className="text-gray-500 uppercase text-xs md:text-sm">
-                  <th className="px-3 py-2 text-left">Name</th>
+                  <th className="px-3 py-2 text-left">Project</th>
                   <th className="px-3 py-2 text-left">Client</th>
-                  <th className="px-3 py-2 text-left">Price</th>
+                  <th className="px-3 py-2 text-left">Budget</th>
                   <th className="px-3 py-2 text-left">Status</th>
                   <th className="px-3 py-2 text-left">Action</th>
                 </tr>
@@ -230,17 +232,17 @@ export default function ArchitectDashboard() {
                     <td className="px-3 py-3 font-medium">
                       {editingId === p.id ? (
                         <input
-                          value={editedProject.project_Name || ""}
+                          value={editedProject.projectType || ""}
                           onChange={(e) =>
                             setEditedProject({
                               ...editedProject,
-                              project_Name: e.target.value,
+                              projectType: e.target.value,
                             })
                           }
                           className="border p-2 rounded w-full"
                         />
                       ) : (
-                        p.project_Name
+                        p.projectType
                       )}
                     </td>
 
@@ -262,22 +264,22 @@ export default function ArchitectDashboard() {
                       )}
                     </td>
 
-                    {/* Price */}
+                    {/* Budget */}
                     <td className="px-3 py-3">
                       {editingId === p.id ? (
                         <input
                           type="number"
-                          value={editedProject.price || ""}
+                          value={editedProject.budget || ""}
                           onChange={(e) =>
                             setEditedProject({
                               ...editedProject,
-                              price: Number(e.target.value),
+                              budget: Number(e.target.value),
                             })
                           }
                           className="border p-2 rounded w-full"
                         />
                       ) : (
-                        `₹${p.price}`
+                        `₹${p.budget}`
                       )}
                     </td>
 
@@ -301,14 +303,12 @@ export default function ArchitectDashboard() {
                           <button
                             onClick={() => handleSave(p.id)}
                             className="text-green-600 hover:text-green-700"
-                            title="Save"
                           >
                             <Save size={18} />
                           </button>
                           <button
                             onClick={handleCancel}
                             className="text-red-600 hover:text-red-700"
-                            title="Cancel"
                           >
                             <X size={18} />
                           </button>
@@ -318,14 +318,12 @@ export default function ArchitectDashboard() {
                           <button
                             onClick={() => handleEdit(p)}
                             className="text-blue-600 hover:text-blue-700"
-                            title="Edit"
                           >
                             <Edit2 size={18} />
                           </button>
                           <button
                             onClick={() => handleComplete(p.id)}
                             className="text-gray-700 hover:text-gray-900"
-                            title="Complete"
                           >
                             <CheckCircle size={18} />
                           </button>
@@ -353,13 +351,14 @@ export default function ArchitectDashboard() {
           <h2 className="text-xl md:text-2xl font-semibold mb-4 text-gray-800 flex items-center gap-2">
             🏁 Completed Projects
           </h2>
+
           {completedProjects.length > 0 ? (
             <table className="min-w-full border-separate border-spacing-y-2 text-sm md:text-base">
               <thead>
                 <tr className="text-gray-500 uppercase text-xs md:text-sm">
-                  <th className="px-3 py-2 text-left">Name</th>
+                  <th className="px-3 py-2 text-left">Project</th>
                   <th className="px-3 py-2 text-left">Client</th>
-                  <th className="px-3 py-2 text-left">Price</th>
+                  <th className="px-3 py-2 text-left">Budget</th>
                 </tr>
               </thead>
               <tbody>
@@ -369,9 +368,9 @@ export default function ArchitectDashboard() {
                     whileHover={{ scale: 1.01 }}
                     className="bg-gray-50 hover:bg-gray-100 transition rounded-xl shadow-sm"
                   >
-                    <td className="px-3 py-3 font-medium">{p.project_Name}</td>
+                    <td className="px-3 py-3 font-medium">{p.projectType}</td>
                     <td className="px-3 py-3">{p.client_name}</td>
-                    <td className="px-3 py-3">₹{p.price}</td>
+                    <td className="px-3 py-3">₹{p.budget}</td>
                   </motion.tr>
                 ))}
               </tbody>
