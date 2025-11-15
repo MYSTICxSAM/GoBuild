@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import HeroForm from '@/components/HeroForm';
+import { ApplyAsProfessionalForm } from '@/components/ApplyAsProfessionalForm';
 
 const accentColor = 'text-orange-600';
 
@@ -42,6 +44,15 @@ const Workers: React.FC = () => {
         </div>
       </div>
       <div className="mt-20">
+        <div className="w-full flex justify-center py-10 ">
+  <div className="w-full max-w-3xl bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
+    <h2 className="text-center text-3xl font-bold mb-6">
+      Register as Worker
+    </h2>
+    <ApplyAsProfessionalForm />
+  </div>
+</div>
+
         <Footer />
       </div>
     </div>
