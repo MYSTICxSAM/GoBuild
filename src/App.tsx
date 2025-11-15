@@ -29,6 +29,12 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ArchitectDashboard from "./pages/ArchitectDashboard.tsx";
 import MaterialSupplierDetail from "./pages/categories/MaterialSupplierDetail";
 import SupplierDashboard from "./pages/SupplierDashboard";
+import Policy from "./pages/Policy.tsx";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import RefundPolicy from "./pages/RefundPolicy";
+
+
+
 // Import i18n configuration
 import './i18n';
 
@@ -64,6 +70,12 @@ const AppRoutes = () => {
         <Route path="Forgot" element={<ForgotPassword />} />
         
       </Route>
+      <Route path="/policy" element={<Policy/>} />
+      <Route path="/terms" element={<TermsAndConditions />} />
+      <Route path="/refund-policy" element={<RefundPolicy />} />
+
+
+
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
       <Route path="*" element={<NotFound />} />
     </Routes>
