@@ -83,7 +83,7 @@ export function ArchitectForm() {
     <div className="relative flex justify-center items-center min-h-screen bg-gray-50 p-4">
       <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl border border-gray-100">
         <h2 className="text-2xl font-semibold text-blue-700 mb-6">
-          Apply as a Professional
+          Book Arcthitect Services
         </h2>
 
         <Form {...form}>
