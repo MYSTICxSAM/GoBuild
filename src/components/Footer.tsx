@@ -118,7 +118,7 @@ const Footer: React.FC = () => {
 
               <li className="flex items-center">
                 <Mail className="w-5 h-5 mr-3 text-accent" />
-                <Link to="mailto:info@gobuild.in" className="text-gray-400 hover:text-white transition-colors">info@gobuild.in</Link>
+                <Link to="mailto:info@gobuild.in" className="text-gray-400 hover:text-white transition-colors">info@gobuild.in <br />admin@gobuild.in </Link>
               </li>
             </ul>
           </div>
@@ -133,6 +133,7 @@ const Footer: React.FC = () => {
             <Link to="/terms" className="text-gray-400 hover:text-white text-sm">Terms & Conditions</Link>
             <Link to="/" className="text-gray-400 hover:text-white text-sm">Cookies</Link>
             <Link to="/refund-policy" className="text-gray-400 hover:text-white text-sm">Refund & Cancellation</Link>
+            <Link to="/pricing" className="text-gray-400 hover:text-white text-sm">Services & Pricing</Link>
 
           </div>
         </div>
