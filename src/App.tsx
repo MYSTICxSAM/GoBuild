@@ -32,6 +32,7 @@ import SupplierDashboard from "./pages/SupplierDashboard";
 import Policy from "./pages/Policy.tsx";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import RefundPolicy from "./pages/RefundPolicy";
+import Pricing from "@/pages/Pricing";
 
 
 
@@ -73,6 +74,7 @@ const AppRoutes = () => {
       <Route path="/policy" element={<Policy/>} />
       <Route path="/terms" element={<TermsAndConditions />} />
       <Route path="/refund-policy" element={<RefundPolicy />} />
+      <Route path="/pricing" element={<Pricing />} />
 
 
 
