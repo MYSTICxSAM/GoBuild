@@ -102,19 +102,19 @@ const Footer: React.FC = () => {
 
               </li>
               <li className="flex items-start">
-  <Phone className="w-5 h-5 mr-3 text-accent mt-1" />
-  <div className="flex flex-col">
-    <Link to="tel:+918899310111" className="text-gray-400 hover:text-white transition-colors">
-      +91 8899310111
-    </Link>
-    <Link to="tel:+917051514790" className="text-gray-400 hover:text-white transition-colors">
-      +91 7051514790
-    </Link>
-    <Link to="tel:+919596133638" className="text-gray-400 hover:text-white transition-colors">
-      +91 9596133638
-    </Link>
-  </div>
-</li>
+                <Phone className="w-5 h-5 mr-3 text-accent mt-1" />
+                <div className="flex flex-col">
+                  <Link to="tel:+918899310111" className="text-gray-400 hover:text-white transition-colors">
+                    +91 8899310111
+                  </Link>
+                  <Link to="tel:+917051514790" className="text-gray-400 hover:text-white transition-colors">
+                    +91 7051514790
+                  </Link>
+                  <Link to="tel:+919596133638" className="text-gray-400 hover:text-white transition-colors">
+                    +91 9596133638
+                  </Link>
+                </div>
+              </li>
 
               <li className="flex items-center">
                 <Mail className="w-5 h-5 mr-3 text-accent" />
@@ -130,8 +130,10 @@ const Footer: React.FC = () => {
           </p>
           <div className="flex space-x-6">
             <Link to="/policy" className="text-gray-400 hover:text-white text-sm">Privacy Policy</Link>
-            <Link to="/" className="text-gray-400 hover:text-white text-sm">Terms of Service</Link>
+            <Link to="/terms" className="text-gray-400 hover:text-white text-sm">Terms & Conditions</Link>
             <Link to="/" className="text-gray-400 hover:text-white text-sm">Cookies</Link>
+            <Link to="/refund-policy" className="text-gray-400 hover:text-white text-sm">Refund & Cancellation</Link>
+
           </div>
         </div>
       </div>
